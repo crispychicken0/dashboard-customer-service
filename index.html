@@ -1023,19 +1023,6 @@
       color: white;
     }
     
-    /* ===== NOTIFICATION BUTTON STYLE ===== */
-    .btn-notify {
-      background-color: #0d6efd;
-      border-color: #0d6efd;
-      color: white;
-    }
-    
-    .btn-notify:hover {
-      background-color: #0b5ed7;
-      border-color: #0b5ed7;
-      color: white;
-    }
-    
     /* ===== ROW HIGHLIGHTING ===== */
     .tickets-table tbody tr.high-compensation {
       background-color: rgba(255, 235, 238, 0.6) !important;
@@ -1189,6 +1176,7 @@
       padding: 10px 14px;
       font-size: 0.95rem;
       transition: border-color 0.3s;
+      margin-bottom: 16px;
     }
     
     .form-control:focus, .form-select:focus {
@@ -1215,24 +1203,6 @@
       padding: 10px 20px;
     }
     
-    /* ===== FORM SECTION STYLES ===== */
-    .form-section {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border: 1px solid #e9ecef;
-    }
-    
-    .form-section-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--crispy-red);
-      margin-bottom: 15px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--crispy-red);
-    }
-    
     /* ===== IMAGE UPLOAD STYLING ===== */
     .image-upload-container {
       border: 2px dashed #ddd;
@@ -1242,7 +1212,6 @@
       margin-bottom: 16px;
       position: relative;
       transition: all 0.3s ease;
-      cursor: pointer;
     }
     
     .image-upload-container:hover {
@@ -2473,7 +2442,7 @@
   
   <!-- ===== ADD/EDIT TICKET MODAL ===== -->
   <div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ticketModalTitle">Add New Compensation Case</h5>
@@ -2483,198 +2452,112 @@
           <form id="ticketForm">
             <input type="hidden" id="ticketId">
             
-            <!-- Basic Information Section -->
-            <div class="form-section">
-              <h6 class="form-section-title">
-                <i class="bi bi-info-circle me-2"></i>Basic Information
-              </h6>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="orderId" class="form-label">Order ID *</label>
-                    <input type="text" class="form-control" id="orderId" required>
-                    <div class="duplicate-warning text-danger mt-1" id="duplicateWarning">
-                      <i class="bi bi-exclamation-triangle"></i> Duplicate Order ID detected
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="customerName" class="form-label">Customer Name</label>
-                    <input type="text" class="form-control" id="customerName">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="orderId" class="form-label">Order ID</label>
+                  <input type="text" class="form-control" id="orderId" required>
+                  <div class="duplicate-warning text-danger mt-1" id="duplicateWarning">
+                    <i class="bi bi-exclamation-triangle"></i> Duplicate Order ID detected
                   </div>
                 </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="customerPhone" class="form-label">Customer Phone</label>
-                    <input type="tel" class="form-control" id="customerPhone" placeholder="+971XXXXXXXXX">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="customerEmail" class="form-label">Customer Email</label>
-                    <input type="email" class="form-control" id="customerEmail">
-                  </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="branch" class="form-label">Branch</label>
+                  <select class="form-select" id="branch" required>
+                    <option value="">Select Branch</option>
+                    <option value="Downtown">Downtown</option>
+                    <option value="Mall">Mall</option>
+                    <option value="Airport">Airport</option>
+                    <option value="North">North</option>
+                    <option value="South">South</option>
+                    <option value="East">East</option>
+                    <option value="West">West</option>
+                  </select>
                 </div>
               </div>
             </div>
             
-            <!-- Order Details Section -->
-            <div class="form-section">
-              <h6 class="form-section-title">
-                <i class="bi bi-cart3 me-2"></i>Order Details
-              </h6>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="branch" class="form-label">Branch *</label>
-                    <select class="form-select" id="branch" required>
-                      <option value="">Select Branch</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="platform" class="form-label">Platform *</label>
-                    <select class="form-select" id="platform" required>
-                      <option value="">Select Platform</option>
-                      <option value="Noon">Noon</option>
-                      <option value="Careem">Careem</option>
-                    </select>
-                  </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="platform" class="form-label">Platform</label>
+                  <select class="form-select" id="platform" required>
+                    <option value="">Select Platform</option>
+                    <option value="Noon">Noon</option>
+                    <option value="Careem">Careem</option>
+                  </select>
                 </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="orderDate" class="form-label">Order Date</label>
-                    <input type="date" class="form-control" id="orderDate">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="incidentDate" class="form-label">Incident Date</label>
-                    <input type="date" class="form-control" id="incidentDate">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="status" class="form-label">Status *</label>
-                    <select class="form-select" id="status" required>
-                      <option value="Open">Open</option>
-                      <option value="Sent">Sent</option>
-                      <option value="Closed">Closed</option>
-                      <option value="Rejected">Rejected</option>
-                    </select>
-                  </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select class="form-select" id="status" required>
+                    <option value="Open">Open</option>
+                    <option value="Sent">Sent</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
                 </div>
               </div>
             </div>
             
-            <!-- Financial Details Section -->
-            <div class="form-section">
-              <h6 class="form-section-title">
-                <i class="bi bi-currency-dollar me-2"></i>Financial Details
-              </h6>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="originalAmount" class="form-label">Original Amount (AED) *</label>
-                    <input type="number" class="form-control" id="originalAmount" step="0.01" required>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="compensationAmount" class="form-label">Compensation Amount (AED) *</label>
-                    <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="priority" class="form-label">Priority</label>
-                    <select class="form-select" id="priority">
-                      <option value="Low">Low</option>
-                      <option value="Medium" selected>Medium</option>
-                      <option value="High">High</option>
-                      <option value="Urgent">Urgent</option>
-                    </select>
-                  </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="originalAmount" class="form-label">Original Amount (AED)</label>
+                  <input type="number" class="form-control" id="originalAmount" step="0.01" required>
                 </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="refundMethod" class="form-label">Refund Method</label>
-                    <select class="form-select" id="refundMethod">
-                      <option value="">Not Refunded</option>
-                      <option value="Careem Pay">Careem Pay</option>
-                      <option value="Card">Card</option>
-                      <option value="Cash">Cash</option>
-                      <option value="Bank Transfer">Bank Transfer</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="refundedAmount" class="form-label">Refunded Amount (AED)</label>
-                    <input type="number" class="form-control" id="refundedAmount" step="0.01">
-                  </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="compensationAmount" class="form-label">Compensation Amount (AED)</label>
+                  <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
                 </div>
               </div>
             </div>
             
-            <!-- Issue Details Section -->
-            <div class="form-section">
-              <h6 class="form-section-title">
-                <i class="bi bi-exclamation-triangle me-2"></i>Issue Details
-              </h6>
-              <div class="mb-3">
-                <label for="issue" class="form-label">Issue Description *</label>
-                <textarea class="form-control" id="issue" rows="3" required></textarea>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="refundMethod" class="form-label">Refund Method</label>
+                  <select class="form-select" id="refundMethod">
+                    <option value="">Not Refunded</option>
+                    <option value="Careem Pay">Careem Pay</option>
+                    <option value="Card">Card</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                  </select>
+                </div>
               </div>
-              
-              <div class="mb-3">
-                <label for="issueCategory" class="form-label">Issue Category</label>
-                <select class="form-select" id="issueCategory">
-                  <option value="">Select Category</option>
-                  <option value="Wrong Item">Wrong Item</option>
-                  <option value="Missing Item">Missing Item</option>
-                  <option value="Cold Food">Cold Food</option>
-                  <option value="Late Delivery">Late Delivery</option>
-                  <option value="Quality Issue">Quality Issue</option>
-                  <option value="Packaging Issue">Packaging Issue</option>
-                  <option value="Other">Other</option>
-                </select>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="refundedAmount" class="form-label">Refunded Amount (AED)</label>
+                  <input type="number" class="form-control" id="refundedAmount" step="0.01">
+                </div>
               </div>
             </div>
             
-            <!-- Evidence Section -->
-            <div class="form-section">
-              <h6 class="form-section-title">
-                <i class="bi bi-image me-2"></i>Evidence
-              </h6>
-              <div class="mb-3">
-                <label for="evidence" class="form-label">Upload Evidence Image</label>
-                <div class="image-upload-container" onclick="document.getElementById('evidence').click()">
-                  <input type="file" id="evidence" accept="image/*" onchange="previewImage(this)">
-                  <div id="imagePreviewContainer">
-                    <i class="bi bi-cloud-upload" style="font-size: 2rem; color: #ddd;"></i>
-                    <p class="mt-2 mb-0">Click to upload image</p>
-                    <small class="text-muted">Supported formats: JPG, PNG, GIF</small>
-                  </div>
+            <div class="mb-3">
+              <label for="issue" class="form-label">Issue Description</label>
+              <textarea class="form-control" id="issue" rows="3" required></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="evidence" class="form-label">Evidence</label>
+              <div class="image-upload-container">
+                <input type="file" id="evidence" accept="image/*" onchange="previewImage(this)">
+                <div id="imagePreviewContainer">
+                  <p>Click or drag image here to upload</p>
                   <img id="imagePreview" class="image-preview" style="display: none;">
                 </div>
               </div>
               
-              <div class="mb-3">
+              <div class="short-link-container mt-3">
                 <label for="evidenceLink" class="form-label">Or provide evidence link</label>
                 <div class="input-group">
-                  <input type="url" class="form-control" id="evidenceLink" placeholder="https://example.com/evidence.jpg">
+                  <input type="url" class="form-control short-link-input" id="evidenceLink" placeholder="https://example.com/evidence.jpg">
                   <button class="btn btn-outline-secondary" type="button" onclick="shortenLink()">
                     <i class="bi bi-link-45deg"></i> Shorten
                   </button>
@@ -2682,28 +2565,15 @@
               </div>
             </div>
             
-            <!-- Additional Information Section -->
-            <div class="form-section">
-              <h6 class="form-section-title">
-                <i class="bi bi-journal-text me-2"></i>Additional Information
-              </h6>
-              <div class="mb-3">
-                <label for="notes" class="form-label">Internal Notes</label>
-                <textarea class="form-control" id="notes" rows="2"></textarea>
-              </div>
-              
-              <div class="mb-3">
-                <label for="resolution" class="form-label">Resolution Details</label>
-                <textarea class="form-control" id="resolution" rows="2"></textarea>
-              </div>
+            <div class="mb-3">
+              <label for="notes" class="form-label">Additional Notes</label>
+              <textarea class="form-control" id="notes" rows="2"></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="saveTicket()">
-            <i class="bi bi-save me-1"></i> Save Case
-          </button>
+          <button type="button" class="btn btn-primary" onclick="saveTicket()">Save Case</button>
         </div>
       </div>
     </div>
@@ -2832,7 +2702,6 @@
                   <th>Branch Name</th>
                   <th>Manager</th>
                   <th>Contact</th>
-                  <th>Email</th>
                   <th>Address</th>
                   <th>Cases Count</th>
                   <th>Actions</th>
@@ -2970,42 +2839,6 @@
     </div>
   </div>
   
-  <!-- ===== NOTIFICATION MODAL ===== -->
-  <div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Send Notification</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="notificationForm">
-            <div class="mb-3">
-              <label for="notificationRecipient" class="form-label">Recipient</label>
-              <input type="text" class="form-control" id="notificationRecipient" readonly>
-            </div>
-            <div class="mb-3">
-              <label for="notificationMessage" class="form-label">Message</label>
-              <textarea class="form-control" id="notificationMessage" rows="4" readonly></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="notificationMethod" class="form-label">Send Via</label>
-              <select class="form-select" id="notificationMethod">
-                <option value="whatsapp">WhatsApp</option>
-                <option value="email">Email</option>
-                <option value="sms">SMS</option>
-              </select>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="sendNotification()">Send Notification</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   <!-- ===== NOTIFICATION CONTAINER ===== -->
   <div id="notificationContainer" class="notification-container"></div>
   
@@ -3066,10 +2899,6 @@
       // Set today's date as default for summary date input
       document.getElementById('summaryDateInput').valueAsDate = today;
       
-      // Set today's date as default for order and incident dates
-      document.getElementById('orderDate').valueAsDate = today;
-      document.getElementById('incidentDate').valueAsDate = today;
-      
       // Setup event listeners
       setupEventListeners();
       
@@ -3098,62 +2927,13 @@
       } else {
         // Initialize with default branches
         branches = [
-          { 
-            id: 1, 
-            name: 'Downtown', 
-            manager: 'John Smith', 
-            contact: '+971501234567', 
-            email: 'john.downtown@crispychicken.com',
-            address: '123 Main St, Downtown' 
-          },
-          { 
-            id: 2, 
-            name: 'Mall', 
-            manager: 'Sarah Johnson', 
-            contact: '+971502345678', 
-            email: 'sarah.mall@crispychicken.com',
-            address: '456 Shopping Ave, Mall' 
-          },
-          { 
-            id: 3, 
-            name: 'Airport', 
-            manager: 'Michael Brown', 
-            contact: '+971503456789', 
-            email: 'michael.airport@crispychicken.com',
-            address: '789 Airport Rd, Airport' 
-          },
-          { 
-            id: 4, 
-            name: 'North', 
-            manager: 'Emily Davis', 
-            contact: '+971504567890', 
-            email: 'emily.north@crispychicken.com',
-            address: '101 North Blvd, North' 
-          },
-          { 
-            id: 5, 
-            name: 'South', 
-            manager: 'David Wilson', 
-            contact: '+971505678901', 
-            email: 'david.south@crispychicken.com',
-            address: '202 South St, South' 
-          },
-          { 
-            id: 6, 
-            name: 'East', 
-            manager: 'Jennifer Miller', 
-            contact: '+971506789012', 
-            email: 'jennifer.east@crispychicken.com',
-            address: '303 East Ave, East' 
-          },
-          { 
-            id: 7, 
-            name: 'West', 
-            manager: 'Robert Taylor', 
-            contact: '+971507890123', 
-            email: 'robert.west@crispychicken.com',
-            address: '404 West Rd, West' 
-          }
+          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', address: '123 Main St, Downtown' },
+          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', address: '456 Shopping Ave, Mall' },
+          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', address: '789 Airport Rd, Airport' },
+          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', address: '101 North Blvd, North' },
+          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', address: '202 South St, South' },
+          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', address: '303 East Ave, East' },
+          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', address: '404 West Rd, West' }
         ];
         saveBranches();
       }
@@ -3363,7 +3143,7 @@
       const caseTypes = {};
       tickets.forEach(t => {
         // Extract case type from issue description (simplified)
-        const caseType = t.issueCategory || t.issue.split(' ')[0] || 'Other';
+        const caseType = t.issue.split(' ')[0] || 'Other';
         caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
       });
       
@@ -3595,7 +3375,7 @@
       const caseTypes = {};
       tickets.forEach(t => {
         // Extract case type from issue description (simplified)
-        const caseType = t.issueCategory || t.issue.split(' ')[0] || 'Other';
+        const caseType = t.issue.split(' ')[0] || 'Other';
         caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
       });
       
@@ -3697,7 +3477,7 @@
       const caseTypes = {};
       tickets.forEach(t => {
         // Extract case type from issue description (simplified)
-        const caseType = t.issueCategory || t.issue.split(' ')[0] || 'Other';
+        const caseType = t.issue.split(' ')[0] || 'Other';
         caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
       });
       
@@ -3852,7 +3632,7 @@
         const reasonCounts = {};
         branchTickets[branch].forEach(ticket => {
           // Extract case type from issue description (simplified)
-          const reason = ticket.issueCategory || ticket.issue.split(' ')[0] || 'Other';
+          const reason = ticket.issue.split(' ')[0] || 'Other';
           reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
         });
         
@@ -3928,7 +3708,7 @@
       tickets.forEach(ticket => {
         if (ticket.compensationAmount > 0) {
           // Extract compensation type from issue description (simplified)
-          const compType = ticket.issueCategory || ticket.issue.split(' ')[0] || 'Other';
+          const compType = ticket.issue.split(' ')[0] || 'Other';
           if (!compensationTypes[compType]) {
             compensationTypes[compType] = {
               count: 0,
@@ -4256,8 +4036,8 @@
       const headerRow = document.createElement('tr');
       
       const headers = [
-        'Order ID', 'Customer', 'Branch', 'Platform', 'Issue', 'Evidence', 
-        'Status', 'Priority', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
+        'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
+        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
       ];
       
       headers.forEach(header => {
@@ -4299,11 +4079,6 @@
         orderIdCell.className = 'ticket-order-id';
         orderIdCell.textContent = ticket.orderId;
         row.appendChild(orderIdCell);
-        
-        // Customer
-        const customerCell = document.createElement('td');
-        customerCell.textContent = ticket.customerName || '-';
-        row.appendChild(customerCell);
         
         // Branch
         const branchCell = document.createElement('td');
@@ -4380,19 +4155,6 @@
         statusCell.appendChild(statusBadge);
         row.appendChild(statusCell);
         
-        // Priority
-        const priorityCell = document.createElement('td');
-        const priorityBadge = document.createElement('span');
-        const priorityClass = ticket.priority || 'Medium';
-        priorityBadge.className = `badge bg-${
-          priorityClass === 'Low' ? 'success' : 
-          priorityClass === 'Medium' ? 'warning' : 
-          priorityClass === 'High' ? 'danger' : 'danger'
-        }`;
-        priorityBadge.textContent = priorityClass;
-        priorityCell.appendChild(priorityBadge);
-        row.appendChild(priorityCell);
-        
         // Original Amount
         const originalAmountCell = document.createElement('td');
         originalAmountCell.className = 'ticket-amount';
@@ -4435,25 +4197,17 @@
         };
         actionsCell.appendChild(deleteBtn);
         
-        // WhatsApp button
-        const whatsappBtn = document.createElement('button');
-        whatsappBtn.className = 'btn btn-sm btn-whatsapp';
-        whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-        whatsappBtn.title = 'Contact via WhatsApp';
-        whatsappBtn.onclick = function() {
-          sendWhatsAppMessage(ticket);
-        };
-        actionsCell.appendChild(whatsappBtn);
-        
-        // Notify button
-        const notifyBtn = document.createElement('button');
-        notifyBtn.className = 'btn btn-sm btn-notify';
-        notifyBtn.innerHTML = '<i class="bi bi-bell"></i>';
-        notifyBtn.title = 'Notify Branch Manager';
-        notifyBtn.onclick = function() {
-          notifyBranchManager(ticket);
-        };
-        actionsCell.appendChild(notifyBtn);
+        // WhatsApp button (if phone number exists)
+        if (ticket.customerPhone) {
+          const whatsappBtn = document.createElement('button');
+          whatsappBtn.className = 'btn btn-sm btn-whatsapp';
+          whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
+          whatsappBtn.title = 'Contact via WhatsApp';
+          whatsappBtn.onclick = function() {
+            window.open(`https://wa.me/${ticket.customerPhone.replace(/\D/g, '')}`, '_blank');
+          };
+          actionsCell.appendChild(whatsappBtn);
+        }
         
         row.appendChild(actionsCell);
         tbody.appendChild(row);
@@ -4470,22 +4224,8 @@
       document.getElementById('ticketId').value = '';
       document.getElementById('ticketModalTitle').textContent = 'Add New Compensation Case';
       
-      // Set default dates
-      const today = new Date();
-      document.getElementById('orderDate').valueAsDate = today;
-      document.getElementById('incidentDate').valueAsDate = today;
-      
       // Hide duplicate warning
       document.getElementById('duplicateWarning').classList.remove('show');
-      
-      // Reset image preview
-      const preview = document.getElementById('imagePreview');
-      preview.style.display = 'none';
-      document.getElementById('imagePreviewContainer').innerHTML = `
-        <i class="bi bi-cloud-upload" style="font-size: 2rem; color: #ddd;"></i>
-        <p class="mt-2 mb-0">Click to upload image</p>
-        <small class="text-muted">Supported formats: JPG, PNG, GIF</small>
-      `;
       
       // Show modal
       const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
@@ -4501,31 +4241,22 @@
       // Populate form
       document.getElementById('ticketId').value = ticket.id;
       document.getElementById('orderId').value = ticket.orderId;
-      document.getElementById('customerName').value = ticket.customerName || '';
-      document.getElementById('customerPhone').value = ticket.customerPhone || '';
-      document.getElementById('customerEmail').value = ticket.customerEmail || '';
       document.getElementById('branch').value = ticket.branch;
       document.getElementById('platform').value = ticket.platform;
       document.getElementById('status').value = ticket.status;
-      document.getElementById('priority').value = ticket.priority || 'Medium';
-      document.getElementById('orderDate').value = ticket.orderDate || '';
-      document.getElementById('incidentDate').value = ticket.incidentDate || '';
       document.getElementById('originalAmount').value = ticket.originalAmount;
       document.getElementById('compensationAmount').value = ticket.compensationAmount;
       document.getElementById('refundMethod').value = ticket.refundMethod || '';
       document.getElementById('refundedAmount').value = ticket.refundedAmount || '';
       document.getElementById('issue').value = ticket.issue;
-      document.getElementById('issueCategory').value = ticket.issueCategory || '';
       document.getElementById('notes').value = ticket.notes || '';
-      document.getElementById('resolution').value = ticket.resolution || '';
       
       // Set evidence
       if (ticket.evidenceImage) {
         const preview = document.getElementById('imagePreview');
         preview.src = ticket.evidenceImage;
         preview.style.display = 'block';
-        document.getElementById('imagePreviewContainer').innerHTML = '';
-        document.getElementById('imagePreviewContainer').appendChild(preview);
+        document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
       } else if (ticket.evidenceLink) {
         document.getElementById('evidenceLink').value = ticket.evidenceLink;
       }
@@ -4547,23 +4278,15 @@
       // Get form values
       const ticketId = document.getElementById('ticketId').value;
       const orderId = document.getElementById('orderId').value.trim();
-      const customerName = document.getElementById('customerName').value.trim();
-      const customerPhone = document.getElementById('customerPhone').value.trim();
-      const customerEmail = document.getElementById('customerEmail').value.trim();
       const branch = document.getElementById('branch').value;
       const platform = document.getElementById('platform').value;
       const status = document.getElementById('status').value;
-      const priority = document.getElementById('priority').value;
-      const orderDate = document.getElementById('orderDate').value;
-      const incidentDate = document.getElementById('incidentDate').value;
       const originalAmount = parseFloat(document.getElementById('originalAmount').value);
       const compensationAmount = parseFloat(document.getElementById('compensationAmount').value);
       const refundMethod = document.getElementById('refundMethod').value;
       const refundedAmount = parseFloat(document.getElementById('refundedAmount').value) || 0;
       const issue = document.getElementById('issue').value.trim();
-      const issueCategory = document.getElementById('issueCategory').value;
       const notes = document.getElementById('notes').value.trim();
-      const resolution = document.getElementById('resolution').value.trim();
       
       // Validate required fields
       if (!orderId || !branch || !platform || !status || isNaN(originalAmount) || isNaN(compensationAmount) || !issue) {
@@ -4596,23 +4319,15 @@
       const ticket = {
         id: ticketId ? parseInt(ticketId) : Date.now(),
         orderId,
-        customerName,
-        customerPhone,
-        customerEmail,
         branch,
         platform,
         status,
-        priority,
-        orderDate,
-        incidentDate,
         originalAmount,
         compensationAmount,
         refundMethod,
         refundedAmount,
         issue,
-        issueCategory,
         notes,
-        resolution,
         evidenceImage,
         evidenceLink,
         createdAt: ticketId ? 
@@ -4710,11 +4425,7 @@
           const preview = document.getElementById('imagePreview');
           preview.src = e.target.result;
           preview.style.display = 'block';
-          
-          // Update container
-          const container = document.getElementById('imagePreviewContainer');
-          container.innerHTML = '';
-          container.appendChild(preview);
+          document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
         };
         
         reader.readAsDataURL(input.files[0]);
@@ -4744,7 +4455,6 @@
       const filteredTickets = tickets.filter(ticket => {
         const matchesSearch = !searchTerm || 
           ticket.orderId.toLowerCase().includes(searchTerm) ||
-          (ticket.customerName && ticket.customerName.toLowerCase().includes(searchTerm)) ||
           ticket.branch.toLowerCase().includes(searchTerm) ||
           ticket.issue.toLowerCase().includes(searchTerm);
         
@@ -4781,8 +4491,8 @@
       const headerRow = document.createElement('tr');
       
       const headers = [
-        'Order ID', 'Customer', 'Branch', 'Platform', 'Issue', 'Evidence', 
-        'Status', 'Priority', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
+        'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
+        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
       ];
       
       headers.forEach(header => {
@@ -4824,11 +4534,6 @@
         orderIdCell.className = 'ticket-order-id';
         orderIdCell.textContent = ticket.orderId;
         row.appendChild(orderIdCell);
-        
-        // Customer
-        const customerCell = document.createElement('td');
-        customerCell.textContent = ticket.customerName || '-';
-        row.appendChild(customerCell);
         
         // Branch
         const branchCell = document.createElement('td');
@@ -4905,19 +4610,6 @@
         statusCell.appendChild(statusBadge);
         row.appendChild(statusCell);
         
-        // Priority
-        const priorityCell = document.createElement('td');
-        const priorityBadge = document.createElement('span');
-        const priorityClass = ticket.priority || 'Medium';
-        priorityBadge.className = `badge bg-${
-          priorityClass === 'Low' ? 'success' : 
-          priorityClass === 'Medium' ? 'warning' : 
-          priorityClass === 'High' ? 'danger' : 'danger'
-        }`;
-        priorityBadge.textContent = priorityClass;
-        priorityCell.appendChild(priorityBadge);
-        row.appendChild(priorityCell);
-        
         // Original Amount
         const originalAmountCell = document.createElement('td');
         originalAmountCell.className = 'ticket-amount';
@@ -4960,25 +4652,17 @@
         };
         actionsCell.appendChild(deleteBtn);
         
-        // WhatsApp button
-        const whatsappBtn = document.createElement('button');
-        whatsappBtn.className = 'btn btn-sm btn-whatsapp';
-        whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-        whatsappBtn.title = 'Contact via WhatsApp';
-        whatsappBtn.onclick = function() {
-          sendWhatsAppMessage(ticket);
-        };
-        actionsCell.appendChild(whatsappBtn);
-        
-        // Notify button
-        const notifyBtn = document.createElement('button');
-        notifyBtn.className = 'btn btn-sm btn-notify';
-        notifyBtn.innerHTML = '<i class="bi bi-bell"></i>';
-        notifyBtn.title = 'Notify Branch Manager';
-        notifyBtn.onclick = function() {
-          notifyBranchManager(ticket);
-        };
-        actionsCell.appendChild(notifyBtn);
+        // WhatsApp button (if phone number exists)
+        if (ticket.customerPhone) {
+          const whatsappBtn = document.createElement('button');
+          whatsappBtn.className = 'btn btn-sm btn-whatsapp';
+          whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
+          whatsappBtn.title = 'Contact via WhatsApp';
+          whatsappBtn.onclick = function() {
+            window.open(`https://wa.me/${ticket.customerPhone.replace(/\D/g, '')}`, '_blank');
+          };
+          actionsCell.appendChild(whatsappBtn);
+        }
         
         row.appendChild(actionsCell);
         tbody.appendChild(row);
@@ -5052,84 +4736,6 @@
       document.getElementById('totalCasesCount').textContent = tickets.length;
     }
     
-    // ===== WHATSAPP FUNCTIONS =====
-    function sendWhatsAppMessage(ticket) {
-      // Get branch manager info
-      const branch = branches.find(b => b.name === ticket.branch);
-      if (!branch || !branch.contact) {
-        showNotification('Branch manager contact not found', 'error');
-        return;
-      }
-      
-      // Create message
-      const message = `🍗 Crispy Chicken - Case Update\n\n` +
-        `Order ID: ${ticket.orderId}\n` +
-        `Customer: ${ticket.customerName || 'N/A'}\n` +
-        `Issue: ${ticket.issue}\n` +
-        `Status: ${ticket.status}\n` +
-        `Compensation: AED ${ticket.compensationAmount}\n` +
-        `Priority: ${ticket.priority || 'Medium'}\n\n` +
-        `Please take necessary action.`;
-      
-      // Encode message for URL
-      const encodedMessage = encodeURIComponent(message);
-      
-      // Open WhatsApp with pre-filled message
-      const whatsappUrl = `https://wa.me/${branch.contact.replace(/\D/g, '')}?text=${encodedMessage}`;
-      window.open(whatsappUrl, '_blank');
-      
-      showNotification('WhatsApp message sent successfully', 'success');
-      addCommand(`Sent WhatsApp message for case ${ticket.orderId}`, 'User');
-    }
-    
-    // ===== NOTIFICATION FUNCTIONS =====
-    function notifyBranchManager(ticket) {
-      // Get branch manager info
-      const branch = branches.find(b => b.name === ticket.branch);
-      if (!branch) {
-        showNotification('Branch not found', 'error');
-        return;
-      }
-      
-      // Create notification message
-      const message = `New compensation case requires your attention:\n\n` +
-        `Order ID: ${ticket.orderId}\n` +
-        `Customer: ${ticket.customerName || 'N/A'}\n` +
-        `Issue: ${ticket.issue}\n` +
-        `Status: ${ticket.status}\n` +
-        `Compensation: AED ${ticket.compensationAmount}\n` +
-        `Priority: ${ticket.priority || 'Medium'}`;
-      
-      // Populate notification modal
-      document.getElementById('notificationRecipient').value = `${branch.manager} (${branch.name})`;
-      document.getElementById('notificationMessage').value = message;
-      
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
-      modal.show();
-      
-      addCommand(`Opened notification for case ${ticket.orderId}`, 'User');
-    }
-    
-    function sendNotification() {
-      const recipient = document.getElementById('notificationRecipient').value;
-      const message = document.getElementById('notificationMessage').value;
-      const method = document.getElementById('notificationMethod').value;
-      
-      if (!recipient || !message) {
-        showNotification('Please fill in all fields', 'error');
-        return;
-      }
-      
-      // Simulate sending notification
-      showNotification(`Notification sent to ${recipient} via ${method}`, 'success');
-      
-      // Close modal
-      bootstrap.Modal.getInstance(document.getElementById('notificationModal')).hide();
-      
-      addCommand(`Sent notification to ${recipient}`, 'User');
-    }
-    
     // ===== BRANCH MANAGEMENT =====
     function openBranchManagement() {
       // Populate branch table
@@ -5163,11 +4769,6 @@
         const contactCell = document.createElement('td');
         contactCell.textContent = branch.contact;
         row.appendChild(contactCell);
-        
-        // Email
-        const emailCell = document.createElement('td');
-        emailCell.textContent = branch.email || '-';
-        row.appendChild(emailCell);
         
         // Address
         const addressCell = document.createElement('td');
@@ -5263,7 +4864,7 @@
       const branch = branches.find(b => b.id === id);
       if (!branch) return;
       
-      // Get new values using prompts (simplified for demo)
+      // Get new values
       const name = prompt('Enter branch name:', branch.name);
       if (name === null) return;
       
@@ -5273,9 +4874,6 @@
       const contact = prompt('Enter contact number:', branch.contact);
       if (contact === null) return;
       
-      const email = prompt('Enter email address:', branch.email || '');
-      if (email === null) return;
-      
       const address = prompt('Enter address:', branch.address);
       if (address === null) return;
       
@@ -5283,7 +4881,6 @@
       branch.name = name;
       branch.manager = manager;
       branch.contact = contact;
-      branch.email = email;
       branch.address = address;
       
       // Save to localStorage
@@ -5517,18 +5114,11 @@
         {
           id: Date.now(),
           orderId: 'ORD-001',
-          customerName: 'Ahmed Ali',
-          customerPhone: '+971501234567',
-          customerEmail: 'ahmed@example.com',
           branch: 'Downtown',
           platform: 'Noon',
           status: 'Open',
-          priority: 'High',
-          orderDate: new Date().toISOString().split('T')[0],
-          incidentDate: new Date().toISOString().split('T')[0],
           originalAmount: 45.00,
           compensationAmount: 20.00,
-          issueCategory: 'Wrong Item',
           issue: 'Wrong item delivered',
           notes: 'Customer received chicken burger instead of beef burger',
           createdAt: new Date().toISOString(),
@@ -5537,41 +5127,26 @@
         {
           id: Date.now() + 1,
           orderId: 'ORD-002',
-          customerName: 'Fatima Hassan',
-          customerPhone: '+971502345678',
-          customerEmail: 'fatima@example.com',
           branch: 'Mall',
           platform: 'Careem',
           status: 'Closed',
-          priority: 'Medium',
-          orderDate: new Date(Date.now() - 86400000).toISOString().split('T')[0],
-          incidentDate: new Date(Date.now() - 86400000).toISOString().split('T')[0],
           originalAmount: 65.00,
           compensationAmount: 30.00,
           refundedAmount: 30.00,
           refundMethod: 'Careem Pay',
-          issueCategory: 'Missing Item',
           issue: 'Missing items',
           notes: 'Fries and drink missing from order',
-          resolution: 'Refunded via Careem Pay',
           createdAt: new Date(Date.now() - 86400000).toISOString(),
           updatedAt: new Date(Date.now() - 43200000).toISOString()
         },
         {
           id: Date.now() + 2,
           orderId: 'ORD-003',
-          customerName: 'Mohammed Khalid',
-          customerPhone: '+971503456789',
-          customerEmail: 'mohammed@example.com',
           branch: 'Airport',
           platform: 'Noon',
           status: 'Sent',
-          priority: 'High',
-          orderDate: new Date(Date.now() - 172800000).toISOString().split('T')[0],
-          incidentDate: new Date(Date.now() - 172800000).toISOString().split('T')[0],
           originalAmount: 85.00,
           compensationAmount: 40.00,
-          issueCategory: 'Cold Food',
           issue: 'Cold food',
           notes: 'Food was delivered cold and not fresh',
           createdAt: new Date(Date.now() - 172800000).toISOString(),
@@ -5580,21 +5155,13 @@
         {
           id: Date.now() + 3,
           orderId: 'ORD-004',
-          customerName: 'Sara Ahmed',
-          customerPhone: '+971504567890',
-          customerEmail: 'sara@example.com',
           branch: 'North',
           platform: 'Careem',
           status: 'Rejected',
-          priority: 'Low',
-          orderDate: new Date(Date.now() - 259200000).toISOString().split('T')[0],
-          incidentDate: new Date(Date.now() - 259200000).toISOString().split('T')[0],
           originalAmount: 55.00,
           compensationAmount: 25.00,
-          issueCategory: 'Late Delivery',
           issue: 'Late delivery',
           notes: 'Order delivered 45 minutes late',
-          resolution: 'Rejected - customer complaint not valid',
           createdAt: new Date(Date.now() - 259200000).toISOString(),
           updatedAt: new Date(Date.now() - 172800000).toISOString()
         }
@@ -5624,42 +5191,871 @@
         // Clear all data
         tickets = [];
         branches = [
-          { 
-            id: 1, 
-            name: 'Downtown', 
-            manager: 'John Smith', 
-            contact: '+971501234567', 
-            email: 'john.downtown@crispychicken.com',
-            address: '123 Main St, Downtown' 
+          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', address: '123 Main St, Downtown' },
+          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', address: '456 Shopping Ave, Mall' },
+          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', address: '789 Airport Rd, Airport' },
+          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', address: '101 North Blvd, North' },
+          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', address: '202 South St, South' },
+          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', address: '303 East Ave, East' },
+          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', address: '404 West Rd, West' }
+        ];
+        commands = [];
+        
+        // Save data
+        saveData();
+        
+        // Update UI
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        showNotification('All data cleared successfully', 'success');
+        addCommand('Cleared all data', 'User');
+      }
+    }
+    
+    function backupData() {
+      // Create backup object
+      const backup = {
+        tickets: tickets,
+        branches: branches,
+        commands: commands,
+        settings: settings,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Convert to JSON
+      const dataStr = JSON.stringify(backup, null, 2);
+      
+      // Create download link
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `crispy_chicken_backup_${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showNotification('Data backup created successfully', 'success');
+      addCommand('Created data backup', 'User');
+    }
+    
+    function restoreData() {
+      // Create file input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            const backup = JSON.parse(event.target.result);
+            
+            // Restore data
+            if (backup.tickets) tickets = backup.tickets;
+            if (backup.branches) branches = backup.branches;
+            if (backup.commands) commands = backup.commands;
+            if (backup.settings) settings = backup.settings;
+            
+            // Save data
+            saveData();
+            
+            // Update UI
+            updateStats();
+            updateSummarySection();
+            updatePlatformCards();
+            updateCharts();
+            updateBranchAnalysis();
+            updateCompensationAnalysis();
+            updateRejectionAnalysis();
+            updateRefundAnalysis();
+            renderTicketsTable();
+            
+            showNotification('Data restored successfully', 'success');
+            addCommand('Restored data from backup', 'User');
+            
+          } catch (error) {
+            showNotification('Error restoring data: ' + error.message, 'error');
+          }
+        };
+        
+        reader.readAsText(file);
+      };
+      
+      input.click();
+    }
+    
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+          const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+          
+          // Process imported data
+          let importedCount = 0;
+          
+          jsonData.forEach(row => {
+            // Map columns to ticket fields
+            const ticket = {
+              id: Date.now() + importedCount,
+              orderId: row['Order ID'] || row['orderId'] || '',
+              branch: row['Branch'] || row['branch'] || '',
+              platform: row['Platform'] || row['platform'] || '',
+              status: row['Status'] || row['status'] || 'Open',
+              originalAmount: parseFloat(row['Original Amount'] || row['originalAmount'] || 0),
+              compensationAmount: parseFloat(row['Compensation Amount'] || row['compensationAmount'] || 0),
+              refundedAmount: parseFloat(row['Refunded Amount'] || row['refundedAmount'] || 0),
+              issue: row['Issue'] || row['issue'] || '',
+              notes: row['Notes'] || row['notes'] || '',
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            };
+            
+            // Validate required fields
+            if (ticket.orderId && ticket.branch && ticket.platform && ticket.issue) {
+              tickets.push(ticket);
+              importedCount++;
+            }
+          });
+          
+          // Save data and update UI
+          saveData();
+          updateStats();
+          updateSummarySection();
+          updatePlatformCards();
+          updateCharts();
+          updateBranchAnalysis();
+          updateCompensationAnalysis();
+          updateRejectionAnalysis();
+          updateRefundAnalysis();
+          renderTicketsTable();
+          
+          showNotification(`${importedCount} tickets imported successfully`, 'success');
+          addCommand(`Imported ${importedCount} tickets from Excel/CSV`, 'User');
+          
+        } catch (error) {
+          showNotification('Error importing file: ' + error.message, 'error');
+        }
+      };
+      
+      reader.readAsArrayBuffer(file);
+    }
+    
+    function exportToExcel() {
+      // Create worksheet
+      const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
+        'Order ID': ticket.orderId,
+        'Branch': ticket.branch,
+        'Platform': ticket.platform,
+        'Status': ticket.status,
+        'Original Amount': ticket.originalAmount,
+        'Compensation Amount': ticket.compensationAmount,
+        'Refunded Amount': ticket.refundedAmount || 0,
+        'Issue': ticket.issue,
+        'Notes': ticket.notes || '',
+        'Created Date': new Date(ticket.createdAt).toLocaleDateString()
+      })));
+      
+      // Create workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Compensation Tickets');
+      
+      // Save file
+      XLSX.writeFile(wb, `compensation_tickets_${new Date().toISOString().split('T')[0]}.xlsx`);
+      
+      showNotification('Data exported to Excel successfully', 'success');
+      addCommand('Exported data to Excel', 'User');
+    }
+    
+    function exportToPDF() {
+      // This is a simplified PDF export
+      // In a real application, you would use a library like jsPDF or pdfmake
+      
+      // Create HTML content
+      let html = `
+        <html>
+          <head>
+            <title>Compensation Tickets Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #d32f2f; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+            </style>
+          </head>
+          <body>
+            <h1>Compensation Tickets Report</h1>
+            <p>Generated on: ${new Date().toLocaleDateString()}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Branch</th>
+                  <th>Platform</th>
+                  <th>Status</th>
+                  <th>Original Amount</th>
+                  <th>Compensation</th>
+                  <th>Issue</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      tickets.forEach(ticket => {
+        html += `
+          <tr>
+            <td>${ticket.orderId}</td>
+            <td>${ticket.branch}</td>
+            <td>${ticket.platform}</td>
+            <td>${ticket.status}</td>
+            <td>${ticket.originalAmount}</td>
+            <td>${ticket.compensationAmount}</td>
+            <td>${ticket.issue}</td>
+          </tr>
+        `;
+      });
+      
+      html += `
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `compensation_tickets_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      
+      showNotification('Report exported successfully (HTML format)', 'success');
+      addCommand('Exported report to PDF (HTML)', 'User');
+    }
+    
+    function exportToCSV() {
+      // Create CSV content
+      let csv = 'Order ID,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
+      
+      tickets.forEach(ticket => {
+        csv += `"${ticket.orderId}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ''}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
+      });
+      
+      // Create blob and download
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `compensation_tickets_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      
+      showNotification('Data exported to CSV successfully', 'success');
+      addCommand('Exported data to CSV', 'User');
+    }
+    
+    function generateDailyReport() {
+      // Open daily summary modal
+      const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
+      modal.show();
+      
+      addCommand('Opened daily report generator', 'User');
+    }
+    
+    function generateDailySummary() {
+      const date = document.getElementById('summaryDateInput').value;
+      if (!date) {
+        showNotification('Please select a date', 'error');
+        return;
+      }
+      
+      // Filter tickets for the selected date
+      const selectedDate = new Date(date);
+      const filteredTickets = tickets.filter(ticket => {
+        const ticketDate = new Date(ticket.createdAt);
+        return ticketDate.toDateString() === selectedDate.toDateString();
+      });
+      
+      // Generate summary content
+      const content = document.getElementById('dailySummaryContent');
+      content.innerHTML = '';
+      
+      // Summary stats
+      const summaryDiv = document.createElement('div');
+      summaryDiv.className = 'periodic-summary';
+      summaryDiv.innerHTML = `
+        <div class="report-header">
+          <h5>Daily Summary for ${selectedDate.toLocaleDateString()}</h5>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">${filteredTickets.length}</div>
+              <small class="text-muted">Total Cases</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">${filteredTickets.filter(t => t.status === 'Open').length}</div>
+              <small class="text-muted">Open Cases</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">AED ${filteredTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
+              <small class="text-muted">Total Compensation</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">AED ${filteredTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0).toFixed(2)}</div>
+              <small class="text-muted">Total Refunded</small>
+            </div>
+          </div>
+        </div>
+      `;
+      content.appendChild(summaryDiv);
+      
+      // Branch summary
+      const branchSummary = document.createElement('div');
+      branchSummary.className = 'periodic-summary';
+      branchSummary.innerHTML = '<h5>Branch Summary</h5>';
+      
+      const branchCounts = {};
+      filteredTickets.forEach(ticket => {
+        if (!branchCounts[ticket.branch]) {
+          branchCounts[ticket.branch] = {
+            count: 0,
+            compensation: 0,
+            refunded: 0
+          };
+        }
+        branchCounts[ticket.branch].count++;
+        branchCounts[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
+        branchCounts[ticket.branch].refunded += parseFloat(ticket.refundedAmount || 0);
+      });
+      
+      Object.keys(branchCounts).forEach(branch => {
+        const branchCard = document.createElement('div');
+        branchCard.className = 'branch-summary-card';
+        branchCard.innerHTML = `
+          <h6>${branch}</h6>
+          <div class="row">
+            <div class="col-4">
+              <div class="text-center">
+                <div class="h5">${branchCounts[branch].count}</div>
+                <small class="text-muted">Cases</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center">
+                <div class="h5">AED ${branchCounts[branch].compensation.toFixed(2)}</div>
+                <small class="text-muted">Compensation</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center">
+                <div class="h5">AED ${branchCounts[branch].refunded.toFixed(2)}</div>
+                <small class="text-muted">Refunded</small>
+              </div>
+            </div>
+          </div>
+        `;
+        branchSummary.appendChild(branchCard);
+      });
+      
+      content.appendChild(branchSummary);
+      
+      // Recent cases
+      const recentCases = document.createElement('div');
+      recentCases.className = 'periodic-summary';
+      recentCases.innerHTML = '<h5>Recent Cases</h5>';
+      
+      filteredTickets.slice(0, 10).forEach(ticket => {
+        const caseItem = document.createElement('div');
+        caseItem.className = 'case-item';
+        caseItem.innerHTML = `
+          <div class="case-info">
+            <span class="case-order">${ticket.orderId}</span>
+            <span class="case-platform">${ticket.platform}</span>
+          </div>
+          <div>
+            <span class="case-amount">AED ${ticket.compensationAmount}</span>
+            <span class="badge bg-${ticket.status === 'Open' ? 'warning' : ticket.status === 'Closed' ? 'success' : 'danger'} ms-2">${ticket.status}</span>
+          </div>
+        `;
+        recentCases.appendChild(caseItem);
+      });
+      
+      content.appendChild(recentCases);
+      
+      showNotification('Daily summary generated successfully', 'success');
+      addCommand(`Generated daily summary for ${date}`, 'User');
+    }
+    
+    function exportDailySummary() {
+      // Get summary content
+      const content = document.getElementById('dailySummaryContent').innerHTML;
+      
+      // Create blob and download
+      const blob = new Blob([content], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `daily_summary_${document.getElementById('summaryDateInput').value}.html`;
+      a.click();
+      
+      showNotification('Daily summary exported successfully', 'success');
+      addCommand('Exported daily summary', 'User');
+    }
+    
+    function generateDisputeReport() {
+      // Get disputed tickets (open or rejected with high compensation)
+      const disputedTickets = tickets.filter(t => 
+        (t.status === 'Open' || t.status === 'Rejected') && 
+        parseFloat(t.compensationAmount) > 30
+      );
+      
+      // Create report content
+      let report = `
+        <html>
+          <head>
+            <title>Dispute Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #d32f2f; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+              .high-compensation { background-color: #fff3f3; }
+            </style>
+          </head>
+          <body>
+            <h1>Dispute Report</h1>
+            <p>Generated on: ${new Date().toLocaleDateString()}</p>
+            <p>Total Disputed Cases: ${disputedTickets.length}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Branch</th>
+                  <th>Platform</th>
+                  <th>Status</th>
+                  <th>Compensation</th>
+                  <th>Issue</th>
+                  <th>Days Open</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      disputedTickets.forEach(ticket => {
+        const daysOpen = Math.floor((new Date() - new Date(ticket.createdAt)) / (1000 * 60 * 60 * 24));
+        report += `
+          <tr class="${parseFloat(ticket.compensationAmount) > 50 ? 'high-compensation' : ''}">
+            <td>${ticket.orderId}</td>
+            <td>${ticket.branch}</td>
+            <td>${ticket.platform}</td>
+            <td>${ticket.status}</td>
+            <td>AED ${ticket.compensationAmount}</td>
+            <td>${ticket.issue}</td>
+            <td>${daysOpen}</td>
+          </tr>
+        `;
+      });
+      
+      report += `
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob([report], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `dispute_report_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      
+      showNotification('Dispute report generated successfully', 'success');
+      addCommand('Generated dispute report', 'User');
+    }
+    
+    function generateFinancialReport() {
+      // Calculate financial metrics
+      const totalOriginal = tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0);
+      const totalCompensation = tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0);
+      const totalRefunded = tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0);
+      const netLoss = totalCompensation - totalRefunded;
+      
+      // Create report content
+      let report = `
+        <html>
+          <head>
+            <title>Financial Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #d32f2f; }
+              .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
+              .metric-value { font-size: 24px; font-weight: bold; color: #d32f2f; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+            </style>
+          </head>
+          <body>
+            <h1>Financial Report</h1>
+            <p>Generated on: ${new Date().toLocaleDateString()}</p>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${totalOriginal.toFixed(2)}</div>
+              <div>Total Original Amount</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${totalCompensation.toFixed(2)}</div>
+              <div>Total Compensation</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${totalRefunded.toFixed(2)}</div>
+              <div>Total Refunded</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${netLoss.toFixed(2)}</div>
+              <div>Net Loss</div>
+            </div>
+            
+            <h3>Compensation by Branch</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Branch</th>
+                  <th>Cases</th>
+                  <th>Total Compensation</th>
+                  <th>Total Refunded</th>
+                  <th>Net Loss</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      // Group by branch
+      const branchFinancials = {};
+      tickets.forEach(ticket => {
+        if (!branchFinancials[ticket.branch]) {
+          branchFinancials[ticket.branch] = {
+            count: 0,
+            compensation: 0,
+            refunded: 0
+          };
+        }
+        branchFinancials[ticket.branch].count++;
+        branchFinancials[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
+        branchFinancials[ticket.branch].refunded += parseFloat(ticket.refundedAmount || 0);
+      });
+      
+      Object.keys(branchFinancials).forEach(branch => {
+        const data = branchFinancials[branch];
+        const netLoss = data.compensation - data.refunded;
+        
+        report += `
+          <tr>
+            <td>${branch}</td>
+            <td>${data.count}</td>
+            <td>AED ${data.compensation.toFixed(2)}</td>
+            <td>AED ${data.refunded.toFixed(2)}</td>
+            <td>AED ${netLoss.toFixed(2)}</td>
+          </tr>
+        `;
+      });
+      
+      report += `
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob([report], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `financial_report_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      
+      showNotification('Financial report generated successfully', 'success');
+      addCommand('Generated financial report', 'User');
+    }
+    
+    function openSettingsModal() {
+      // Populate settings form
+      document.getElementById('theme').value = settings.theme;
+      document.getElementById('itemsPerPage').value = settings.itemsPerPage;
+      document.getElementById('autoRefresh').value = settings.autoRefresh;
+      document.getElementById('backupFrequency').value = settings.backupFrequency;
+      document.getElementById('notifications').checked = settings.notifications;
+      document.getElementById('confirmActions').checked = settings.confirmActions;
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+      modal.show();
+      
+      addCommand('Opened settings', 'User');
+    }
+    
+    function openAPISettingsModal() {
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('apiSettingsModal'));
+      modal.show();
+      
+      addCommand('Opened API settings', 'User');
+    }
+    
+    function fetchDataFromAPIWithSettings() {
+      const url = document.getElementById('apiUrl').value;
+      const apiKey = document.getElementById('apiKey').value;
+      const replaceData = document.getElementById('replaceData').checked;
+      const format = document.getElementById('apiFormat').value;
+      
+      if (!url) {
+        showNotification('Please enter API URL', 'error');
+        return;
+      }
+      
+      // Show loading
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      
+      // Simulate API call
+      setTimeout(() => {
+        // In a real application, you would make an actual API call here
+        // For demo purposes, we'll simulate it
+        
+        if (replaceData) {
+          tickets = [];
+        }
+        
+        // Add sample data from "API"
+        const sampleData = [
+          {
+            orderId: 'API-001',
+            branch: 'Downtown',
+            platform: 'Noon',
+            status: 'Open',
+            originalAmount: 50.00,
+            compensationAmount: 25.00,
+            issue: 'API test case'
           },
-          { 
-            id: 2, 
-            name: 'Mall', 
-            manager: 'Sarah Johnson', 
-            contact: '+971502345678', 
-            email: 'sarah.mall@crispychicken.com',
-            address: '456 Shopping Ave, Mall' 
-          },
-          { 
-            id: 3, 
-            name: 'Airport', 
-            manager: 'Michael Brown', 
-            contact: '+971503456789', 
-            email: 'michael.airport@crispychicken.com',
-            address: '789 Airport Rd, Airport' 
-          },
-          { 
-            id: 4, 
-            name: 'North', 
-            manager: 'Emily Davis', 
-            contact: '+971504567890', 
-            email: 'emily.north@crispychicken.com',
-            address: '101 North Blvd, North' 
-          },
-          { 
-            id: 5, 
-            name: 'South', 
-            manager: 'David Wilson', 
-            contact: '+971505678901', 
-            email: 'david.south@crispychicken.com',
-            address: '202 South
+          {
+            orderId: 'API-002',
+            branch: 'Mall',
+            platform: 'Careem',
+            status: 'Closed',
+            originalAmount: 75.00,
+            compensationAmount: 35.00,
+            refundedAmount: 35.00,
+            issue: 'API test case 2'
+          }
+        ];
+        
+        sampleData.forEach(data => {
+          tickets.push({
+            id: Date.now() + Math.random(),
+            ...data,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          });
+        });
+        
+        // Save and update
+        saveData();
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        // Hide loading
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        // Close modal
+        bootstrap.Modal.getInstance(document.getElementById('apiSettingsModal')).hide();
+        
+        showNotification('Data fetched from API successfully', 'success');
+        addCommand('Fetched data from API', 'User');
+      }, 2000);
+    }
+    
+    function archiveOldCases() {
+      const cutoffDate = new Date();
+      cutoffDate.setMonth(cutoffDate.getMonth() - 3); // 3 months ago
+      
+      const oldTickets = tickets.filter(t => new Date(t.createdAt) < cutoffDate);
+      
+      if (oldTickets.length === 0) {
+        showNotification('No old cases to archive', 'info');
+        return;
+      }
+      
+      if (confirm(`Archive ${oldTickets.length} cases older than 3 months?`)) {
+        // In a real application, you would move these to an archive collection
+        // For demo purposes, we'll just remove them
+        
+        tickets = tickets.filter(t => new Date(t.createdAt) >= cutoffDate);
+        
+        // Save and update
+        saveData();
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        showNotification(`${oldTickets.length} cases archived successfully`, 'success');
+        addCommand(`Archived ${oldTickets.length} old cases`, 'User');
+      }
+    }
+    
+    function checkForDuplicates() {
+      const duplicates = [];
+      const orderIds = {};
+      
+      tickets.forEach(ticket => {
+        if (orderIds[ticket.orderId]) {
+          duplicates.push({
+            orderId: ticket.orderId,
+            tickets: [orderIds[ticket.orderId], ticket]
+          });
+        } else {
+          orderIds[ticket.orderId] = ticket;
+        }
+      });
+      
+      if (duplicates.length === 0) {
+        showNotification('No duplicate cases found', 'success');
+        return;
+      }
+      
+      let message = `Found ${duplicates.length} duplicate cases:\n\n`;
+      duplicates.forEach(dup => {
+        message += `Order ID: ${dup.orderId}\n`;
+        dup.tickets.forEach((ticket, index) => {
+          message += `  Case ${index + 1}: ${ticket.branch} - ${ticket.status}\n`;
+        });
+        message += '\n';
+      });
+      
+      alert(message);
+      showNotification(`Found ${duplicates.length} duplicate cases`, 'warning');
+      addCommand(`Checked for duplicates - found ${duplicates.length}`, 'User');
+    }
+    
+    function setupSampleAPI() {
+      // This would set up a mock API for testing
+      alert('Sample API setup would be implemented here. In a real application, this would configure API endpoints and authentication.');
+      showNotification('Sample API setup initiated', 'info');
+      addCommand('Setup sample API', 'User');
+    }
+    
+    function openUserManagement() {
+      // Placeholder for user management
+      alert('User management feature would be implemented here. This would include user roles, permissions, and access control.');
+      showNotification('User management feature coming soon', 'info');
+      addCommand('Opened user management (placeholder)', 'User');
+    }
+    
+    // ===== NOTIFICATION SYSTEM =====
+    function showNotification(message, type = 'info', duration = 3000) {
+      if (!settings.notifications) return;
+      
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      
+      // Add progress bar for auto-dismiss
+      if (duration > 0) {
+        notification.classList.add('progress');
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        notification.appendChild(progressBar);
+      }
+      
+      // Add to container
+      const container = document.getElementById('notificationContainer');
+      container.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Auto-dismiss
+      if (duration > 0) {
+        setTimeout(() => {
+          notification.classList.remove('show');
+          setTimeout(() => {
+            notification.remove();
+          }, 400);
+        }, duration);
+      }
+      
+      return notification;
+    }
+    
+    // ===== COMMAND LOGGER =====
+    function addCommand(command, user = 'System') {
+      const newCommand = {
+        id: Date.now(),
+        command,
+        user,
+        timestamp: new Date().toISOString()
+      };
+      
+      commands.unshift(newCommand);
+      
+      // Keep only last 100 commands
+      if (commands.length > 100) {
+        commands = commands.slice(0, 100);
+      }
+      
+      // Save commands
+      localStorage.setItem('commands', JSON.stringify(commands));
+    }
+    
+    function updateCommands() {
+      // This would update a command history UI if implemented
+      // For now, we just save commands to localStorage
+    }
+  </script>
+</body>
+</html>
