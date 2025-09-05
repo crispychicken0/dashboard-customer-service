@@ -14,6 +14,7 @@
   
   <!-- Custom CSS -->
   <style>
+    /* CSS remains the same as provided */
     :root {
       --crispy-red: #d32f2f;
       --crispy-dark: #b71c1c;
@@ -33,6 +34,7 @@
       background: var(--bg);
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       color: var(--text-primary);
+      direction: ltr;
     }
     
     .navbar {
@@ -99,6 +101,736 @@
       font-size: 0.95rem;
       font-weight: 500;
       letter-spacing: 0.5px;
+    }
+    
+    .summary-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    
+    .summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .summary-header h5 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-primary);
+    }
+    
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    
+    .summary-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .summary-card h6 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--crispy-dark);
+    }
+    
+    .summary-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .metric-item {
+      text-align: center;
+      padding: 16px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--crispy-red);
+      margin-bottom: 4px;
+    }
+    
+    .metric-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .metric-change {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    
+    .metric-change.positive {
+      color: #198754;
+    }
+    
+    .metric-change.negative {
+      color: #dc3545;
+    }
+    
+    .metric-change.neutral {
+      color: #6c757d;
+    }
+    
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    
+    .mini-chart {
+      height: 150px;
+    }
+    
+    .platform-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    
+    .platform-card {
+      padding: 30px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,112,67,0.05), rgba(255,112,67,0.1));
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,112,67,0.1);
+    }
+    
+    .platform-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .platform-card h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 15px 0;
+      color: var(--crispy-accent);
+    }
+    
+    .platform-card .percentage {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--crispy-accent);
+      margin-top: 8px;
+    }
+    
+    #dock {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    
+    .dock-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .dock-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.2));
+    }
+    
+    .dock-panel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      width: 320px;
+      max-height: 80vh;
+      overflow-y: auto;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .dock-panel.show {
+      display: flex;
+      animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .dock-section {
+      margin-bottom: 8px;
+    }
+    
+    .dock-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .dock-section-title {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+      padding-left: 8px;
+      border-left: 3px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .dock-section-title i {
+      font-size: 0.9rem;
+    }
+    
+    .dock-section-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    
+    .dock-panel button {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: left;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dock-panel button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .dock-panel button:hover::before {
+      transform: translateX(0);
+    }
+    
+    .dock-panel button:hover {
+      transform: translateX(-4px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .dock-panel button i {
+      font-size: 1.1rem;
+      z-index: 1;
+    }
+    
+    .dock-panel button span {
+      z-index: 1;
+    }
+    
+    .dock-section.quick-actions button {
+      background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+    }
+    
+    .dock-section.quick-actions button:hover {
+      background: linear-gradient(135deg, rgba(33, 150, 243, 0.4), rgba(33, 150, 243, 0.2));
+    }
+    
+    .dock-section.reports button {
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.3), rgba(156, 39, 176, 0.1));
+    }
+    
+    .dock-section.reports button:hover {
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.4), rgba(156, 39, 176, 0.2));
+    }
+    
+    .dock-section.export button {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(76, 175, 80, 0.1));
+    }
+    
+    .dock-section.export button:hover {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.4), rgba(76, 175, 80, 0.2));
+    }
+    
+    .dock-section.management button {
+      background: linear-gradient(135deg, rgba(255, 152, 0, 0.3), rgba(255, 152, 0, 0.1));
+    }
+    
+    .dock-section.management button:hover {
+      background: linear-gradient(135deg, rgba(255, 152, 0, 0.4), rgba(255, 152, 0, 0.2));
+    }
+    
+    .dock-section.tools button {
+      background: linear-gradient(135deg, rgba(244, 67, 54, 0.3), rgba(244, 67, 54, 0.1));
+    }
+    
+    .dock-section.tools button:hover {
+      background: linear-gradient(135deg, rgba(244, 67, 54, 0.4), rgba(244, 67, 54, 0.2));
+    }
+    
+    .dock-section.branch-management button {
+      background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+    }
+    
+    .dock-section.branch-management button:hover {
+      background: linear-gradient(135deg, rgba(33, 150, 243, 0.4), rgba(33, 150, 243, 0.2));
+    }
+    
+    .dock-section.command-input button {
+      background: linear-gradient(135deg, rgba(0, 150, 136, 0.3), rgba(0, 150, 136, 0.1));
+    }
+    
+    .dock-section.command-input button:hover {
+      background: linear-gradient(135deg, rgba(0, 150, 136, 0.4), rgba(0, 150, 136, 0.2));
+    }
+    
+    .dock-section.command-input .form-control {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    .dock-section.command-input .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .dock-section.command-input .form-control:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    .dock-dropdown {
+      position: relative;
+    }
+    
+    .dock-dropdown-menu {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      min-width: 200px;
+      margin-bottom: 12px;
+      z-index: 10;
+      display: none;
+      padding: 8px;
+    }
+    
+    .dock-dropdown-menu.show {
+      display: block;
+      animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-10px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .dock-dropdown-item {
+      padding: 10px 14px;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border-radius: 10px;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .dock-dropdown-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .dock-dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(-4px);
+    }
+    
+    .dock-dropdown-item i {
+      font-size: 0.9rem;
+    }
+    
+    .dock-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .dock-panel::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    
+    .dock-panel::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
+    }
+    
+    .dock-panel::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.5);
+    }
+    
+    .branch-management-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    
+    .branch-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .branch-card h6 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: white;
+    }
+    
+    .branch-info {
+      margin-bottom: 12px;
+    }
+    
+    .branch-info p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .branch-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .branch-actions .btn {
+      flex: 1;
+      font-size: 0.85rem;
+    }
+    
+    .add-branch-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .add-branch-form .form-control,
+    .add-branch-form .form-select {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+    
+    .add-branch-form .form-control::placeholder,
+    .add-branch-form .form-select option {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .add-branch-form .form-control:focus,
+    .add-branch-form .form-select:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    .branch-performance-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .metric-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .metric-card .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+    
+    .metric-card .label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .branch-chart-container {
+      height: 200px;
+      margin-top: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      #dock {
+        right: 16px;
+        bottom: 16px;
+      }
+      
+      .dock-panel {
+        width: 280px;
+        right: 16px;
+        bottom: 16px;
+      }
+      
+      .dock-panel button {
+        min-width: 260px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    #reports {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    
+    .report-card {
+      padding: 24px;
+      border-radius: 16px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .report-card h5 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    
+    .report-card .chart-container {
+      position: relative;
+      height: 220px;
+    }
+    
+    .case-analysis-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    
+    .case-analysis-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .case-analysis-header h5 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-primary);
+    }
+    
+    .case-badge {
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .badge-high {
+      background: var(--crispy-light);
+      color: var(--crispy-red);
+    }
+    
+    .badge-medium {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+    
+    .badge-low {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    
+    .branch-analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+    }
+    
+    .branch-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .branch-card h6 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--crispy-dark);
+    }
+    
+    .branch-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .branch-stat-item {
+      text-align: center;
+      padding: 12px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .branch-stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--crispy-red);
+      margin-bottom: 4px;
+    }
+    
+    .branch-stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .case-reasons {
+      margin-top: 20px;
+    }
+    
+    .case-reasons h6 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    
+    .case-reason-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .case-reason-item:last-child {
+      border-bottom: none;
+    }
+    
+    .case-reason-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    
+    .case-reason-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .case-reason-count {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    
+    .case-reason-bar {
+      width: 100%;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    
+    .case-reason-progress {
+      height: 100%;
+      background: var(--crispy-red);
+      border-radius: 4px;
     }
     
     .tickets-section {
@@ -267,31 +999,6 @@
       font-weight: 600;
     }
     
-    .status-open {
-      background: rgba(13, 110, 253, 0.1);
-      color: #0d6efd;
-    }
-    
-    .status-sent {
-      background: rgba(255, 193, 7, 0.1);
-      color: #ffc107;
-    }
-    
-    .status-closed {
-      background: rgba(25, 135, 84, 0.1);
-      color: #198754;
-    }
-    
-    .status-rejected {
-      background: rgba(220, 53, 69, 0.1);
-      color: #dc3545;
-    }
-    
-    .status-escalated {
-      background: rgba(13, 110, 253, 0.1);
-      color: #0d6efd;
-    }
-    
     .ticket-amount {
       font-weight: 600;
       color: var(--text-primary);
@@ -299,6 +1006,10 @@
     
     .ticket-amount.compensation {
       color: var(--crispy-red);
+    }
+    
+    .ticket-amount.refunded {
+      color: #28a745;
     }
     
     .ticket-actions {
@@ -361,6 +1072,38 @@
     
     .back-to-top.show {
       display: flex;
+      animation: fadeInUp 0.3s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .status-open {
+      background: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .status-sent {
+      background: rgba(255, 193, 7, 0.1);
+      color: #ffc107;
+    }
+    
+    .status-closed {
+      background: rgba(25, 135, 84, 0.1);
+      color: #198754;
+    }
+    
+    .status-rejected {
+      background: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
     }
     
     .empty-state {
@@ -388,445 +1131,90 @@
       margin-bottom: 24px;
     }
     
-    .chart-container {
-      height: 300px;
-      margin: 20px 0;
-    }
-    
-    .platform-card {
-      padding: 30px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(255,112,67,0.05), rgba(255,112,67,0.1));
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,112,67,0.1);
-    }
-    
-    .platform-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    .platform-card h3 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin: 15px 0;
-      color: var(--crispy-accent);
-    }
-    
-    .platform-card .percentage {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--crispy-accent);
-      margin-top: 8px;
-    }
-    
-    .dispute-card {
-      padding: 24px;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .dispute-card.urgent {
-      background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.1));
-      border: 1px solid rgba(220, 53, 69, 0.2);
-    }
-    
-    .dispute-card.pending {
-      background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 193, 7, 0.1));
-      border: 1px solid rgba(255, 193, 7, 0.2);
-    }
-    
-    .dispute-card.escalated {
-      background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(13, 110, 253, 0.1));
-      border: 1px solid rgba(13, 110, 253, 0.2);
-    }
-    
-    .dispute-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    
-    .dispute-card.urgent .dispute-badge {
-      background: rgba(220, 53, 69, 0.9);
-      color: white;
-    }
-    
-    .dispute-card.pending .dispute-badge {
-      background: rgba(255, 193, 7, 0.9);
-      color: white;
-    }
-    
-    .dispute-card.escalated .dispute-badge {
-      background: rgba(13, 110, 253, 0.9);
-      color: white;
-    }
-    
-    .dispute-card h6 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 15px 0 10px;
-      color: var(--text-primary);
-    }
-    
-    .dispute-count {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-    
-    .dispute-card.urgent .dispute-count {
-      color: var(--crispy-red);
-    }
-    
-    .dispute-card.pending .dispute-count {
-      color: #ffc107;
-    }
-    
-    .dispute-card.escalated .dispute-count {
-      color: #0d6efd;
-    }
-    
-    .summary-card {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-    
-    .summary-card h6 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: var(--crispy-dark);
-    }
-    
-    .metric-item {
-      text-align: center;
-      padding: 16px;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    
-    .metric-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--crispy-red);
-      margin-bottom: 4px;
-    }
-    
-    .metric-label {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    
-    .metric-change {
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-    
-    .metric-change.positive {
-      color: #198754;
-    }
-    
-    .metric-change.negative {
-      color: #dc3545;
-    }
-    
-    .metric-change.neutral {
-      color: #6c757d;
-    }
-    
-    .case-badge {
-      padding: 8px 16px;
-      border-radius: 24px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-    
-    .badge-high {
-      background: var(--crispy-light);
-      color: var(--crispy-red);
-    }
-    
-    .badge-medium {
-      background: #fff3e0;
-      color: #ef6c00;
-    }
-    
-    .badge-low {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-    
-    .branch-analysis-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 24px;
-    }
-    
-    .branch-card {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-    
-    .branch-card h6 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: var(--crispy-dark);
-    }
-    
-    .branch-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    
-    .branch-stat-item {
-      text-align: center;
-      padding: 12px;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    
-    .branch-stat-value {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--crispy-red);
-      margin-bottom: 4px;
-    }
-    
-    .branch-stat-label {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    
-    .case-reasons {
-      margin-top: 20px;
-    }
-    
-    .case-reasons h6 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-    }
-    
-    .case-reason-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-    
-    .case-reason-item:last-child {
-      border-bottom: none;
-    }
-    
-    .case-reason-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-    
-    .case-reason-name {
-      font-size: 0.95rem;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-    
-    .case-reason-count {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-    
-    .case-reason-bar {
-      width: 100%;
-      height: 8px;
-      background: #e9ecef;
-      border-radius: 4px;
-      margin-top: 6px;
-      overflow: hidden;
-    }
-    
-    .case-reason-progress {
-      height: 100%;
-      background: var(--crispy-red);
-      border-radius: 4px;
-    }
-    
-    .timeline-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      border-left: 4px solid var(--crispy-red);
-    }
-    
-    .timeline-time {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-right: 15px;
-      white-space: nowrap;
-    }
-    
-    .timeline-text {
-      flex: 1;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-    }
-    
-    .refund-table-container {
-      margin-top: 20px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .refund-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    
-    .refund-table th {
-      background: #f1f3f5;
-      padding: 12px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    
-    .refund-table td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .refund-table tr:hover {
-      background: #f8f9fa;
-    }
-    
-    .status-refunded {
-      background: #d4edda;
-      color: #155724;
-    }
-    
-    .notification {
-      position: fixed;
-      top: 24px;
-      right: 24px;
-      padding: 16px 24px;
-      border-radius: 16px;
-      color: #fff;
-      z-index: 3000;
-      display: none;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      max-width: 400px;
-      font-weight: 500;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .notification.show {
-      display: block;
-    }
-    
-    .notification.success {
-      background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(56, 142, 60, 0.9));
-    }
-    
-    .notification.error {
-      background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(211, 47, 47, 0.9));
-    }
-    
-    .notification.warning {
-      background: linear-gradient(135deg, rgba(255, 152, 0, 0.9), rgba(245, 124, 0, 0.9));
-    }
-    
-    .notification.info {
-      background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(25, 118, 210, 0.9));
-    }
-    
-    @keyframes slideIn {
-      from {
-        transform: translateX(120%);
-        opacity: 0;
+    @media (max-width: 1200px){
+      .container-page{max-width:100%;padding:0 16px;}
+      .tickets-table-container {
+        height: 500px;
       }
-      to {
-        transform: translateX(0);
-        opacity: 1;
+      .ticket-issue {
+        max-width: 200px;
       }
     }
-    
-    @media (max-width: 768px) {
-      .tickets-header .filters {
-        flex-direction: column;
-        align-items: stretch;
+    @media (max-width: 992px){
+      #reports{grid-template-columns:1fr;}
+      .branch-analysis-grid{grid-template-columns:1fr;}
+      .branch-stats{grid-template-columns:repeat(2,1fr);}
+      .summary-grid{grid-template-columns:1fr;}
+      .chart-row{grid-template-columns:1fr;}
+      .tickets-table-container {
+        height: 400px;
       }
-      
-      .tickets-header .search-input,
-      .tickets-header .filter-select {
-        min-width: 100%;
+      .tickets-table th,
+      .tickets-table td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
       }
-      
-      .tickets-header .action-buttons {
-        justify-content: stretch;
-      }
-      
-      .tickets-header .action-buttons .btn {
-        flex: 1;
-      }
-      
-      .tickets-table {
-        font-size: 0.85rem;
-      }
-      
       .ticket-issue {
         max-width: 150px;
       }
-      
       .ticket-actions {
-        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
       }
-      
-      .stats-grid {
-        grid-template-columns: 1fr;
+    }
+    @media (max-width: 768px){
+      .stats-grid{grid-template-columns:1fr;}
+      .platform-cards{grid-template-columns:1fr;}
+      .tickets-header .filters{flex-direction:column;align-items:stretch;}
+      .tickets-header .search-input,.tickets-header .filter-select{min-width:100%;}
+      .tickets-header .action-buttons{justify-content:stretch;}
+      .tickets-header .action-buttons .btn{flex:1;}
+      .tickets-table{font-size:0.85rem;}
+      .ticket-actions{justify-content:center;}
+      .tickets-table-container {
+        height: 350px;
       }
-      
-      .platform-cards {
-        grid-template-columns: 1fr;
+      .tickets-table th,
+      .tickets-table td {
+        padding: 10px 6px;
       }
-      
-      .branch-analysis-grid {
-        grid-template-columns: 1fr;
+      .ticket-issue {
+        max-width: 120px;
+      }
+      .ticket-actions .btn {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+      }
+    }
+    @media (max-width: 576px){
+      .container-page{padding:0 12px;}
+      .card-ghost{padding:16px;}
+      .stat-card h2{font-size:2rem;}
+      .platform-card h3{font-size:1.8rem;}
+      .report-card{padding:16px;}
+      .tickets-table th,.tickets-table td{padding:8px 4px;}
+      .ticket-issue{max-width:80px;}
+      .tickets-table-container {
+        height: 300px;
+      }
+      .tickets-table {
+        font-size: 0.8rem;
+      }
+      .ticket-actions {
+        gap: 2px;
+      }
+      .ticket-actions .btn {
+        padding: 3px 5px;
+        font-size: 0.7rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- ===== NAVIGATION ===== -->
+  <!-- Storage Indicator -->
+  <div id="storageIndicator" class="storage-indicator">0% storage used</div>
+  
+  <!-- Navigation -->
   <nav class="navbar navbar-expand-lg">
     <div class="container container-page">
       <a class="navbar-brand" href="#"><i class="bi bi-fire-fill me-2" style="font-size:1.6rem"></i> Crispy Chicken — Compensation Tickets</a>
@@ -838,9 +1226,9 @@
     </div>
   </nav>
   
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- Main Content -->
   <main class="container-page">
-    <!-- ===== STATS SECTION ===== -->
+    <!-- Stats Section -->
     <section class="stats-grid">
       <div class="stat-card text-center">
         <div class="text-muted">Total Cases</div>
@@ -876,8 +1264,8 @@
       </div>
     </section>
     
-    <!-- ===== SUMMARY SECTION ===== -->
-    <section class="card-ghost">
+    <!-- Summary Section -->
+    <section class="summary-section">
       <div class="summary-header">
         <h5>Dashboard Summary</h5>
         <div class="text-muted">
@@ -911,10 +1299,10 @@
             </div>
           </div>
           <div class="chart-row">
-            <div class="chart-container">
+            <div class="mini-chart">
               <canvas id="amountChart"></canvas>
             </div>
-            <div class="chart-container">
+            <div class="mini-chart">
               <canvas id="statusChart"></canvas>
             </div>
           </div>
@@ -945,10 +1333,10 @@
             </div>
           </div>
           <div class="chart-row">
-            <div class="chart-container">
+            <div class="mini-chart">
               <canvas id="platformTicketsChart"></canvas>
             </div>
-            <div class="chart-container">
+            <div class="mini-chart">
               <canvas id="platformCompensationChart"></canvas>
             </div>
           </div>
@@ -979,10 +1367,10 @@
             </div>
           </div>
           <div class="chart-row">
-            <div class="chart-container">
+            <div class="mini-chart">
               <canvas id="branchCasesChart"></canvas>
             </div>
-            <div class="chart-container">
+            <div class="mini-chart">
               <canvas id="caseTypesChart"></canvas>
             </div>
           </div>
@@ -990,54 +1378,7 @@
       </div>
     </section>
     
-    <!-- ===== DISPUTE SECTION ===== -->
-    <section class="card-ghost">
-      <div class="dispute-header">
-        <h5>Dispute Management</h5>
-        <div class="text-muted">
-          <i class="bi bi-exclamation-triangle me-1"></i>
-          Active disputes requiring attention
-        </div>
-      </div>
-      
-      <div class="dispute-grid">
-        <div class="dispute-card urgent">
-          <div class="dispute-badge">Urgent</div>
-          <h6>High Compensation Cases</h6>
-          <div class="dispute-count" id="urgentCases">0</div>
-          <button class="btn btn-sm btn-danger" onclick="viewUrgentCases()">
-            View All
-          </button>
-        </div>
-        
-        <div class="dispute-card pending">
-          <div class="dispute-badge">Pending</div>
-          <h6>Evidence Required</h6>
-          <div class="dispute-count" id="evidencePending">0</div>
-          <button class="btn btn-sm btn-warning" onclick="requestEvidenceForAll()">
-            Request Evidence
-          </button>
-        </div>
-        
-        <div class="dispute-card escalated">
-          <div class="dispute-badge">Escalated</div>
-          <h6>Management Review</h6>
-          <div class="dispute-count" id="escalatedCases">0</div>
-          <button class="btn btn-sm btn-info" onclick="viewEscalatedCases()">
-            Track Progress
-          </button>
-        </div>
-      </div>
-      
-      <div class="dispute-timeline">
-        <h6>Recent Dispute Actions</h6>
-        <div id="disputeTimeline">
-          <!-- Timeline items will be populated here -->
-        </div>
-      </div>
-    </section>
-    
-    <!-- ===== PLATFORM CARDS ===== -->
+    <!-- Platform Cards -->
     <section class="platform-cards">
       <div class="platform-card">
         <div class="text-muted">Noon Cases</div>
@@ -1051,18 +1392,38 @@
       </div>
     </section>
     
-    <!-- ===== CASE ANALYSIS SECTION ===== -->
-    <section class="card-ghost">
+    <!-- Reports Section -->
+    <section id="reports">
+      <div class="report-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>Top Branches by Cases</h5>
+          <small class="text-muted" id="topBranchLabel"></small>
+        </div>
+        <div class="chart-container">
+          <canvas id="branchChart"></canvas>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>Case Types Breakdown</h5>
+          <small class="text-muted" id="topCaseLabel"></small>
+        </div>
+        <div class="chart-container">
+          <canvas id="caseChart"></canvas>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Case Analysis Section -->
+    <section class="case-analysis-section">
       <div class="case-analysis-header">
         <h5>Case Analysis Causing Compensation</h5>
         <div id="caseAnalysisBadge" class="case-badge badge-high">High Level</div>
       </div>
-      <div id="branchAnalysisContainer">
-        <!-- Branch analysis will be populated here -->
-      </div>
+      <div id="branchAnalysisContainer"></div>
     </section>
     
-    <!-- ===== TICKETS SECTION ===== -->
+    <!-- Tickets Section -->
     <section class="tickets-section">
       <div class="tickets-header">
         <h5>Compensation Cases</h5>
@@ -1082,28 +1443,193 @@
             <option>Sent</option>
             <option>Closed</option>
             <option>Rejected</option>
-            <option>Escalated</option>
           </select>
+          <div class="sort-controls">
+            <label class="form-label me-2">Sort by:</label>
+            <select id="sortCriteria" class="form-select" onchange="sortTickets(this.value)">
+              <option value="date-desc">Date (Newest)</option>
+              <option value="date-asc">Date (Oldest)</option>
+              <option value="amount-desc">Amount (High to Low)</option>
+              <option value="amount-asc">Amount (Low to High)</option>
+              <option value="status">Status</option>
+              <option value="platform">Platform</option>
+            </select>
+          </div>
           <div class="action-buttons">
             <button class="btn btn-primary" onclick="openAddModal()">
               <i class="bi bi-plus-circle me-1"></i> Add
             </button>
-            <button class="btn btn-success" onclick="addSample()">
+            <button class="btn btn-outline-secondary" onclick="addSample()">
               <i class="bi bi-flask me-1"></i> Sample
             </button>
-            <button class="btn btn-outline-secondary" onclick="exportData()">
-              <i class="bi bi-download me-1"></i> Export
+            <button class="btn btn-success" onclick="document.getElementById('excelUploadInput').click()">
+              <i class="bi bi-file-earmark-spreadsheet me-1"></i> Upload Excel/CSV
             </button>
           </div>
         </div>
       </div>
-      <div id="ticketsContainer">
-        <!-- Tickets table will be populated here -->
-      </div>
+      <div id="ticketsContainer"></div>
     </section>
   </main>
   
-  <!-- ===== ADD/EDIT TICKET MODAL ===== -->
+  <!-- Dock Panel -->
+  <div id="dock">
+    <div id="dockPanel" class="dock-panel">
+      <div class="dock-section quick-actions">
+        <div class="dock-section-title">
+          <i class="bi bi-lightning-charge"></i> Quick Actions
+        </div>
+        <div class="dock-section-buttons">
+          <button onclick="openAddModal()">
+            <i class="bi bi-plus-circle"></i>
+            <span>Add New Case</span>
+          </button>
+          <button onclick="refreshData()">
+            <i class="bi bi-arrow-clockwise"></i>
+            <span>Refresh Data</span>
+          </button>
+          <button onclick="generateDailyReport()">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>Daily Report</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="dock-section reports">
+        <div class="dock-section-title">
+          <i class="bi bi-bar-chart"></i> Reports
+        </div>
+        <div class="dock-section-buttons">
+          <div class="dock-dropdown">
+            <button onclick="toggleDockDropdown(this)">
+              <i class="bi bi-file-earmark-spreadsheet"></i>
+              <span>Export Reports</span>
+              <i class="bi bi-chevron-up ms-auto"></i>
+            </button>
+            <div class="dock-dropdown-menu">
+              <a href="#" class="dock-dropdown-item" onclick="exportToExcel()">
+                <i class="bi bi-file-earmark-excel"></i> Export to Excel
+              </a>
+              <a href="#" class="dock-dropdown-item" onclick="exportToPDF()">
+                <i class="bi bi-file-earmark-pdf"></i> Export to PDF
+              </a>
+              <a href="#" class="dock-dropdown-item" onclick="exportToCSV()">
+                <i class="bi bi-filetype-csv"></i> Export to CSV
+              </a>
+            </div>
+          </div>
+          <button onclick="generateDisputeReport()">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span>Dispute Report</span>
+          </button>
+          <button onclick="generateFinancialReport()">
+            <i class="bi bi-currency-dollar"></i>
+            <span>Financial Report</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="dock-section export">
+        <div class="dock-section-title">
+          <i class="bi bi-cloud-arrow-up"></i> Data Management
+        </div>
+        <div class="dock-section-buttons">
+          <button onclick="document.getElementById('excelUploadInput').click()">
+            <i class="bi bi-file-earmark-spreadsheet"></i>
+            <span>Import Data</span>
+          </button>
+          <button onclick="backupData()">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <span>Backup Data</span>
+          </button>
+          <button onclick="restoreData()">
+            <i class="bi bi-cloud-arrow-down"></i>
+            <span>Restore Data</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="dock-section branch-management">
+        <div class="dock-section-title">
+          <i class="bi bi-shop"></i> Branch Management
+        </div>
+        <div class="dock-section-buttons">
+          <button onclick="openBranchManagement()">
+            <i class="bi bi-shop"></i>
+            <span>Manage Branches</span>
+          </button>
+          <button onclick="openAddBranchModal()">
+            <i class="bi bi-plus-circle"></i>
+            <span>Add Branch</span>
+          </button>
+          <button onclick="viewBranchPerformance()">
+            <i class="bi bi-graph-up"></i>
+            <span>Branch Performance</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="dock-section management">
+        <div class="dock-section-title">
+          <i class="bi bi-gear"></i> Management
+        </div>
+        <div class="dock-section-buttons">
+          <button onclick="openSettingsModal()">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+          </button>
+          <button onclick="openUserManagement()">
+            <i class="bi bi-people"></i>
+            <span>User Management</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="dock-section tools">
+        <div class="dock-section-title">
+          <i class="bi bi-tools"></i> Tools
+        </div>
+        <div class="dock-section-buttons">
+          <button onclick="clearOldData()">
+            <i class="bi bi-trash3"></i>
+            <span>Clear Old Data</span>
+          </button>
+          <button onclick="clearAllData()">
+            <i class="bi bi-trash3"></i>
+            <span>Clear All Data</span>
+          </button>
+          <button onclick="archiveOldCases()">
+            <i class="bi bi-archive"></i>
+            <span>Archive Old Cases</span>
+          </button>
+          <button onclick="checkForDuplicates()">
+            <i class="bi bi-clipboard-check"></i>
+            <span>Check Duplicates</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="dock-section command-input">
+        <div class="dock-section-title">
+          <i class="bi bi-terminal"></i> Command Input
+        </div>
+        <div class="dock-section-buttons">
+          <div class="input-group">
+            <input type="text" class="form-control" id="commandInput" placeholder="Enter command...">
+            <button class="btn btn-primary" onclick="addCustomCommand()">
+              <i class="bi bi-send"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="dockToggle" class="dock-toggle" onclick="toggleDock()">
+      <i class="bi bi-command"></i>
+    </div>
+  </div>
+  
+  <!-- Add/Edit Ticket Modal -->
   <div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -1115,16 +1641,22 @@
           <form id="ticketForm">
             <input type="hidden" id="ticketId">
             
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="orderId" class="form-label">Order ID</label>
-                  <input type="text" class="form-control" id="orderId" required>
-                </div>
+            <!-- Case Details Section -->
+            <div class="mb-4">
+              <div class="section-header">
+                <i class="bi bi-file-earmark-text"></i>
+                <h6>Case Details</h6>
               </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="branch" class="form-label">Branch</label>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="orderId" class="form-label">Order ID <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="orderId" required>
+                  <div class="duplicate-warning text-danger mt-1" id="duplicateWarning">
+                    <i class="bi bi-exclamation-triangle"></i> Duplicate Order ID detected
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="branch" class="form-label">Branch <span class="text-danger">*</span></label>
                   <select class="form-select" id="branch" required>
                     <option value="">Select Branch</option>
                     <option value="Downtown">Downtown</option>
@@ -1136,52 +1668,48 @@
                     <option value="West">West</option>
                   </select>
                 </div>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="platform" class="form-label">Platform</label>
+                <div class="col-md-6 mb-3">
+                  <label for="platform" class="form-label">Platform <span class="text-danger">*</span></label>
                   <select class="form-select" id="platform" required>
                     <option value="">Select Platform</option>
                     <option value="Noon">Noon</option>
                     <option value="Careem">Careem</option>
                   </select>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="status" class="form-label">Status</label>
+                <div class="col-md-6 mb-3">
+                  <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                   <select class="form-select" id="status" required>
                     <option value="Open">Open</option>
                     <option value="Sent">Sent</option>
                     <option value="Closed">Closed</option>
                     <option value="Rejected">Rejected</option>
-                    <option value="Escalated">Escalated</option>
                   </select>
                 </div>
               </div>
             </div>
             
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="originalAmount" class="form-label">Original Amount (AED)</label>
-                  <input type="number" class="form-control" id="originalAmount" step="0.01" required>
-                </div>
+            <!-- Financial Details Section -->
+            <div class="mb-4">
+              <div class="section-header">
+                <i class="bi bi-currency-exchange"></i>
+                <h6>Financial Details</h6>
               </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="compensationAmount" class="form-label">Compensation Amount (AED)</label>
-                  <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="originalAmount" class="form-label">Original Amount (AED) <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-text">AED</span>
+                    <input type="number" class="form-control" id="originalAmount" step="0.01" required>
+                  </div>
                 </div>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
+                <div class="col-md-6 mb-3">
+                  <label for="compensationAmount" class="form-label">Compensation Amount (AED) <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <span class="input-group-text">AED</span>
+                    <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
                   <label for="refundMethod" class="form-label">Refund Method</label>
                   <select class="form-select" id="refundMethod">
                     <option value="">Not Refunded</option>
@@ -1191,49 +1719,262 @@
                     <option value="Bank Transfer">Bank Transfer</option>
                   </select>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
+                <div class="col-md-6 mb-3">
                   <label for="refundedAmount" class="form-label">Refunded Amount (AED)</label>
-                  <input type="number" class="form-control" id="refundedAmount" step="0.01">
+                  <div class="input-group">
+                    <span class="input-group-text">AED</span>
+                    <input type="number" class="form-control" id="refundedAmount" step="0.01">
+                  </div>
                 </div>
               </div>
             </div>
             
-            <div class="mb-3">
-              <label for="issue" class="form-label">Issue Description</label>
-              <textarea class="form-control" id="issue" rows="3" required></textarea>
+            <!-- Issue Description Section -->
+            <div class="mb-4">
+              <div class="section-header">
+                <i class="bi bi-exclamation-circle"></i>
+                <h6>Issue Description <span class="text-danger">*</span></h6>
+              </div>
+              <textarea class="form-control" id="issue" rows="3" required placeholder="Describe the issue in detail..."></textarea>
+              <div class="form-text">Be specific about what went wrong and any relevant details</div>
             </div>
             
-            <div class="mb-3">
-              <label for="notes" class="form-label">Additional Notes</label>
-              <textarea class="form-control" id="notes" rows="2"></textarea>
+            <!-- Additional Notes Section -->
+            <div class="mb-4">
+              <div class="section-header">
+                <i class="bi bi-pencil-square"></i>
+                <h6>Additional Notes</h6>
+              </div>
+              <textarea class="form-control" id="notes" rows="2" placeholder="Any additional information..."></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="saveTicket()">Save Case</button>
+          <button type="button" class="btn btn-primary" onclick="saveTicket()">
+            <i class="bi bi-check-circle me-1"></i> Save Case
+          </button>
         </div>
       </div>
     </div>
   </div>
   
-  <!-- ===== BACK TO TOP BUTTON ===== -->
+  <!-- Branch Management Modal -->
+  <div class="modal fade" id="branchModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Branch Management</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <button class="btn btn-primary" onclick="openAddBranchModal()">
+              <i class="bi bi-plus-circle me-1"></i> Add New Branch
+            </button>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Branch Name</th>
+                  <th>Manager</th>
+                  <th>Contact</th>
+                  <th>Address</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="branchTableBody">
+                <!-- Branch data will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Branch Modal -->
+  <div class="modal fade" id="addBranchModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Branch</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addBranchForm" class="add-branch-form">
+            <div class="mb-3">
+              <label for="branchName" class="form-label">Branch Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="branchName" required>
+            </div>
+            <div class="mb-3">
+              <label for="branchManager" class="form-label">Manager <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="branchManager" required>
+            </div>
+            <div class="mb-3">
+              <label for="branchContact" class="form-label">Contact <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="branchContact" required>
+            </div>
+            <div class="mb-3">
+              <label for="branchAddress" class="form-label">Address <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="branchAddress" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="branchEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="branchEmail">
+            </div>
+            <div class="mb-3">
+              <label for="branchHours" class="form-label">Working Hours</label>
+              <input type="text" class="form-control" id="branchHours" placeholder="e.g., 9:00 AM - 11:00 PM">
+            </div>
+            <div class="mb-3">
+              <label for="compensationRate" class="form-label">Compensation Rate (%)</label>
+              <input type="number" class="form-control" id="compensationRate" min="0" max="100" value="50">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveNewBranch()">
+            <i class="bi bi-check-circle me-1"></i> Save Branch
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Branch Performance Modal -->
+  <div class="modal fade" id="branchPerformanceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Branch Performance</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="branchPerformanceContent">
+            <!-- Branch performance content will be populated here -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Dashboard Settings</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="settingsForm">
+            <div class="mb-3">
+              <label for="theme" class="form-label">Theme</label>
+              <select class="form-select" id="theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="auto">Auto (System)</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="itemsPerPage" class="form-label">Items Per Page</label>
+              <select class="form-select" id="itemsPerPage">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="autoRefresh" class="form-label">Auto Refresh (minutes)</label>
+              <select class="form-select" id="autoRefresh">
+                <option value="0">Disabled</option>
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="30">30</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="backupFrequency" class="form-label">Backup Frequency</label>
+              <select class="form-select" id="backupFrequency">
+                <option value="0">Disabled</option>
+                <option value="1">Daily</option>
+                <option value="7">Weekly</option>
+                <option value="30">Monthly</option>
+              </select>
+            </div>
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="notifications">
+              <label class="form-check-label" for="notifications">
+                Enable Notifications
+              </label>
+            </div>
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="confirmActions">
+              <label class="form-check-label" for="confirmActions">
+                Confirm Before Deleting
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container"></div>
+  
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading...</div>
+  </div>
+  
+  <!-- Excel Upload Input (Hidden) -->
+  <input type="file" id="excelUploadInput" accept=".xlsx,.xls,.csv" style="display: none;" onchange="handleFileUpload(event)">
+  
+  <!-- Back to Top Button -->
   <button id="backToTop" class="back-to-top" onclick="scrollToTop()">
     <i class="bi bi-arrow-up"></i>
   </button>
   
-  <!-- ===== NOTIFICATION ===== -->
-  <div id="notification" class="notification"></div>
-  
-  <!-- ===== JAVASCRIPT ===== -->
+  <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   
   <script>
     // ===== GLOBAL VARIABLES =====
     let tickets = [];
-    let branches = ['Downtown', 'Mall', 'Airport', 'North', 'South', 'East', 'West'];
+    let branches = [];
+    let commands = [];
+    let settings = {
+      theme: 'light',
+      itemsPerPage: 25,
+      autoRefresh: 0,
+      backupFrequency: 7,
+      notifications: true,
+      confirmActions: true
+    };
     
     // ===== INITIALIZATION =====
     document.addEventListener('DOMContentLoaded', function() {
@@ -1248,7 +1989,6 @@
       updateBranchAnalysis();
       renderTicketsTable();
       updateBranchFilter();
-      updateDisputeDashboard();
       
       // Set current date for summary
       const today = new Date();
@@ -1264,6 +2004,9 @@
       
       // Show notification
       showNotification('Dashboard loaded successfully', 'success');
+      
+      // Add command
+      addCommand('Dashboard initialized', 'System');
     });
     
     // ===== DATA MANAGEMENT =====
@@ -1278,13 +2021,239 @@
           tickets = [];
         }
       } else {
-        // Initialize with empty array if no data exists
+        // Initialize with sample data if none exists
         tickets = [];
       }
+      
+      // Load branches
+      const branchesData = localStorage.getItem('branches');
+      if (branchesData) {
+        branches = JSON.parse(branchesData);
+      } else {
+        // Initialize with default branches
+        branches = [
+          { 
+            id: 1, 
+            name: 'Downtown', 
+            manager: 'John Smith', 
+            contact: '+971501234567', 
+            address: '123 Main St, Downtown',
+            email: 'john.downtown@crispychicken.ae',
+            workingHours: '9:00 AM - 11:00 PM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          },
+          { 
+            id: 2, 
+            name: 'Mall', 
+            manager: 'Sarah Johnson', 
+            contact: '+971502345678', 
+            address: '456 Shopping Ave, Mall',
+            email: 'sarah.mall@crispychicken.ae',
+            workingHours: '10:00 AM - 10:00 PM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          },
+          { 
+            id: 3, 
+            name: 'Airport', 
+            manager: 'Michael Brown', 
+            contact: '+971503456789', 
+            address: '789 Airport Rd, Airport',
+            email: 'michael.airport@crispychicken.ae',
+            workingHours: '8:00 AM - 12:00 AM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          },
+          { 
+            id: 4, 
+            name: 'North', 
+            manager: 'Emily Davis', 
+            contact: '+971504567890', 
+            address: '101 North Blvd, North',
+            email: 'emily.north@crispychicken.ae',
+            workingHours: '9:00 AM - 11:00 PM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          },
+          { 
+            id: 5, 
+            name: 'South', 
+            manager: 'David Wilson', 
+            contact: '+971505678901', 
+            address: '202 South St, South',
+            email: 'david.south@crispychicken.ae',
+            workingHours: '9:00 AM - 11:00 PM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          },
+          { 
+            id: 6, 
+            name: 'East', 
+            manager: 'Jennifer Miller', 
+            contact: '+971506789012', 
+            address: '303 East Ave, East',
+            email: 'jennifer.east@crispychicken.ae',
+            workingHours: '9:00 AM - 11:00 PM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          },
+          { 
+            id: 7, 
+            name: 'West', 
+            manager: 'Robert Taylor', 
+            contact: '+971507890123', 
+            address: '404 West Rd, West',
+            email: 'robert.west@crispychicken.ae',
+            workingHours: '9:00 AM - 11:00 PM',
+            status: 'active',
+            compensationRate: 0.5,
+            lastUpdated: new Date().toISOString()
+          }
+        ];
+        saveBranches();
+      }
+      
+      // Load commands
+      const commandsData = localStorage.getItem('commands');
+      if (commandsData) {
+        commands = JSON.parse(commandsData);
+      } else {
+        commands = [];
+      }
+      
+      // Load settings
+      const settingsData = localStorage.getItem('dashboardSettings');
+      if (settingsData) {
+        settings = JSON.parse(settingsData);
+        applySettings();
+      }
+      
+      // Update storage indicator
+      updateStorageIndicator();
     }
     
     function saveData() {
       localStorage.setItem('compensationTickets', JSON.stringify(tickets));
+      localStorage.setItem('branches', JSON.stringify(branches));
+      localStorage.setItem('commands', JSON.stringify(commands));
+      localStorage.setItem('dashboardSettings', JSON.stringify(settings));
+      updateStorageIndicator();
+    }
+    
+    function saveBranches() {
+      localStorage.setItem('branches', JSON.stringify(branches));
+    }
+    
+    function saveSettings() {
+      localStorage.setItem('dashboardSettings', JSON.stringify(settings));
+      applySettings();
+      showNotification('Settings saved successfully', 'success');
+      addCommand('Settings updated', 'User');
+    }
+    
+    function applySettings() {
+      // Apply theme
+      if (settings.theme === 'dark') {
+        document.body.classList.add('dark-theme');
+      } else if (settings.theme === 'light') {
+        document.body.classList.remove('dark-theme');
+      }
+      
+      // Apply auto refresh
+      if (settings.autoRefresh > 0) {
+        if (window.refreshInterval) {
+          clearInterval(window.refreshInterval);
+        }
+        window.refreshInterval = setInterval(refreshData, settings.autoRefresh * 60000);
+      }
+      
+      // Apply backup frequency
+      if (settings.backupFrequency > 0) {
+        if (window.backupInterval) {
+          clearInterval(window.backupInterval);
+        }
+        window.backupInterval = setInterval(backupData, settings.backupFrequency * 86400000);
+      }
+    }
+    
+    function updateStorageIndicator() {
+      // Calculate storage usage
+      let totalSize = 0;
+      for (let key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+          totalSize += localStorage[key].length + key.length;
+        }
+      }
+      
+      // Convert to KB
+      const totalSizeKB = (totalSize / 1024).toFixed(2);
+      const maxStorageKB = 5120; // 5MB
+      const percentage = Math.min(100, Math.round((totalSizeKB / maxStorageKB) * 100));
+      
+      const indicator = document.getElementById('storageIndicator');
+      indicator.textContent = `${percentage}% storage used (${totalSizeKB}KB)`;
+      
+      if (percentage > 80) {
+        indicator.classList.add('storage-warning');
+      } else {
+        indicator.classList.remove('storage-warning');
+      }
+    }
+    
+    // ===== EVENT LISTENERS =====
+    function setupEventListeners() {
+      // Search input
+      document.getElementById('searchInput').addEventListener('input', filterTickets);
+      
+      // Filter dropdowns
+      document.getElementById('filterBranch').addEventListener('change', filterTickets);
+      document.getElementById('filterPlatform').addEventListener('change', filterTickets);
+      document.getElementById('filterStatus').addEventListener('change', filterTickets);
+      
+      // Order ID input for duplicate check
+      document.getElementById('orderId').addEventListener('input', checkForDuplicateOrder);
+      
+      // Back to top button
+      window.addEventListener('scroll', function() {
+        const backToTopButton = document.getElementById('backToTop');
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+      
+      // Settings form
+      document.getElementById('theme').addEventListener('change', function() {
+        settings.theme = this.value;
+      });
+      
+      document.getElementById('itemsPerPage').addEventListener('change', function() {
+        settings.itemsPerPage = parseInt(this.value);
+      });
+      
+      document.getElementById('autoRefresh').addEventListener('change', function() {
+        settings.autoRefresh = parseInt(this.value);
+      });
+      
+      document.getElementById('backupFrequency').addEventListener('change', function() {
+        settings.backupFrequency = parseInt(this.value);
+      });
+      
+      document.getElementById('notifications').addEventListener('change', function() {
+        settings.notifications = this.checked;
+      });
+      
+      document.getElementById('confirmActions').addEventListener('change', function() {
+        settings.confirmActions = this.checked;
+      });
     }
     
     // ===== UI UPDATE FUNCTIONS =====
@@ -1297,7 +2266,6 @@
       const sentTickets = tickets.filter(t => t.status === 'Sent').length;
       const closedTickets = tickets.filter(t => t.status === 'Closed').length;
       const rejectedTickets = tickets.filter(t => t.status === 'Rejected').length;
-      const escalatedTickets = tickets.filter(t => t.status === 'Escalated').length;
       
       document.getElementById('openTickets').textContent = openTickets;
       document.getElementById('sentTickets').textContent = sentTickets;
@@ -1432,28 +2400,25 @@
       new Chart(statusCtx, {
         type: 'doughnut',
         data: {
-          labels: ['Open', 'Sent', 'Closed', 'Rejected', 'Escalated'],
+          labels: ['Open', 'Sent', 'Closed', 'Rejected'],
           datasets: [{
             data: [
               tickets.filter(t => t.status === 'Open').length,
               tickets.filter(t => t.status === 'Sent').length,
               tickets.filter(t => t.status === 'Closed').length,
-              tickets.filter(t => t.status === 'Rejected').length,
-              tickets.filter(t => t.status === 'Escalated').length
+              tickets.filter(t => t.status === 'Rejected').length
             ],
             backgroundColor: [
               'rgba(13, 110, 253, 0.5)',
               'rgba(255, 193, 7, 0.5)',
               'rgba(25, 135, 84, 0.5)',
-              'rgba(220, 53, 69, 0.5)',
-              'rgba(13, 110, 253, 0.5)'
+              'rgba(220, 53, 69, 0.5)'
             ],
             borderColor: [
               'rgba(13, 110, 253, 1)',
               'rgba(255, 193, 7, 1)',
               'rgba(25, 135, 84, 1)',
-              'rgba(220, 53, 69, 1)',
-              'rgba(13, 110, 253, 1)'
+              'rgba(220, 53, 69, 1)'
             ],
             borderWidth: 1
           }]
@@ -1495,6 +2460,11 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
           scales: {
             y: {
               beginAtZero: true
@@ -1506,13 +2476,14 @@
       // Platform Compensation Chart
       const platformCompensationCtx = document.getElementById('platformCompensationChart').getContext('2d');
       new Chart(platformCompensationCtx, {
-        type: 'pie',
+        type: 'bar',
         data: {
           labels: ['Noon', 'Careem'],
           datasets: [{
+            label: 'Refunded',
             data: [
-              tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + parseFloat(t.compensationAmount || 0), 0),
-              tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + parseFloat(t.compensationAmount || 0), 0)
+              tickets.filter(t => t.platform === 'Noon' && t.refundedAmount > 0).length,
+              tickets.filter(t => t.platform === 'Careem' && t.refundedAmount > 0).length
             ],
             backgroundColor: [
               'rgba(255, 112, 67, 0.5)',
@@ -1527,34 +2498,54 @@
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
         }
       });
       
       // Branch Cases Chart
       const branchCasesCtx = document.getElementById('branchCasesChart').getContext('2d');
-      const branchData = {};
+      const branchCounts = {};
       tickets.forEach(t => {
-        branchData[t.branch] = (branchData[t.branch] || 0) + 1;
+        branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
       });
+      
+      const topBranches = Object.keys(branchCounts)
+        .sort((a, b) => branchCounts[b] - branchCounts[a])
+        .slice(0, 5);
       
       new Chart(branchCasesCtx, {
         type: 'bar',
         data: {
-          labels: Object.keys(branchData),
+          labels: topBranches,
           datasets: [{
             label: 'Cases',
-            data: Object.values(branchData),
+            data: topBranches.map(branch => branchCounts[branch]),
             backgroundColor: 'rgba(211, 47, 47, 0.5)',
             borderColor: 'rgba(211, 47, 47, 1)',
             borderWidth: 1
           }]
         },
         options: {
+          indexAxis: 'y',
           responsive: true,
           maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
           scales: {
-            y: {
+            x: {
               beginAtZero: true
             }
           }
@@ -1565,149 +2556,1620 @@
       const caseTypesCtx = document.getElementById('caseTypesChart').getContext('2d');
       const caseTypes = {};
       tickets.forEach(t => {
+        // Extract case type from issue description (simplified)
         const caseType = t.issue.split(' ')[0] || 'Other';
         caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
       });
       
+      const topCaseTypes = Object.keys(caseTypes)
+        .sort((a, b) => caseTypes[b] - caseTypes[a])
+        .slice(0, 5);
+      
       new Chart(caseTypesCtx, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
-          labels: Object.keys(caseTypes),
+          labels: topCaseTypes,
           datasets: [{
-            data: Object.values(caseTypes),
+            data: topCaseTypes.map(caseType => caseTypes[caseType]),
             backgroundColor: [
-              'rgba(211, 47, 47, 0.5)',
-              'rgba(255, 112, 67, 0.5)',
-              'rgba(126, 87, 194, 0.5)',
-              'rgba(13, 110, 253, 0.5)',
-              'rgba(25, 135, 84, 0.5)'
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
             ],
             borderWidth: 1
           }]
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
         }
       });
     }
     
     function updatePlatformCards() {
-      const noonTickets = tickets.filter(t => t.platform === 'Noon');
-      const careemTickets = tickets.filter(t => t.platform === 'Careem');
-      
-      document.getElementById('noonCount').textContent = noonTickets.length;
-      document.getElementById('careemCount').textContent = careemTickets.length;
-      
+      const noonCount = tickets.filter(t => t.platform === 'Noon').length;
+      const careemCount = tickets.filter(t => t.platform === 'Careem').length;
       const total = tickets.length;
-      document.getElementById('noonPercentage').textContent = total > 0 ? 
-        `${((noonTickets.length / total) * 100).toFixed(1)}%` : '0%';
-      document.getElementById('careemPercentage').textContent = total > 0 ? 
-        `${((careemTickets.length / total) * 100).toFixed(1)}%` : '0%';
+      
+      const noonPercentage = total > 0 ? ((noonCount / total) * 100).toFixed(1) : 0;
+      const careemPercentage = total > 0 ? ((careemCount / total) * 100).toFixed(1) : 0;
+      
+      document.getElementById('noonCount').textContent = noonCount;
+      document.getElementById('careemCount').textContent = careemCount;
+      document.getElementById('noonPercentage').textContent = `${noonPercentage}%`;
+      document.getElementById('careemPercentage').textContent = `${careemPercentage}%`;
+    }
+    
+    function updateCharts() {
+      // Branch Chart
+      const branchCtx = document.getElementById('branchChart').getContext('2d');
+      const branchCounts = {};
+      tickets.forEach(t => {
+        branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+      });
+      
+      const topBranches = Object.keys(branchCounts)
+        .sort((a, b) => branchCounts[b] - branchCounts[a])
+        .slice(0, 5);
+      
+      new Chart(branchCtx, {
+        type: 'bar',
+        data: {
+          labels: topBranches,
+          datasets: [{
+            label: 'Cases',
+            data: topBranches.map(branch => branchCounts[branch]),
+            backgroundColor: 'rgba(211, 47, 47, 0.5)',
+            borderColor: 'rgba(211, 47, 47, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Case Chart
+      const caseCtx = document.getElementById('caseChart').getContext('2d');
+      const caseTypes = {};
+      tickets.forEach(t => {
+        // Extract case type from issue description (simplified)
+        const caseType = t.issue.split(' ')[0] || 'Other';
+        caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
+      });
+      
+      const topCaseTypes = Object.keys(caseTypes)
+        .sort((a, b) => caseTypes[b] - caseTypes[a])
+        .slice(0, 5);
+      
+      new Chart(caseCtx, {
+        type: 'doughnut',
+        data: {
+          labels: topCaseTypes,
+          datasets: [{
+            data: topCaseTypes.map(caseType => caseTypes[caseType]),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
+        }
+      });
+      
+      // Update labels
+      document.getElementById('topBranchLabel').textContent = 
+        topBranches.length > 0 ? `Top: ${topBranches[0]} (${branchCounts[topBranches[0]]} cases)` : 'No data';
+      
+      document.getElementById('topCaseLabel').textContent = 
+        topCaseTypes.length > 0 ? `Top: ${topCaseTypes[0]} (${caseTypes[topCaseTypes[0]]} cases)` : 'No data';
     }
     
     function updateBranchAnalysis() {
       const container = document.getElementById('branchAnalysisContainer');
+      container.innerHTML = '';
       
-      if (tickets.length === 0) {
-        container.innerHTML = '<p class="text-muted text-center">No data available for branch analysis</p>';
+      // Group tickets by branch
+      const branchTickets = {};
+      tickets.forEach(ticket => {
+        if (!branchTickets[ticket.branch]) {
+          branchTickets[ticket.branch] = [];
+        }
+        branchTickets[ticket.branch].push(ticket);
+      });
+      
+      // Create branch analysis grid
+      const grid = document.createElement('div');
+      grid.className = 'branch-analysis-grid';
+      
+      // Create a card for each branch
+      Object.keys(branchTickets).forEach(branch => {
+        const branchCard = document.createElement('div');
+        branchCard.className = 'branch-card';
+        
+        const branchHeader = document.createElement('h6');
+        branchHeader.textContent = branch;
+        branchCard.appendChild(branchHeader);
+        
+        // Create branch stats
+        const stats = document.createElement('div');
+        stats.className = 'branch-stats';
+        
+        const openCount = branchTickets[branch].filter(t => t.status === 'Open').length;
+        const sentCount = branchTickets[branch].filter(t => t.status === 'Sent').length;
+        const closedCount = branchTickets[branch].filter(t => t.status === 'Closed').length;
+        const rejectedCount = branchTickets[branch].filter(t => t.status === 'Rejected').length;
+        
+        // Open stat
+        const openStat = document.createElement('div');
+        openStat.className = 'branch-stat-item';
+        const openValue = document.createElement('div');
+        openValue.className = 'branch-stat-value';
+        openValue.textContent = openCount;
+        openValue.style.color = '#0d6efd';
+        const openLabel = document.createElement('div');
+        openLabel.className = 'branch-stat-label';
+        openLabel.textContent = 'Open';
+        openStat.appendChild(openValue);
+        openStat.appendChild(openLabel);
+        stats.appendChild(openStat);
+        
+        // Sent stat
+        const sentStat = document.createElement('div');
+        sentStat.className = 'branch-stat-item';
+        const sentValue = document.createElement('div');
+        sentValue.className = 'branch-stat-value';
+        sentValue.textContent = sentCount;
+        sentValue.style.color = '#ffc107';
+        const sentLabel = document.createElement('div');
+        sentLabel.className = 'branch-stat-label';
+        sentLabel.textContent = 'Sent';
+        sentStat.appendChild(sentValue);
+        sentStat.appendChild(sentLabel);
+        stats.appendChild(sentStat);
+        
+        // Closed stat
+        const closedStat = document.createElement('div');
+        closedStat.className = 'branch-stat-item';
+        const closedValue = document.createElement('div');
+        closedValue.className = 'branch-stat-value';
+        closedValue.textContent = closedCount;
+        closedValue.style.color = '#198754';
+        const closedLabel = document.createElement('div');
+        closedLabel.className = 'branch-stat-label';
+        closedLabel.textContent = 'Closed';
+        closedStat.appendChild(closedValue);
+        closedStat.appendChild(closedLabel);
+        stats.appendChild(closedStat);
+        
+        // Rejected stat
+        const rejectedStat = document.createElement('div');
+        rejectedStat.className = 'branch-stat-item';
+        const rejectedValue = document.createElement('div');
+        rejectedValue.className = 'branch-stat-value';
+        rejectedValue.textContent = rejectedCount;
+        rejectedValue.style.color = '#dc3545';
+        const rejectedLabel = document.createElement('div');
+        rejectedLabel.className = 'branch-stat-label';
+        rejectedLabel.textContent = 'Rejected';
+        rejectedStat.appendChild(rejectedValue);
+        rejectedStat.appendChild(rejectedLabel);
+        stats.appendChild(rejectedStat);
+        
+        branchCard.appendChild(stats);
+        
+        // Create case reasons
+        const reasons = document.createElement('div');
+        reasons.className = 'case-reasons';
+        
+        const reasonsTitle = document.createElement('h6');
+        reasonsTitle.textContent = 'Top Case Reasons';
+        reasons.appendChild(reasonsTitle);
+        
+        // Count case reasons
+        const reasonCounts = {};
+        branchTickets[branch].forEach(ticket => {
+          // Extract case type from issue description (simplified)
+          const reason = ticket.issue.split(' ')[0] || 'Other';
+          reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
+        });
+        
+        // Sort reasons by count
+        const sortedReasons = Object.keys(reasonCounts)
+          .sort((a, b) => reasonCounts[b] - reasonCounts[a])
+          .slice(0, 3);
+        
+        // Create reason items
+        sortedReasons.forEach(reason => {
+          const reasonItem = document.createElement('div');
+          reasonItem.className = 'case-reason-item';
+          
+          const reasonInfo = document.createElement('div');
+          reasonInfo.className = 'case-reason-info';
+          
+          const reasonName = document.createElement('div');
+          reasonName.className = 'case-reason-name';
+          reasonName.textContent = reason;
+          
+          const reasonCount = document.createElement('div');
+          reasonCount.className = 'case-reason-count';
+          reasonCount.textContent = `${reasonCounts[reason]} cases`;
+          
+          reasonInfo.appendChild(reasonName);
+          reasonInfo.appendChild(reasonCount);
+          
+          const reasonBar = document.createElement('div');
+          reasonBar.className = 'case-reason-bar';
+          
+          const reasonProgress = document.createElement('div');
+          reasonProgress.className = 'case-reason-progress';
+          const percentage = (reasonCounts[reason] / branchTickets[branch].length) * 100;
+          reasonProgress.style.width = `${percentage}%`;
+          
+          reasonBar.appendChild(reasonProgress);
+          
+          reasonItem.appendChild(reasonInfo);
+          reasonItem.appendChild(reasonBar);
+          
+          reasons.appendChild(reasonItem);
+        });
+        
+        branchCard.appendChild(reasons);
+        grid.appendChild(branchCard);
+      });
+      
+      container.appendChild(grid);
+      
+      // Update case analysis badge
+      const openTickets = tickets.filter(t => t.status === 'Open').length;
+      const totalTickets = tickets.length;
+      const percentage = totalTickets > 0 ? (openTickets / totalTickets) * 100 : 0;
+      
+      const badge = document.getElementById('caseAnalysisBadge');
+      badge.textContent = `${percentage.toFixed(1)}% Open Cases`;
+      
+      if (percentage > 30) {
+        badge.className = 'case-badge badge-high';
+      } else if (percentage > 15) {
+        badge.className = 'case-badge badge-medium';
+      } else {
+        badge.className = 'case-badge badge-low';
+      }
+    }
+    
+    // ===== DOCK FUNCTIONS =====
+    function toggleDock() {
+      const panel = document.getElementById('dockPanel');
+      panel.classList.toggle('show');
+      
+      // Add command
+      addCommand(`Dock ${panel.classList.contains('show') ? 'opened' : 'closed'}`, 'User');
+    }
+    
+    function toggleDockDropdown(button) {
+      const dropdown = button.nextElementSibling;
+      dropdown.classList.toggle('show');
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function closeDropdown(e) {
+        if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.remove('show');
+          document.removeEventListener('click', closeDropdown);
+        }
+      });
+    }
+    
+    // ===== BRANCH MANAGEMENT FUNCTIONS =====
+    function openBranchManagement() {
+      // Populate branch table
+      const tableBody = document.getElementById('branchTableBody');
+      tableBody.innerHTML = '';
+      
+      branches.forEach(branch => {
+        const row = document.createElement('tr');
+        
+        // Name
+        const nameCell = document.createElement('td');
+        nameCell.textContent = branch.name;
+        row.appendChild(nameCell);
+        
+        // Manager
+        const managerCell = document.createElement('td');
+        managerCell.textContent = branch.manager;
+        row.appendChild(managerCell);
+        
+        // Contact
+        const contactCell = document.createElement('td');
+        contactCell.textContent = branch.contact;
+        row.appendChild(contactCell);
+        
+        // Address
+        const addressCell = document.createElement('td');
+        addressCell.textContent = branch.address;
+        row.appendChild(addressCell);
+        
+        // Actions
+        const actionsCell = document.createElement('td');
+        const actions = document.createElement('div');
+        actions.className = 'd-flex gap-2';
+        
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn btn-sm btn-outline-primary';
+        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
+        editBtn.title = 'Edit';
+        editBtn.onclick = function() {
+          editBranch(branch.id);
+        };
+        actions.appendChild(editBtn);
+        
+        // Delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-sm btn-outline-danger';
+        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
+        deleteBtn.title = 'Delete';
+        deleteBtn.onclick = function() {
+          deleteBranch(branch.id);
+        };
+        actions.appendChild(deleteBtn);
+        
+        actionsCell.appendChild(actions);
+        row.appendChild(actionsCell);
+        
+        tableBody.appendChild(row);
+      });
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('branchModal'));
+      modal.show();
+      
+      addCommand('Opened branch management', 'User');
+    }
+    
+    function openAddBranchModal() {
+      // Reset form
+      document.getElementById('addBranchForm').reset();
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('addBranchModal'));
+      modal.show();
+      
+      addCommand('Opened add branch modal', 'User');
+    }
+    
+    function saveNewBranch() {
+      // Get form values
+      const name = document.getElementById('branchName').value;
+      const manager = document.getElementById('branchManager').value;
+      const contact = document.getElementById('branchContact').value;
+      const address = document.getElementById('branchAddress').value;
+      const email = document.getElementById('branchEmail').value;
+      const workingHours = document.getElementById('branchHours').value;
+      const compensationRate = parseFloat(document.getElementById('compensationRate').value) / 100;
+      
+      // Validate form
+      if (!name || !manager || !contact || !address) {
+        showNotification('Please fill in all required fields', 'error');
         return;
       }
       
-      // Group tickets by branch
-      const branchData = {};
-      tickets.forEach(t => {
-        if (!branchData[t.branch]) {
-          branchData[t.branch] = {
-            total: 0,
-            compensation: 0,
-            refunded: 0,
-            issues: {}
-          };
-        }
-        branchData[t.branch].total++;
-        branchData[t.branch].compensation += parseFloat(t.compensationAmount || 0);
-        branchData[t.branch].refunded += parseFloat(t.refundedAmount || 0);
+      // Create new branch
+      const newBranch = {
+        id: Date.now().toString(),
+        name,
+        manager,
+        contact,
+        address,
+        email,
+        workingHours,
+        status: 'active',
+        compensationRate,
+        lastUpdated: new Date().toISOString()
+      };
+      
+      // Add branch
+      branches.push(newBranch);
+      
+      // Save branches
+      saveBranches();
+      
+      // Update UI
+      openBranchManagement();
+      updateBranchFilter();
+      
+      // Close modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addBranchModal'));
+      modal.hide();
+      
+      showNotification('Branch added successfully', 'success');
+      addCommand(`Added new branch: ${name}`, 'User');
+    }
+    
+    function editBranch(id) {
+      const branch = branches.find(b => b.id === id);
+      if (!branch) return;
+      
+      // Populate form with branch data
+      document.getElementById('branchName').value = branch.name;
+      document.getElementById('branchManager').value = branch.manager;
+      document.getElementById('branchContact').value = branch.contact;
+      document.getElementById('branchAddress').value = branch.address;
+      document.getElementById('branchEmail').value = branch.email || '';
+      document.getElementById('branchHours').value = branch.workingHours || '';
+      document.getElementById('compensationRate').value = (branch.compensationRate * 100).toFixed(0);
+      
+      // Update modal title
+      document.querySelector('#addBranchModal .modal-title').textContent = 'Edit Branch';
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('addBranchModal'));
+      modal.show();
+      
+      // Override save function to update existing branch
+      window.saveBranch = function() {
+        // Update branch
+        branch.name = document.getElementById('branchName').value;
+        branch.manager = document.getElementById('branchManager').value;
+        branch.contact = document.getElementById('branchContact').value;
+        branch.address = document.getElementById('branchAddress').value;
+        branch.email = document.getElementById('branchEmail').value;
+        branch.workingHours = document.getElementById('branchHours').value;
+        branch.compensationRate = parseFloat(document.getElementById('compensationRate').value) / 100;
+        branch.lastUpdated = new Date().toISOString();
         
-        // Count issues
-        const issueType = t.issue.split(' ')[0] || 'Other';
-        branchData[t.branch].issues[issueType] = (branchData[t.branch].issues[issueType] || 0) + 1;
+        // Save branches
+        saveBranches();
+        
+        // Update UI
+        openBranchManagement();
+        updateBranchFilter();
+        
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addBranchModal'));
+        modal.hide();
+        
+        showNotification('Branch updated successfully', 'success');
+        addCommand(`Updated branch: ${branch.name}`, 'User');
+        
+        // Reset save function
+        window.saveBranch = saveNewBranch;
+        document.querySelector('#addBranchModal .modal-title').textContent = 'Add New Branch';
+      };
+    }
+    
+    function deleteBranch(id) {
+      if (settings.confirmActions && !confirm('Are you sure you want to delete this branch?')) {
+        return;
+      }
+      
+      const branch = branches.find(b => b.id === id);
+      if (!branch) return;
+      
+      // Check if branch has tickets
+      const branchTickets = tickets.filter(t => t.branch === branch.name);
+      if (branchTickets.length > 0) {
+        showNotification(`Cannot delete branch. It has ${branchTickets.length} associated cases.`, 'error');
+        return;
+      }
+      
+      // Delete branch
+      branches = branches.filter(b => b.id !== id);
+      
+      // Save branches
+      saveBranches();
+      
+      // Update UI
+      openBranchManagement();
+      updateBranchFilter();
+      
+      showNotification('Branch deleted successfully', 'success');
+      addCommand(`Deleted branch: ${branch.name}`, 'User');
+    }
+    
+    function viewBranchPerformance() {
+      // Get performance data
+      const performanceData = branches.map(branch => {
+        const branchTickets = tickets.filter(t => t.branch === branch.name);
+        
+        return {
+          branch: branch.name,
+          manager: branch.manager,
+          totalCases: branchTickets.length,
+          openCases: branchTickets.filter(t => t.status === 'Open').length,
+          closedCases: branchTickets.filter(t => t.status === 'Closed').length,
+          totalCompensation: branchTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount || 0), 0),
+          avgCompensation: branchTickets.length > 0 ? 
+            branchTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount || 0), 0) / branchTickets.length : 0,
+          compensationRate: branch.compensationRate,
+          efficiency: branchTickets.length > 0 ? 
+            (branchTickets.filter(t => t.status === 'Closed').length / branchTickets.length * branch.compensationRate * 100).toFixed(1) : 0
+        };
       });
       
-      // Generate branch analysis cards
-      const branchCards = Object.keys(branchData).map(branch => {
-        const data = branchData[branch];
-        const topIssue = Object.keys(data.issues).reduce((a, b) => 
-          data.issues[a] > data.issues[b] ? a : b, '-');
+      // Sort by efficiency
+      performanceData.sort((a, b) => parseFloat(b.efficiency) - parseFloat(a.efficiency));
+      
+      // Create content
+      const content = document.getElementById('branchPerformanceContent');
+      content.innerHTML = '';
+      
+      // Create header
+      const header = document.createElement('div');
+      header.className = 'mb-4';
+      header.innerHTML = `
+        <h4>Branch Performance Overview</h4>
+        <p>Sorted by efficiency score (cases resolved × compensation rate)</p>
+      `;
+      content.appendChild(header);
+      
+      // Create performance grid
+      const grid = document.createElement('div');
+      grid.className = 'branch-management-grid';
+      
+      // Create a card for each branch
+      performanceData.forEach(performance => {
+        const card = document.createElement('div');
+        card.className = 'branch-card';
         
-        return `
-          <div class="branch-card">
-            <h6>${branch}</h6>
-            <div class="branch-stats">
-              <div class="branch-stat-item">
-                <div class="branch-stat-value">${data.total}</div>
-                <div class="branch-stat-label">Total Cases</div>
-              </div>
-              <div class="branch-stat-item">
-                <div class="branch-stat-value">${data.compensation.toFixed(2)}</div>
-                <div class="branch-stat-label">Compensation</div>
-              </div>
-              <div class="branch-stat-item">
-                <div class="branch-stat-value">${data.refunded.toFixed(2)}</div>
-                <div class="branch-stat-label">Refunded</div>
-              </div>
-              <div class="branch-stat-item">
-                <div class="branch-stat-value">${topIssue}</div>
-                <div class="branch-stat-label">Top Issue</div>
-              </div>
-            </div>
-            <div class="case-reasons">
-              <h6>Case Reasons</h6>
-              ${Object.keys(data.issues).map(issue => `
-                <div class="case-reason-item">
-                  <div class="case-reason-info">
-                    <div class="case-reason-name">${issue}</div>
-                    <div class="case-reason-count">${data.issues[issue]} cases</div>
-                  </div>
-                  <div class="case-reason-bar">
-                    <div class="case-reason-progress" style="width: ${(data.issues[issue] / data.total) * 100}%"></div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
+        const header = document.createElement('h6');
+        header.textContent = performance.branch;
+        card.appendChild(header);
+        
+        // Manager info
+        const managerInfo = document.createElement('p');
+        managerInfo.className = 'mb-2';
+        managerInfo.innerHTML = `<strong>Manager:</strong> ${performance.manager}`;
+        card.appendChild(managerInfo);
+        
+        // Performance metrics
+        const metrics = document.createElement('div');
+        metrics.className = 'branch-performance-metrics';
+        
+        // Total cases
+        const casesMetric = document.createElement('div');
+        casesMetric.className = 'metric-card';
+        casesMetric.innerHTML = `
+          <div class="value">${performance.totalCases}</div>
+          <div class="label">Total Cases</div>
         `;
-      }).join('');
+        metrics.appendChild(casesMetric);
+        
+        // Efficiency
+        const efficiencyMetric = document.createElement('div');
+        efficiencyMetric.className = 'metric-card';
+        efficiencyMetric.innerHTML = `
+          <div class="value">${performance.efficiency}%</div>
+          <div class="label">Efficiency</div>
+        `;
+        metrics.appendChild(efficiencyMetric);
+        
+        // Total compensation
+        const compensationMetric = document.createElement('div');
+        compensationMetric.className = 'metric-card';
+        compensationMetric.innerHTML = `
+          <div class="value">${performance.totalCompensation.toFixed(2)}</div>
+          <div class="label">Total Compensation</div>
+        `;
+        metrics.appendChild(compensationMetric);
+        
+        // Compensation rate
+        const rateMetric = document.createElement('div');
+        rateMetric.className = 'metric-card';
+        rateMetric.innerHTML = `
+          <div class="value">${(performance.compensationRate * 100).toFixed(0)}%</div>
+          <div class="label">Compensation Rate</div>
+        `;
+        metrics.appendChild(rateMetric);
+        
+        card.appendChild(metrics);
+        
+        // Chart container
+        const chartContainer = document.createElement('div');
+        chartContainer.className = 'branch-chart-container';
+        
+        // Create chart
+        const canvas = document.createElement('canvas');
+        chartContainer.appendChild(canvas);
+        
+        card.appendChild(chartContainer);
+        
+        grid.appendChild(card);
+        
+        // Initialize chart
+        const ctx = canvas.getContext('2d');
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Open', 'Closed', 'Sent', 'Rejected'],
+            datasets: [{
+              data: [
+                performance.openCases,
+                performance.closedCases,
+                branchTickets.filter(t => t.status === 'Sent').length,
+                branchTickets.filter(t => t.status === 'Rejected').length
+              ],
+              backgroundColor: [
+                'rgba(13, 110, 253, 0.5)',
+                'rgba(25, 135, 84, 0.5)',
+                'rgba(255, 193, 7, 0.5)',
+                'rgba(220, 53, 69, 0.5)'
+              ],
+              borderColor: [
+                'rgba(13, 110, 253, 1)',
+                'rgba(25, 135, 84, 1)',
+                'rgba(255, 193, 7, 1)',
+                'rgba(220, 53, 69, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom'
+              },
+              title: {
+                display: true,
+                text: 'Case Status Distribution'
+              }
+            }
+          }
+        });
+      });
       
-      container.innerHTML = `<div class="branch-analysis-grid">${branchCards}</div>`;
+      content.appendChild(grid);
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('branchPerformanceModal'));
+      modal.show();
+      
+      addCommand('Viewed branch performance', 'User');
     }
     
-    function updateDisputeDashboard() {
-      // Urgent cases (high compensation amount)
-      const urgentCases = tickets.filter(t => parseFloat(t.compensationAmount || 0) > 100);
-      document.getElementById('urgentCases').textContent = urgentCases.length;
+    // ===== TICKET MANAGEMENT FUNCTIONS =====
+    function openAddModal() {
+      // Reset form
+      document.getElementById('ticketForm').reset();
+      document.getElementById('ticketId').value = '';
+      document.getElementById('duplicateWarning').classList.remove('show');
       
-      // Evidence pending cases (simplified - cases without notes)
-      const evidencePending = tickets.filter(t => !t.notes || t.notes.trim() === '');
-      document.getElementById('evidencePending').textContent = evidencePending.length;
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+      modal.show();
       
-      // Escalated cases
-      const escalatedCases = tickets.filter(t => t.status === 'Escalated');
-      document.getElementById('escalatedCases').textContent = escalatedCases.length;
-      
-      // Timeline (simplified - last 5 actions)
-      const timeline = tickets.slice(-5).reverse().map(ticket => `
-        <div class="timeline-item">
-          <div class="timeline-time">${new Date(ticket.date).toLocaleString()}</div>
-          <div class="timeline-text">
-            <strong>${ticket.orderId}</strong> - ${ticket.status} - ${ticket.branch}
-          </div>
-        </div>
-      `).join('');
-      
-      document.getElementById('disputeTimeline').innerHTML = timeline || '<p class="text-muted">No recent actions</p>';
+      addCommand('Opened add case modal', 'User');
     }
     
+    function saveTicket() {
+      // Get form values
+      const id = document.getElementById('ticketId').value;
+      const orderId = document.getElementById('orderId').value;
+      const branch = document.getElementById('branch').value;
+      const platform = document.getElementById('platform').value;
+      const status = document.getElementById('status').value;
+      const originalAmount = document.getElementById('originalAmount').value;
+      const compensationAmount = document.getElementById('compensationAmount').value;
+      const refundMethod = document.getElementById('refundMethod').value;
+      const refundedAmount = document.getElementById('refundedAmount').value || 0;
+      const issue = document.getElementById('issue').value;
+      const notes = document.getElementById('notes').value;
+      
+      // Validate form
+      if (!orderId || !branch || !platform || !status || !originalAmount || !compensationAmount || !issue) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+      }
+      
+      // Check for duplicate order ID
+      const duplicateTicket = tickets.find(t => t.orderId === orderId && t.id !== id);
+      if (duplicateTicket) {
+        showNotification('Duplicate Order ID detected', 'error');
+        return;
+      }
+      
+      // Create ticket object
+      const ticket = {
+        id: id || Date.now().toString(),
+        orderId,
+        branch,
+        platform,
+        status,
+        originalAmount: parseFloat(originalAmount),
+        compensationAmount: parseFloat(compensationAmount),
+        refundMethod,
+        refundedAmount: parseFloat(refundedAmount),
+        issue,
+        notes,
+        date: new Date().toISOString()
+      };
+      
+      // Save ticket
+      if (id) {
+        // Update existing ticket
+        const index = tickets.findIndex(t => t.id === id);
+        if (index !== -1) {
+          tickets[index] = ticket;
+          showNotification('Case updated successfully', 'success');
+          addCommand(`Updated case ${orderId}`, 'User');
+        }
+      } else {
+        // Add new ticket
+        tickets.push(ticket);
+        showNotification('Case added successfully', 'success');
+        addCommand(`Added new case ${orderId}`, 'User');
+      }
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      
+      // Close modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('ticketModal'));
+      modal.hide();
+    }
+    
+    function addSample() {
+      // Sample data
+      const sampleTickets = [
+        {
+          id: Date.now().toString(),
+          orderId: 'ORD-001',
+          branch: 'Downtown',
+          platform: 'Noon',
+          status: 'Closed',
+          originalAmount: 85.50,
+          compensationAmount: 25.00,
+          refundMethod: 'Card',
+          refundedAmount: 25.00,
+          issue: 'Wrong item delivered',
+          notes: 'Customer received wrong item',
+          date: new Date().toISOString()
+        },
+        {
+          id: (Date.now() + 1).toString(),
+          orderId: 'ORD-002',
+          branch: 'Mall',
+          platform: 'Careem',
+          status: 'Open',
+          originalAmount: 120.00,
+          compensationAmount: 40.00,
+          refundMethod: '',
+          refundedAmount: 0,
+          issue: 'Late delivery',
+          notes: 'Order was 45 minutes late',
+          date: new Date(Date.now() - 86400000).toISOString() // Yesterday
+        },
+        {
+          id: (Date.now() + 2).toString(),
+          orderId: 'ORD-003',
+          branch: 'Airport',
+          platform: 'Noon',
+          status: 'Rejected',
+          originalAmount: 65.00,
+          compensationAmount: 20.00,
+          refundMethod: '',
+          refundedAmount: 0,
+          issue: 'Missing items',
+          notes: 'Customer claimed missing items but no evidence provided',
+          date: new Date(Date.now() - 172800000).toISOString() // 2 days ago
+        }
+      ];
+      
+      // Add sample tickets
+      tickets.push(...sampleTickets);
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      
+      // Show notification
+      showNotification('Sample data added successfully', 'success');
+      addCommand('Added sample data', 'User');
+    }
+    
+    // ===== FILTERING AND SORTING =====
+    function filterTickets() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const branchFilter = document.getElementById('filterBranch').value;
+      const platformFilter = document.getElementById('filterPlatform').value;
+      const statusFilter = document.getElementById('filterStatus').value;
+      
+      // Get all rows in the table
+      const rows = document.querySelectorAll('#ticketsContainer tbody tr');
+      
+      rows.forEach(row => {
+        // Skip empty state row
+        if (row.querySelector('.empty-state')) return;
+        
+        // Get cell values
+        const orderId = row.cells[0].textContent.toLowerCase();
+        const branch = row.cells[1].textContent.toLowerCase();
+        const platform = row.cells[2].textContent.toLowerCase();
+        const issue = row.cells[3].textContent.toLowerCase();
+        const status = row.cells[5].textContent.toLowerCase();
+        
+        // Check if row matches filters
+        const matchesSearch = orderId.includes(searchTerm) || 
+                              branch.includes(searchTerm) || 
+                              issue.includes(searchTerm);
+        const matchesBranch = !branchFilter || branch === branchFilter.toLowerCase();
+        const matchesPlatform = !platformFilter || platform === platformFilter.toLowerCase();
+        const matchesStatus = !statusFilter || status === statusFilter.toLowerCase();
+        
+        // Show or hide row
+        if (matchesSearch && matchesBranch && matchesPlatform && matchesStatus) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+    
+    function sortTickets(criteria) {
+      // Get all rows in the table
+      const tbody = document.querySelector('#ticketsContainer tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      
+      // Skip empty state row
+      if (rows.length === 1 && rows[0].querySelector('.empty-state')) {
+        return;
+      }
+      
+      // Sort rows based on criteria
+      rows.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch (criteria) {
+          case 'date-desc':
+            // Get date from ticket data (not directly available in DOM)
+            const aOrderId = a.cells[0].textContent;
+            const bOrderId = b.cells[0].textContent;
+            const aTicket = tickets.find(t => t.orderId === aOrderId);
+            const bTicket = tickets.find(t => t.orderId === bOrderId);
+            return new Date(bTicket.date) - new Date(aTicket.date);
+            
+          case 'date-asc':
+            const aOrderIdAsc = a.cells[0].textContent;
+            const bOrderIdAsc = b.cells[0].textContent;
+            const aTicketAsc = tickets.find(t => t.orderId === aOrderIdAsc);
+            const bTicketAsc = tickets.find(t => t.orderId === bOrderIdAsc);
+            return new Date(aTicketAsc.date) - new Date(bTicketAsc.date);
+            
+          case 'amount-desc':
+            aValue = parseFloat(a.cells[7].textContent);
+            bValue = parseFloat(b.cells[7].textContent);
+            return bValue - aValue;
+            
+          case 'amount-asc':
+            aValue = parseFloat(a.cells[7].textContent);
+            bValue = parseFloat(b.cells[7].textContent);
+            return aValue - bValue;
+            
+          case 'status':
+            aValue = a.cells[5].textContent;
+            bValue = b.cells[5].textContent;
+            return aValue.localeCompare(bValue);
+            
+          case 'platform':
+            aValue = a.cells[2].textContent;
+            bValue = b.cells[2].textContent;
+            return aValue.localeCompare(bValue);
+            
+          default:
+            return 0;
+        }
+      });
+      
+      // Reorder rows in the table
+      rows.forEach(row => tbody.appendChild(row));
+      
+      addCommand(`Sorted tickets by ${criteria}`, 'User');
+    }
+    
+    // ===== UTILITY FUNCTIONS =====
+    function checkForDuplicateOrder() {
+      const orderId = document.getElementById('orderId').value;
+      const ticketId = document.getElementById('ticketId').value;
+      
+      // Check for duplicate order ID
+      const duplicateTicket = tickets.find(t => t.orderId === orderId && t.id !== ticketId);
+      
+      const warning = document.getElementById('duplicateWarning');
+      if (duplicateTicket && orderId) {
+        warning.classList.add('show');
+      } else {
+        warning.classList.remove('show');
+      }
+    }
+    
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    function showNotification(message, type = 'info') {
+      if (!settings.notifications) return;
+      
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      
+      document.getElementById('notificationContainer').appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+        
+        // Remove notification from DOM after animation completes
+        setTimeout(() => {
+          notification.remove();
+        }, 400);
+      }, 3000);
+    }
+    
+    function addCommand(text, user = 'System') {
+      const command = {
+        text,
+        user,
+        timestamp: new Date().toISOString()
+      };
+      
+      commands.push(command);
+      
+      // Keep only the last 100 commands
+      if (commands.length > 100) {
+        commands = commands.slice(-100);
+      }
+      
+      // Save commands
+      localStorage.setItem('commands', JSON.stringify(commands));
+    }
+    
+    function refreshData() {
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      
+      // Simulate loading delay
+      setTimeout(() => {
+        // Update UI
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        renderTicketsTable();
+        updateBranchFilter();
+        
+        // Hide loading overlay
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        // Show notification
+        showNotification('Data refreshed successfully', 'success');
+        addCommand('Refreshed data', 'User');
+      }, 1000);
+    }
+    
+    function clearAllData() {
+      if (settings.confirmActions && !confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+        return;
+      }
+      
+      // Clear data
+      tickets = [];
+      commands = [];
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      updateCommands();
+      
+      // Show notification
+      showNotification('All data cleared successfully', 'success');
+      addCommand('Cleared all data', 'User');
+    }
+    
+    function backupData() {
+      // Create backup object
+      const backup = {
+        tickets,
+        branches,
+        commands,
+        settings,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Convert to JSON
+      const backupJson = JSON.stringify(backup);
+      
+      // Create blob and download
+      const blob = new Blob([backupJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `compensation_backup_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      showNotification('Backup created successfully', 'success');
+      addCommand('Created data backup', 'User');
+    }
+    
+    function restoreData() {
+      // Create file input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      
+      input.onchange = function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const backup = JSON.parse(e.target.result);
+            
+            // Restore data
+            tickets = backup.tickets || [];
+            branches = backup.branches || [];
+            commands = backup.commands || [];
+            settings = backup.settings || settings;
+            
+            // Save data
+            saveData();
+            
+            // Apply settings
+            applySettings();
+            
+            // Update UI
+            updateStats();
+            updateSummarySection();
+            updatePlatformCards();
+            updateCharts();
+            updateBranchAnalysis();
+            renderTicketsTable();
+            updateBranchFilter();
+            updateCommands();
+            
+            showNotification('Data restored successfully', 'success');
+            addCommand('Restored data from backup', 'User');
+            
+          } catch (error) {
+            console.error('Error restoring backup:', error);
+            showNotification('Error restoring backup. Please check the file.', 'error');
+          }
+        };
+        
+        reader.readAsText(file);
+      };
+      
+      input.click();
+    }
+    
+    function archiveOldCases() {
+      if (settings.confirmActions && !confirm('Are you sure you want to archive old cases?')) {
+        return;
+      }
+      
+      // Get cases older than 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      
+      const oldCases = tickets.filter(t => new Date(t.date) < thirtyDaysAgo);
+      
+      if (oldCases.length === 0) {
+        showNotification('No old cases to archive', 'info');
+        return;
+      }
+      
+      // Create archive
+      const archive = {
+        cases: oldCases,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Convert to JSON
+      const archiveJson = JSON.stringify(archive);
+      
+      // Create blob and download
+      const blob = new Blob([archiveJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `cases_archive_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      // Remove old cases from tickets
+      tickets = tickets.filter(t => new Date(t.date) >= thirtyDaysAgo);
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      
+      showNotification(`${oldCases.length} cases archived successfully`, 'success');
+      addCommand(`Archived ${oldCases.length} old cases`, 'User');
+    }
+    
+    function checkForDuplicates() {
+      const orderIds = tickets.map(t => t.orderId);
+      const duplicateOrderIds = orderIds.filter((id, index) => orderIds.indexOf(id) !== index);
+      const uniqueDuplicates = [...new Set(duplicateOrderIds)];
+      
+      if (uniqueDuplicates.length === 0) {
+        showNotification('No duplicate cases found', 'success');
+        addCommand('Checked for duplicates - none found', 'User');
+        return;
+      }
+      
+      // Highlight duplicate rows
+      const rows = document.querySelectorAll('#ticketsContainer tbody tr');
+      
+      rows.forEach(row => {
+        // Skip empty state row
+        if (row.querySelector('.empty-state')) return;
+        
+        const orderId = row.cells[0].textContent;
+        
+        if (uniqueDuplicates.includes(orderId)) {
+          row.style.backgroundColor = 'rgba(255, 193, 7, 0.2)';
+        }
+      });
+      
+      showNotification(`${uniqueDuplicates.length} duplicate cases found and highlighted`, 'warning');
+      addCommand(`Found ${uniqueDuplicates.length} duplicate cases`, 'User');
+    }
+    
+    function addCustomCommand() {
+      const commandInput = document.getElementById('commandInput');
+      const commandText = commandInput.value.trim();
+      
+      if (commandText) {
+        addCommand(commandText, 'User');
+        commandInput.value = '';
+        showNotification('Command added', 'success');
+      }
+    }
+    
+    // ===== REPORT FUNCTIONS =====
+    function generateDailyReport() {
+      // Show daily summary modal
+      const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
+      modal.show();
+      
+      // Generate summary
+      generateDailySummary();
+      
+      addCommand('Generated daily report', 'User');
+    }
+    
+    function generateDailySummary() {
+      const dateInput = document.getElementById('summaryDateInput').value;
+      if (!dateInput) return;
+      
+      const selectedDate = new Date(dateInput);
+      const startDate = new Date(selectedDate);
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date(selectedDate);
+      endDate.setHours(23, 59, 59, 999);
+      
+      // Filter tickets for selected date
+      const dayTickets = tickets.filter(t => {
+        const ticketDate = new Date(t.date);
+        return ticketDate >= startDate && ticketDate <= endDate;
+      });
+      
+      // Group tickets by branch
+      const branchTickets = {};
+      dayTickets.forEach(ticket => {
+        if (!branchTickets[ticket.branch]) {
+          branchTickets[ticket.branch] = [];
+        }
+        branchTickets[ticket.branch].push(ticket);
+      });
+      
+      // Generate summary content
+      const content = document.getElementById('dailySummaryContent');
+      content.innerHTML = '';
+      
+      // Summary header
+      const header = document.createElement('div');
+      header.className = 'mb-4';
+      header.innerHTML = `
+        <h4>Daily Summary for ${selectedDate.toLocaleDateString()}</h4>
+        <p>Total Cases: ${dayTickets.length} | 
+           Open: ${dayTickets.filter(t => t.status === 'Open').length} | 
+           Closed: ${dayTickets.filter(t => t.status === 'Closed').length} | 
+           Total Compensation: ${dayTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)} AED</p>
+      `;
+      content.appendChild(header);
+      
+      // Branch summaries
+      Object.keys(branchTickets).forEach(branch => {
+        const branchContainer = document.createElement('div');
+        branchContainer.className = 'daily-branch-item';
+        
+        const branchHeader = document.createElement('div');
+        branchHeader.className = 'daily-branch-header';
+        
+        const branchName = document.createElement('div');
+        branchName.className = 'daily-branch-name';
+        branchName.textContent = branch;
+        branchHeader.appendChild(branchName);
+        
+        const branchStats = document.createElement('div');
+        branchStats.className = 'daily-branch-stats';
+        
+        const openCount = document.createElement('div');
+        openCount.className = 'daily-stat';
+        openCount.innerHTML = `
+          <div class="daily-stat-value">${branchTickets[branch].filter(t => t.status === 'Open').length}</div>
+          <div class="daily-stat-label">Open</div>
+        `;
+        branchStats.appendChild(openCount);
+        
+        const closedCount = document.createElement('div');
+        closedCount.className = 'daily-stat';
+        closedCount.innerHTML = `
+          <div class="daily-stat-value">${branchTickets[branch].filter(t => t.status === 'Closed').length}</div>
+          <div class="daily-stat-label">Closed</div>
+        `;
+        branchStats.appendChild(closedCount);
+        
+        const totalAmount = document.createElement('div');
+        totalAmount.className = 'daily-stat';
+        totalAmount.innerHTML = `
+          <div class="daily-stat-value">${branchTickets[branch].reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
+          <div class="daily-stat-label">Amount</div>
+        `;
+        branchStats.appendChild(totalAmount);
+        
+        branchHeader.appendChild(branchStats);
+        branchContainer.appendChild(branchHeader);
+        
+        // Branch cases
+        const casesList = document.createElement('div');
+        casesList.className = 'mt-2';
+        
+        branchTickets[branch].forEach(ticket => {
+          const caseItem = document.createElement('div');
+          caseItem.className = `case-item ${ticket.status === 'Closed' ? 'recovered' : 'pending'}`;
+          caseItem.innerHTML = `
+            <div class="case-info">
+              <div class="case-order">${ticket.orderId}</div>
+              <div class="case-platform">${ticket.platform}</div>
+            </div>
+            <div class="case-amount">${ticket.compensationAmount} AED</div>
+          `;
+          casesList.appendChild(caseItem);
+        });
+        
+        branchContainer.appendChild(casesList);
+        content.appendChild(branchContainer);
+      });
+      
+      if (dayTickets.length === 0) {
+        content.innerHTML = '<p class="text-center text-muted">No cases found for the selected date</p>';
+      }
+    }
+    
+    function exportDailySummary() {
+      // This would typically generate a PDF or Excel report
+      // For simplicity, we'll just show a notification
+      showNotification('Daily summary exported successfully', 'success');
+      addCommand('Exported daily summary', 'User');
+    }
+    
+    function generateDisputeReport() {
+      // Get disputed tickets (rejected or high compensation)
+      const disputedTickets = tickets.filter(t => 
+        t.status === 'Rejected' || parseFloat(t.compensationAmount) > 50
+      );
+      
+      if (disputedTickets.length === 0) {
+        showNotification('No disputed cases found', 'info');
+        return;
+      }
+      
+      // Create report content
+      const reportContent = {
+        title: 'Dispute Report',
+        date: new Date().toLocaleDateString(),
+        summary: {
+          totalDisputes: disputedTickets.length,
+          rejectedCases: disputedTickets.filter(t => t.status === 'Rejected').length,
+          highCompensationCases: disputedTickets.filter(t => parseFloat(t.compensationAmount) > 50).length,
+          totalAmount: disputedTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0)
+        },
+        cases: disputedTickets.map(t => ({
+          orderId: t.orderId,
+          branch: t.branch,
+          platform: t.platform,
+          status: t.status,
+          amount: t.compensationAmount,
+          issue: t.issue,
+          date: new Date(t.date).toLocaleDateString()
+        }))
+      };
+      
+      // Convert to JSON
+      const reportJson = JSON.stringify(reportContent, null, 2);
+      
+      // Create blob and download
+      const blob = new Blob([reportJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `dispute_report_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      showNotification('Dispute report generated successfully', 'success');
+      addCommand('Generated dispute report', 'User');
+    }
+    
+    function generateFinancialReport() {
+      // Create financial report
+      const financialReport = {
+        title: 'Financial Report',
+        date: new Date().toLocaleDateString(),
+        summary: {
+          totalCases: tickets.length,
+          totalOriginalAmount: tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0),
+          totalCompensation: tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
+          totalRefunded: tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0),
+          netCompensation: tickets.reduce((sum, t) => sum + (parseFloat(t.compensationAmount) - parseFloat(t.refundedAmount)), 0)
+        },
+        platformBreakdown: {
+          noon: {
+            cases: tickets.filter(t => t.platform === 'Noon').length,
+            compensation: tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
+            refunded: tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0)
+          },
+          careem: {
+            cases: tickets.filter(t => t.platform === 'Careem').length,
+            compensation: tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
+            refunded: tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0)
+          }
+        },
+        branchBreakdown: {}
+      };
+      
+      // Add branch breakdown
+      branches.forEach(branch => {
+        const branchTickets = tickets.filter(t => t.branch === branch.name);
+        financialReport.branchBreakdown[branch.name] = {
+          cases: branchTickets.length,
+          compensation: branchTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
+          refunded: branchTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0)
+        };
+      });
+      
+      // Convert to JSON
+      const reportJson = JSON.stringify(financialReport, null, 2);
+      
+      // Create blob and download
+      const blob = new Blob([reportJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `financial_report_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      showNotification('Financial report generated successfully', 'success');
+      addCommand('Generated financial report', 'User');
+    }
+    
+    // ===== EXPORT FUNCTIONS =====
+    function exportToExcel() {
+      // Create workbook
+      const wb = XLSX.utils.book_new();
+      
+      // Create worksheet
+      const wsData = [
+        ['Order ID', 'Branch', 'Platform', 'Status', 'Original Amount', 'Compensation', 'Refund Method', 'Refunded Amount', 'Issue', 'Notes', 'Date'],
+        ...tickets.map(t => [
+          t.orderId,
+          t.branch,
+          t.platform,
+          t.status,
+          t.originalAmount,
+          t.compensationAmount,
+          t.refundMethod || '',
+          t.refundedAmount,
+          t.issue,
+          t.notes,
+          new Date(t.date).toLocaleDateString()
+        ])
+      ];
+      
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      
+      // Add worksheet to workbook
+      XLSX.utils.book_append_sheet(wb, ws, 'Compensation Cases');
+      
+      // Generate file
+      XLSX.writeFile(wb, `compensation_cases_${new Date().toISOString().split('T')[0]}.xlsx`);
+      
+      showNotification('Data exported to Excel successfully', 'success');
+      addCommand('Exported data to Excel', 'User');
+    }
+    
+    function exportToPDF() {
+      // For simplicity, we'll just show a notification
+      showNotification('PDF export would be implemented here', 'info');
+    }
+    
+    function exportToCSV() {
+      // Create CSV content
+      const csvContent = [
+        ['Order ID', 'Branch', 'Platform', 'Status', 'Original Amount', 'Compensation', 'Refund Method', 'Refunded Amount', 'Issue', 'Notes', 'Date'],
+        ...tickets.map(t => [
+          t.orderId,
+          t.branch,
+          t.platform,
+          t.status,
+          t.originalAmount,
+          t.compensationAmount,
+          t.refundMethod || '',
+          t.refundedAmount,
+          t.issue,
+          t.notes,
+          new Date(t.date).toLocaleDateString()
+        ])
+      ].map(row => row.join(',')).join('\n');
+      
+      // Create blob
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `compensation_cases_${new Date().toISOString().split('T')[0]}.csv`;
+      link.click();
+      
+      showNotification('Data exported to CSV successfully', 'success');
+      addCommand('Exported data to CSV', 'User');
+    }
+    
+    // ===== FILE UPLOAD HANDLER =====
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet);
+          
+          // Process and add tickets
+          jsonData.forEach(row => {
+            const ticket = {
+              id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+              orderId: row['Order ID'] || row['OrderID'] || row.orderId || '',
+              branch: row.Branch || row.branch || '',
+              platform: row.Platform || row.platform || '',
+              status: row.Status || row.status || 'Open',
+              originalAmount: parseFloat(row['Original Amount'] || row.originalAmount || 0),
+              compensationAmount: parseFloat(row['Compensation'] || row.compensationAmount || 0),
+              refundMethod: row['Refund Method'] || row.refundMethod || '',
+              refundedAmount: parseFloat(row['Refunded Amount'] || row.refundedAmount || 0),
+              issue: row.Issue || row.issue || '',
+              notes: row.Notes || row.notes || '',
+              date: row.Date ? new Date(row.Date).toISOString() : new Date().toISOString()
+            };
+            
+            // Validate required fields
+            if (ticket.orderId && ticket.branch && ticket.platform && ticket.issue) {
+              tickets.push(ticket);
+            }
+          });
+          
+          // Save data
+          saveData();
+          
+          // Update UI
+          updateStats();
+          updateSummarySection();
+          updatePlatformCards();
+          updateCharts();
+          updateBranchAnalysis();
+          renderTicketsTable();
+          updateBranchFilter();
+          
+          showNotification(`Successfully imported ${jsonData.length} cases`, 'success');
+          addCommand(`Imported ${jsonData.length} cases from Excel/CSV`, 'User');
+          
+        } catch (error) {
+          console.error('Error processing file:', error);
+          showNotification('Error processing file. Please check the format.', 'error');
+        }
+      };
+      
+      reader.readAsArrayBuffer(file);
+    }
+    
+    // ===== RENDER TICKETS TABLE =====
     function renderTicketsTable() {
       const container = document.getElementById('ticketsContainer');
       
@@ -1716,423 +4178,258 @@
           <div class="empty-state">
             <i class="bi bi-inbox"></i>
             <h5>No Cases Found</h5>
-            <p>Start by adding a new compensation case or loading sample data.</p>
+            <p>There are no compensation cases in the system.</p>
             <button class="btn btn-primary" onclick="addSample()">
-              <i class="bi bi-flask me-1"></i> Load Sample Data
+              <i class="bi bi-flask me-1"></i> Add Sample Data
             </button>
           </div>
         `;
         return;
       }
       
-      const table = `
-        <div class="tickets-table-container">
-          <table class="tickets-table">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Branch</th>
-                <th>Platform</th>
-                <th>Issue</th>
-                <th>Status</th>
-                <th>Original Amount</th>
-                <th>Compensation</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${tickets.map(ticket => `
-                <tr>
-                  <td class="ticket-order-id">${ticket.orderId}</td>
-                  <td class="ticket-branch">${ticket.branch}</td>
-                  <td>
-                    <span class="ticket-platform ${ticket.platform.toLowerCase()}">${ticket.platform}</span>
-                  </td>
-                  <td class="ticket-issue">${ticket.issue}</td>
-                  <td>
-                    <span class="ticket-status status-${ticket.status.toLowerCase()}">${ticket.status}</span>
-                  </td>
-                  <td class="ticket-amount">${ticket.originalAmount} AED</td>
-                  <td class="ticket-amount compensation">${ticket.compensationAmount} AED</td>
-                  <td class="ticket-actions">
-                    <button class="btn btn-sm btn-outline-primary" onclick="editTicket(${ticket.id})">
-                      <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-success btn-whatsapp" onclick="sendWhatsApp(${ticket.id})">
-                      <i class="bi bi-whatsapp"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteTicket(${ticket.id})">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
+      // Create table
+      const table = document.createElement('table');
+      table.className = 'tickets-table';
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Branch</th>
+            <th>Platform</th>
+            <th>Issue</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tickets.map(ticket => `
+            <tr>
+              <td class="ticket-order-id">${ticket.orderId}</td>
+              <td class="ticket-branch">${ticket.branch}</td>
+              <td>
+                <span class="ticket-platform ${ticket.platform.toLowerCase()}">${ticket.platform}</span>
+              </td>
+              <td class="ticket-issue" title="${ticket.issue}">${ticket.issue}</td>
+              <td>
+                <span class="ticket-status status-${ticket.status.toLowerCase()}">${ticket.status}</span>
+              </td>
+              <td>
+                <div>
+                  <div class="ticket-amount compensation">${ticket.compensationAmount} AED</div>
+                  ${ticket.refundedAmount > 0 ? `<div class="ticket-amount refunded">Refunded: ${ticket.refundedAmount} AED</div>` : ''}
+                </div>
+              </td>
+              <td>
+                <div class="ticket-actions">
+                  <button class="btn btn-sm btn-outline-primary" onclick="editTicket('${ticket.id}')" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-info" onclick="viewTicketDetails('${ticket.id}')" title="View Details">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-success" onclick="sendToWhatsApp('${ticket.orderId}')" title="Send via WhatsApp">
+                    <i class="bi bi-whatsapp"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" onclick="deleteTicket('${ticket.id}')" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+      
+      container.innerHTML = '';
+      container.appendChild(table);
+    }
+    
+    // ===== TICKET ACTIONS =====
+    function editTicket(id) {
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+      
+      // Populate form
+      document.getElementById('ticketId').value = ticket.id;
+      document.getElementById('orderId').value = ticket.orderId;
+      document.getElementById('branch').value = ticket.branch;
+      document.getElementById('platform').value = ticket.platform;
+      document.getElementById('status').value = ticket.status;
+      document.getElementById('originalAmount').value = ticket.originalAmount;
+      document.getElementById('compensationAmount').value = ticket.compensationAmount;
+      document.getElementById('refundMethod').value = ticket.refundMethod || '';
+      document.getElementById('refundedAmount').value = ticket.refundedAmount || '';
+      document.getElementById('issue').value = ticket.issue;
+      document.getElementById('notes').value = ticket.notes || '';
+      
+      // Update modal title
+      document.getElementById('ticketModalTitle').textContent = 'Edit Compensation Case';
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+      modal.show();
+      
+      addCommand(`Editing case ${ticket.orderId}`, 'User');
+    }
+    
+    function viewTicketDetails(id) {
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+      
+      // Create details modal
+      const modal = document.createElement('div');
+      modal.className = 'modal fade';
+      modal.innerHTML = `
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Case Details - ${ticket.orderId}</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <strong>Branch:</strong> ${ticket.branch}
+              </div>
+              <div class="mb-3">
+                <strong>Platform:</strong> ${ticket.platform}
+              </div>
+              <div class="mb-3">
+                <strong>Status:</strong> <span class="badge bg-${getStatusColor(ticket.status)}">${ticket.status}</span>
+              </div>
+              <div class="mb-3">
+                <strong>Original Amount:</strong> ${ticket.originalAmount} AED
+              </div>
+              <div class="mb-3">
+                <strong>Compensation Amount:</strong> ${ticket.compensationAmount} AED
+              </div>
+              ${ticket.refundedAmount > 0 ? `
+                <div class="mb-3">
+                  <strong>Refunded Amount:</strong> ${ticket.refundedAmount} AED (${ticket.refundMethod})
+                </div>
+              ` : ''}
+              <div class="mb-3">
+                <strong>Issue:</strong>
+                <div class="mt-1">${ticket.issue}</div>
+              </div>
+              ${ticket.notes ? `
+                <div class="mb-3">
+                  <strong>Notes:</strong>
+                  <div class="mt-1">${ticket.notes}</div>
+                </div>
+              ` : ''}
+              <div class="mb-3">
+                <strong>Date:</strong> ${new Date(ticket.date).toLocaleString()}
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="editTicket('${ticket.id}'); bootstrap.Modal.getInstance(document.querySelector('.modal.show')).hide();">Edit</button>
+            </div>
+          </div>
         </div>
       `;
       
-      container.innerHTML = table;
+      document.body.appendChild(modal);
+      const bsModal = new bootstrap.Modal(modal);
+      bsModal.show();
+      
+      // Clean up modal after it's hidden
+      modal.addEventListener('hidden.bs.modal', function() {
+        modal.remove();
+      });
+      
+      addCommand(`Viewed details for case ${ticket.orderId}`, 'User');
+    }
+    
+    function sendToWhatsApp(orderId) {
+      const ticket = tickets.find(t => t.orderId === orderId);
+      if (!ticket) return;
+      
+      // Create WhatsApp message
+      const message = `Case Details:\n\nOrder ID: ${ticket.orderId}\nBranch: ${ticket.branch}\nPlatform: ${ticket.platform}\nStatus: ${ticket.status}\n\nIssue: ${ticket.issue}\n\nCompensation: ${ticket.compensationAmount} AED\n\nDate: ${new Date(ticket.date).toLocaleDateString()}`;
+      
+      // Open WhatsApp with pre-filled message
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      
+      addCommand(`Sent case ${orderId} via WhatsApp`, 'User');
+    }
+    
+    function deleteTicket(id) {
+      if (settings.confirmActions && !confirm('Are you sure you want to delete this case?')) {
+        return;
+      }
+      
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+      
+      // Remove ticket
+      tickets = tickets.filter(t => t.id !== id);
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      
+      showNotification('Case deleted successfully', 'success');
+      addCommand(`Deleted case ${ticket.orderId}`, 'User');
+    }
+    
+    // ===== HELPER FUNCTIONS =====
+    function getStatusColor(status) {
+      switch (status) {
+        case 'Open': return 'primary';
+        case 'Sent': return 'warning';
+        case 'Closed': return 'success';
+        case 'Rejected': return 'danger';
+        default: return 'secondary';
+      }
     }
     
     function updateBranchFilter() {
       const filter = document.getElementById('filterBranch');
-      filter.innerHTML = '<option value="">All Branches</option>' +
-        branches.map(branch => `<option value="${branch}">${branch}</option>`).join('');
-    }
-    
-    // ===== EVENT LISTENERS =====
-    function setupEventListeners() {
-      // Search input
-      document.getElementById('searchInput').addEventListener('input', filterTickets);
+      filter.innerHTML = '<option value="">All Branches</option>';
       
-      // Filter dropdowns
-      document.getElementById('filterBranch').addEventListener('change', filterTickets);
-      document.getElementById('filterPlatform').addEventListener('change', filterTickets);
-      document.getElementById('filterStatus').addEventListener('change', filterTickets);
-      
-      // Back to top button
-      window.addEventListener('scroll', function() {
-        const backToTopButton = document.getElementById('backToTop');
-        if (window.pageYOffset > 300) {
-          backToTopButton.classList.add('show');
-        } else {
-          backToTopButton.classList.remove('show');
-        }
+      branches.forEach(branch => {
+        const option = document.createElement('option');
+        option.value = branch.name;
+        option.textContent = branch.name;
+        filter.appendChild(option);
       });
     }
     
-    // ===== TICKET MANAGEMENT =====
-    function openAddModal() {
-      document.getElementById('ticketModalTitle').textContent = 'Add New Compensation Case';
-      document.getElementById('ticketForm').reset();
-      document.getElementById('ticketId').value = '';
-      new bootstrap.Modal(document.getElementById('ticketModal')).show();
+    function updateCommands() {
+      // This would update the command history panel if it exists
+      // For now, we'll just keep it simple
     }
     
-    function saveTicket() {
-      const ticketId = document.getElementById('ticketId').value;
-      const ticketData = {
-        orderId: document.getElementById('orderId').value,
-        branch: document.getElementById('branch').value,
-        platform: document.getElementById('platform').value,
-        status: document.getElementById('status').value,
-        originalAmount: parseFloat(document.getElementById('originalAmount').value),
-        compensationAmount: parseFloat(document.getElementById('compensationAmount').value),
-        refundMethod: document.getElementById('refundMethod').value,
-        refundedAmount: parseFloat(document.getElementById('refundedAmount').value) || 0,
-        issue: document.getElementById('issue').value,
-        notes: document.getElementById('notes').value,
-        date: new Date().toISOString()
-      };
+    // ===== OTHER FUNCTIONS =====
+    function openUserManagement() {
+      showNotification('User management would be implemented here', 'info');
+    }
+    
+    function openSettingsModal() {
+      // Populate settings form
+      document.getElementById('theme').value = settings.theme;
+      document.getElementById('itemsPerPage').value = settings.itemsPerPage;
+      document.getElementById('autoRefresh').value = settings.autoRefresh;
+      document.getElementById('backupFrequency').value = settings.backupFrequency;
+      document.getElementById('notifications').checked = settings.notifications;
+      document.getElementById('confirmActions').checked = settings.confirmActions;
       
-      if (ticketId) {
-        // Update existing ticket
-        const index = tickets.findIndex(t => t.id === parseInt(ticketId));
-        if (index !== -1) {
-          tickets[index] = { ...tickets[index], ...ticketData };
-        }
-      } else {
-        // Add new ticket
-        ticketData.id = Date.now();
-        tickets.push(ticketData);
-      }
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+      modal.show();
       
-      saveData();
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      renderTicketsTable();
-      updateDisputeDashboard();
-      
-      bootstrap.Modal.getInstance(document.getElementById('ticketModal')).hide();
-      showNotification('Case saved successfully', 'success');
-    }
-    
-    function editTicket(id) {
-      const ticket = tickets.find(t => t.id === id);
-      if (ticket) {
-        document.getElementById('ticketModalTitle').textContent = 'Edit Compensation Case';
-        document.getElementById('ticketId').value = ticket.id;
-        document.getElementById('orderId').value = ticket.orderId;
-        document.getElementById('branch').value = ticket.branch;
-        document.getElementById('platform').value = ticket.platform;
-        document.getElementById('status').value = ticket.status;
-        document.getElementById('originalAmount').value = ticket.originalAmount;
-        document.getElementById('compensationAmount').value = ticket.compensationAmount;
-        document.getElementById('refundMethod').value = ticket.refundMethod || '';
-        document.getElementById('refundedAmount').value = ticket.refundedAmount || '';
-        document.getElementById('issue').value = ticket.issue;
-        document.getElementById('notes').value = ticket.notes;
-        
-        new bootstrap.Modal(document.getElementById('ticketModal')).show();
-      }
-    }
-    
-    function deleteTicket(id) {
-      if (confirm('Are you sure you want to delete this case?')) {
-        tickets = tickets.filter(t => t.id !== id);
-        saveData();
-        updateStats();
-        updateSummarySection();
-        updatePlatformCards();
-        updateCharts();
-        updateBranchAnalysis();
-        renderTicketsTable();
-        updateDisputeDashboard();
-        showNotification('Case deleted successfully', 'success');
-      }
-    }
-    
-    function addSample() {
-      const sampleTickets = [
-        {
-          id: Date.now(),
-          orderId: 'NC-001',
-          branch: 'Downtown',
-          platform: 'Noon',
-          status: 'Open',
-          originalAmount: 50.00,
-          compensationAmount: 25.00,
-          refundMethod: '',
-          refundedAmount: 0,
-          issue: 'Wrong item delivered',
-          notes: 'Customer received incorrect order',
-          date: new Date().toISOString()
-        },
-        {
-          id: Date.now() + 1,
-          orderId: 'CR-001',
-          branch: 'Mall',
-          platform: 'Careem',
-          status: 'Sent',
-          originalAmount: 30.00,
-          compensationAmount: 15.00,
-          refundMethod: 'Careem Pay',
-          refundedAmount: 15.00,
-          issue: 'Late delivery',
-          notes: 'Delivery was 1 hour late',
-          date: new Date(Date.now() - 86400000).toISOString()
-        },
-        {
-          id: Date.now() + 2,
-          orderId: 'NC-002',
-          branch: 'Airport',
-          platform: 'Noon',
-          status: 'Closed',
-          originalAmount: 70.00,
-          compensationAmount: 35.00,
-          refundMethod: 'Card',
-          refundedAmount: 35.00,
-          issue: 'Missing items',
-          notes: 'Complete refund processed',
-          date: new Date(Date.now() - 172800000).toISOString()
-        },
-        {
-          id: Date.now() + 3,
-          orderId: 'CR-002',
-          branch: 'North',
-          platform: 'Careem',
-          status: 'Rejected',
-          originalAmount: 40.00,
-          compensationAmount: 0,
-          refundMethod: '',
-          refundedAmount: 0,
-          issue: 'Quality issue',
-          notes: 'Customer complaint denied',
-          date: new Date(Date.now() - 259200000).toISOString()
-        },
-        {
-          id: Date.now() + 4,
-          orderId: 'NC-003',
-          branch: 'South',
-          platform: 'Noon',
-          status: 'Escalated',
-          originalAmount: 90.00,
-          compensationAmount: 45.00,
-          refundMethod: 'Bank Transfer',
-          refundedAmount: 0,
-          issue: 'Service issue',
-          notes: 'Escalated to management',
-          date: new Date(Date.now() - 345600000).toISOString()
-        }
-      ];
-      
-      tickets = [...tickets, ...sampleTickets];
-      saveData();
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      renderTicketsTable();
-      updateDisputeDashboard();
-      showNotification('Sample data loaded successfully', 'success');
-    }
-    
-    function sendWhatsApp(id) {
-      const ticket = tickets.find(t => t.id === id);
-      if (ticket) {
-        const message = `Hello, regarding your compensation request for order ${ticket.orderId} at ${ticket.branch} branch. We have received your complaint about: ${ticket.issue}. Our team will review your case and respond shortly.`;
-        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-      }
-    }
-    
-    function filterTickets() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const branchFilter = document.getElementById('filterBranch').value;
-      const platformFilter = document.getElementById('filterPlatform').value;
-      const statusFilter = document.getElementById('filterStatus').value;
-      
-      const filteredTickets = tickets.filter(ticket => {
-        const matchesSearch = ticket.orderId.toLowerCase().includes(searchTerm) ||
-                            ticket.branch.toLowerCase().includes(searchTerm) ||
-                            ticket.issue.toLowerCase().includes(searchTerm);
-        const matchesBranch = !branchFilter || ticket.branch === branchFilter;
-        const matchesPlatform = !platformFilter || ticket.platform === platformFilter;
-        const matchesStatus = !statusFilter || ticket.status === statusFilter;
-        
-        return matchesSearch && matchesBranch && matchesPlatform && matchesStatus;
-      });
-      
-      const container = document.getElementById('ticketsContainer');
-      
-      if (filteredTickets.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i class="bi bi-search"></i>
-            <h5>No Cases Found</h5>
-            <p>No cases match your current search criteria.</p>
-          </div>
-        `;
-        return;
-      }
-      
-      const table = `
-        <div class="tickets-table-container">
-          <table class="tickets-table">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Branch</th>
-                <th>Platform</th>
-                <th>Issue</th>
-                <th>Status</th>
-                <th>Original Amount</th>
-                <th>Compensation</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${filteredTickets.map(ticket => `
-                <tr>
-                  <td class="ticket-order-id">${ticket.orderId}</td>
-                  <td class="ticket-branch">${ticket.branch}</td>
-                  <td>
-                    <span class="ticket-platform ${ticket.platform.toLowerCase()}">${ticket.platform}</span>
-                  </td>
-                  <td class="ticket-issue">${ticket.issue}</td>
-                  <td>
-                    <span class="ticket-status status-${ticket.status.toLowerCase()}">${ticket.status}</span>
-                  </td>
-                  <td class="ticket-amount">${ticket.originalAmount} AED</td>
-                  <td class="ticket-amount compensation">${ticket.compensationAmount} AED</td>
-                  <td class="ticket-actions">
-                    <button class="btn btn-sm btn-outline-primary" onclick="editTicket(${ticket.id})">
-                      <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-success btn-whatsapp" onclick="sendWhatsApp(${ticket.id})">
-                      <i class="bi bi-whatsapp"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteTicket(${ticket.id})">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      `;
-      
-      container.innerHTML = table;
-    }
-    
-    function exportData() {
-      const csvContent = "data:text/csv;charset=utf-8," 
-        + "Order ID,Branch,Platform,Status,Original Amount,Compensation Amount,Refund Method,Refunded Amount,Issue,Notes\n"
-        + tickets.map(t => 
-          `${t.orderId},${t.branch},${t.platform},${t.status},${t.originalAmount},${t.compensationAmount},${t.refundMethod || ''},${t.refundedAmount || 0},"${t.issue}","${t.notes || ''}"`
-        ).join("\n");
-      
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "compensation_tickets.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      showNotification('Data exported successfully', 'success');
-    }
-    
-    function viewUrgentCases() {
-      filterTicketsByStatus('urgent');
-    }
-    
-    function requestEvidenceForAll() {
-      tickets.forEach(ticket => {
-        if (!ticket.notes || ticket.notes.trim() === '') {
-          ticket.notes = 'Evidence requested from customer';
-        }
-      });
-      saveData();
-      updateDisputeDashboard();
-      renderTicketsTable();
-      showNotification('Evidence requested for all pending cases', 'success');
-    }
-    
-    function viewEscalatedCases() {
-      filterTicketsByStatus('escalated');
-    }
-    
-    function filterTicketsByStatus(status) {
-      let statusFilter = '';
-      switch(status) {
-        case 'urgent':
-          statusFilter = 'Open';
-          break;
-        case 'escalated':
-          statusFilter = 'Escalated';
-          break;
-      }
-      
-      document.getElementById('filterStatus').value = statusFilter;
-      filterTickets();
-    }
-    
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
-    function showNotification(message, type) {
-      const notification = document.getElementById('notification');
-      notification.className = `notification ${type}`;
-      notification.textContent = message;
-      notification.classList.add('show');
-      
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000);
-    }
-    
-    // ===== CHARTS =====
-    function updateCharts() {
-      // This function is called from updateSummaryCharts
-      // Individual charts are created there
+      addCommand('Opened settings', 'User');
     }
   </script>
 </body>
