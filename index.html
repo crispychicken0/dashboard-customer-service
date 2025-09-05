@@ -2370,10 +2370,6 @@
             <i class="bi bi-file-earmark-spreadsheet"></i>
             <span>Import Data</span>
           </button>
-          <button onclick="openAPISettingsModal()">
-            <i class="bi bi-cloud-download"></i>
-            <span>Pick Up Data</span>
-          </button>
           <button onclick="backupData()">
             <i class="bi bi-cloud-arrow-up"></i>
             <span>Backup Data</span>
@@ -2421,10 +2417,6 @@
           <button onclick="checkForDuplicates()">
             <i class="bi bi-clipboard-check"></i>
             <span>Check Duplicates</span>
-          </button>
-          <button onclick="setupSampleAPI()">
-            <i class="bi bi-tools"></i>
-            <span>Setup Sample API</span>
           </button>
         </div>
       </div>
@@ -2654,45 +2646,17 @@
   
   <!-- ===== BRANCH MANAGEMENT MODAL ===== -->
   <div class="modal fade" id="branchModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Branch Management</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row mb-4">
-            <div class="col-md-6">
-              <h6>Branch Statistics</h6>
-              <div class="row">
-                <div class="col-6">
-                  <div class="text-center p-3 bg-light rounded">
-                    <div class="h4 mb-0" id="totalBranchesCount">0</div>
-                    <small class="text-muted">Total Branches</small>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="text-center p-3 bg-light rounded">
-                    <div class="h4 mb-0" id="totalCasesCount">0</div>
-                    <small class="text-muted">Total Cases</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <h6>Quick Actions</h6>
-              <div class="d-grid gap-2">
-                <button class="btn btn-primary" onclick="showAddBranchForm()">
-                  <i class="bi bi-plus-circle me-1"></i> Add New Branch
-                </button>
-                <button class="btn btn-outline-success" onclick="exportBranches()">
-                  <i class="bi bi-download me-1"></i> Export Branches
-                </button>
-                <button class="btn btn-outline-info" onclick="importBranches()">
-                  <i class="bi bi-upload me-1"></i> Import Branches
-                </button>
-              </div>
-            </div>
+          <div class="mb-3">
+            <button class="btn btn-primary" onclick="addNewBranch()">
+              <i class="bi bi-plus-circle me-1"></i> Add New Branch
+            </button>
           </div>
           
           <div class="table-responsive">
@@ -2703,7 +2667,6 @@
                   <th>Manager</th>
                   <th>Contact</th>
                   <th>Address</th>
-                  <th>Cases Count</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -2715,50 +2678,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- ===== ADD BRANCH MODAL ===== -->
-  <div class="modal fade" id="addBranchModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New Branch</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="addBranchForm">
-            <div class="mb-3">
-              <label for="newBranchName" class="form-label">Branch Name *</label>
-              <input type="text" class="form-control" id="newBranchName" required>
-            </div>
-            <div class="mb-3">
-              <label for="newBranchManager" class="form-label">Manager Name *</label>
-              <input type="text" class="form-control" id="newBranchManager" required>
-            </div>
-            <div class="mb-3">
-              <label for="newBranchContact" class="form-label">Contact Number *</label>
-              <input type="tel" class="form-control" id="newBranchContact" required>
-            </div>
-            <div class="mb-3">
-              <label for="newBranchEmail" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="newBranchEmail">
-            </div>
-            <div class="mb-3">
-              <label for="newBranchAddress" class="form-label">Address *</label>
-              <textarea class="form-control" id="newBranchAddress" rows="3" required></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="newBranchNotes" class="form-label">Additional Notes</label>
-              <textarea class="form-control" id="newBranchNotes" rows="2"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="saveNewBranch()">Save Branch</button>
         </div>
       </div>
     </div>
@@ -2795,45 +2714,6 @@
           <button type="button" class="btn btn-primary" onclick="exportDailySummary()">
             <i class="bi bi-download me-1"></i> Export Summary
           </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- ===== API SETTINGS MODAL ===== -->
-  <div class="modal fade" id="apiSettingsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">API Settings</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="apiUrl" class="form-label">API Endpoint URL</label>
-            <input type="url" class="form-control" id="apiUrl" placeholder="https://example.com/api/tickets">
-          </div>
-          <div class="mb-3">
-            <label for="apiKey" class="form-label">API Key (if required)</label>
-            <input type="password" class="form-control" id="apiKey" placeholder="Your API key">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="replaceData">
-            <label class="form-check-label" for="replaceData">
-              Replace existing data
-            </label>
-          </div>
-          <div class="mb-3">
-            <label for="apiFormat" class="form-label">Data Format</label>
-            <select class="form-select" id="apiFormat">
-              <option value="json">JSON</option>
-              <option value="csv">CSV</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="fetchDataFromAPIWithSettings()">Fetch Data</button>
         </div>
       </div>
     </div>
@@ -3842,7 +3722,7 @@
       const grid = document.createElement('div');
       grid.className = 'rejection-analysis-grid';
       
-      // Create branch rejection card
+      // Create a card for branch rejections
       const branchCard = document.createElement('div');
       branchCard.className = 'rejection-card';
       
@@ -3850,30 +3730,70 @@
       branchHeader.textContent = 'Rejections by Branch';
       branchCard.appendChild(branchHeader);
       
+      // Create stats
       const branchStats = document.createElement('div');
       branchStats.className = 'rejection-stats';
       
-      Object.keys(branchRejections).forEach(branch => {
-        const statItem = document.createElement('div');
-        statItem.className = 'rejection-metric-item';
-        
-        const statValue = document.createElement('div');
-        statValue.className = 'rejection-metric-value';
-        statValue.textContent = branchRejections[branch].count;
-        
-        const statLabel = document.createElement('div');
-        statLabel.className = 'rejection-metric-label';
-        statLabel.textContent = branch;
-        
-        statItem.appendChild(statValue);
-        statItem.appendChild(statLabel);
-        branchStats.appendChild(statItem);
-      });
+      // Total rejections stat
+      const totalRejectionsStat = document.createElement('div');
+      totalRejectionsStat.className = 'rejection-metric-item';
+      const totalRejectionsValue = document.createElement('div');
+      totalRejectionsValue.className = 'rejection-metric-value';
+      totalRejectionsValue.textContent = rejectedTickets.length;
+      const totalRejectionsLabel = document.createElement('div');
+      totalRejectionsLabel.className = 'rejection-metric-label';
+      totalRejectionsLabel.textContent = 'Total Rejections';
+      totalRejectionsStat.appendChild(totalRejectionsValue);
+      totalRejectionsStat.appendChild(totalRejectionsLabel);
+      branchStats.appendChild(totalRejectionsStat);
+      
+      // Total rejected amount stat
+      const totalRejectedAmountStat = document.createElement('div');
+      totalRejectedAmountStat.className = 'rejection-metric-item';
+      const totalRejectedAmountValue = document.createElement('div');
+      totalRejectedAmountValue.className = 'rejection-metric-value';
+      const totalRejectedAmount = rejectedTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0);
+      totalRejectedAmountValue.textContent = totalRejectedAmount.toFixed(2);
+      const totalRejectedAmountLabel = document.createElement('div');
+      totalRejectedAmountLabel.className = 'rejection-metric-label';
+      totalRejectedAmountLabel.textContent = 'Total Amount';
+      totalRejectedAmountStat.appendChild(totalRejectedAmountValue);
+      totalRejectedAmountStat.appendChild(totalRejectedAmountLabel);
+      branchStats.appendChild(totalRejectedAmountStat);
+      
+      // Rejection rate stat
+      const rejectionRateStat = document.createElement('div');
+      rejectionRateStat.className = 'rejection-metric-item';
+      const rejectionRateValue = document.createElement('div');
+      rejectionRateValue.className = 'rejection-metric-value';
+      const rejectionRate = tickets.length > 0 ? ((rejectedTickets.length / tickets.length) * 100).toFixed(1) : 0;
+      rejectionRateValue.textContent = `${rejectionRate}%`;
+      const rejectionRateLabel = document.createElement('div');
+      rejectionRateLabel.className = 'rejection-metric-label';
+      rejectionRateLabel.textContent = 'Rejection Rate';
+      rejectionRateStat.appendChild(rejectionRateValue);
+      rejectionRateStat.appendChild(rejectionRateLabel);
+      branchStats.appendChild(rejectionRateStat);
+      
+      // Top rejecting branch stat
+      const topBranchStat = document.createElement('div');
+      topBranchStat.className = 'rejection-metric-item';
+      const topBranchValue = document.createElement('div');
+      topBranchValue.className = 'rejection-metric-value';
+      const topBranch = Object.keys(branchRejections).reduce((a, b) => 
+        branchRejections[a].count > branchRejections[b].count ? a : b, '-');
+      topBranchValue.textContent = topBranch;
+      const topBranchLabel = document.createElement('div');
+      topBranchLabel.className = 'rejection-metric-label';
+      topBranchLabel.textContent = 'Top Branch';
+      topBranchStat.appendChild(topBranchValue);
+      topBranchStat.appendChild(topBranchLabel);
+      branchStats.appendChild(topBranchStat);
       
       branchCard.appendChild(branchStats);
       grid.appendChild(branchCard);
       
-      // Create platform rejection card
+      // Create a card for platform rejections
       const platformCard = document.createElement('div');
       platformCard.className = 'rejection-card';
       
@@ -3881,25 +3801,67 @@
       platformHeader.textContent = 'Rejections by Platform';
       platformCard.appendChild(platformHeader);
       
+      // Create stats
       const platformStats = document.createElement('div');
       platformStats.className = 'rejection-stats';
       
-      Object.keys(platformRejections).forEach(platform => {
-        const statItem = document.createElement('div');
-        statItem.className = 'rejection-metric-item';
-        
-        const statValue = document.createElement('div');
-        statValue.className = 'rejection-metric-value';
-        statValue.textContent = platformRejections[platform].count;
-        
-        const statLabel = document.createElement('div');
-        statLabel.className = 'rejection-metric-label';
-        statLabel.textContent = platform;
-        
-        statItem.appendChild(statValue);
-        statItem.appendChild(statLabel);
-        platformStats.appendChild(statItem);
-      });
+      // Noon rejections stat
+      const noonRejectionsStat = document.createElement('div');
+      noonRejectionsStat.className = 'rejection-metric-item';
+      const noonRejectionsValue = document.createElement('div');
+      noonRejectionsValue.className = 'rejection-metric-value';
+      const noonRejections = rejectedTickets.filter(t => t.platform === 'Noon').length;
+      noonRejectionsValue.textContent = noonRejections;
+      const noonRejectionsLabel = document.createElement('div');
+      noonRejectionsLabel.className = 'rejection-metric-label';
+      noonRejectionsLabel.textContent = 'Noon Rejections';
+      noonRejectionsStat.appendChild(noonRejectionsValue);
+      noonRejectionsStat.appendChild(noonRejectionsLabel);
+      platformStats.appendChild(noonRejectionsStat);
+      
+      // Careem rejections stat
+      const careemRejectionsStat = document.createElement('div');
+      careemRejectionsStat.className = 'rejection-metric-item';
+      const careemRejectionsValue = document.createElement('div');
+      careemRejectionsValue.className = 'rejection-metric-value';
+      const careemRejections = rejectedTickets.filter(t => t.platform === 'Careem').length;
+      careemRejectionsValue.textContent = careemRejections;
+      const careemRejectionsLabel = document.createElement('div');
+      careemRejectionsLabel.className = 'rejection-metric-label';
+      careemRejectionsLabel.textContent = 'Careem Rejections';
+      careemRejectionsStat.appendChild(careemRejectionsValue);
+      careemRejectionsStat.appendChild(careemRejectionsLabel);
+      platformStats.appendChild(careemRejectionsStat);
+      
+      // Noon rejection rate stat
+      const noonRejectionRateStat = document.createElement('div');
+      noonRejectionRateStat.className = 'rejection-metric-item';
+      const noonRejectionRateValue = document.createElement('div');
+      noonRejectionRateValue.className = 'rejection-metric-value';
+      const noonTickets = tickets.filter(t => t.platform === 'Noon').length;
+      const noonRejectionRate = noonTickets > 0 ? ((noonRejections / noonTickets) * 100).toFixed(1) : 0;
+      noonRejectionRateValue.textContent = `${noonRejectionRate}%`;
+      const noonRejectionRateLabel = document.createElement('div');
+      noonRejectionRateLabel.className = 'rejection-metric-label';
+      noonRejectionRateLabel.textContent = 'Noon Rate';
+      noonRejectionRateStat.appendChild(noonRejectionRateValue);
+      noonRejectionRateStat.appendChild(noonRejectionRateLabel);
+      platformStats.appendChild(noonRejectionRateStat);
+      
+      // Careem rejection rate stat
+      const careemRejectionRateStat = document.createElement('div');
+      careemRejectionRateStat.className = 'rejection-metric-item';
+      const careemRejectionRateValue = document.createElement('div');
+      careemRejectionRateValue.className = 'rejection-metric-value';
+      const careemTickets = tickets.filter(t => t.platform === 'Careem').length;
+      const careemRejectionRate = careemTickets > 0 ? ((careemRejections / careemTickets) * 100).toFixed(1) : 0;
+      careemRejectionRateValue.textContent = `${careemRejectionRate}%`;
+      const careemRejectionRateLabel = document.createElement('div');
+      careemRejectionRateLabel.className = 'rejection-metric-label';
+      careemRejectionRateLabel.textContent = 'Careem Rate';
+      careemRejectionRateStat.appendChild(careemRejectionRateValue);
+      careemRejectionRateStat.appendChild(careemRejectionRateLabel);
+      platformStats.appendChild(careemRejectionRateStat);
       
       platformCard.appendChild(platformStats);
       grid.appendChild(platformCard);
@@ -3908,19 +3870,24 @@
     }
     
     function updateRefundAnalysis() {
-      // Update refund metrics
+      // Get refunded tickets
       const refundedTickets = tickets.filter(t => t.refundedAmount > 0);
+      
+      // Update refund metrics
       const totalRefundedAmount = refundedTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0);
-      const refundRate = tickets.length > 0 ? ((refundedTickets.length / tickets.length) * 100).toFixed(1) : 0;
-      const avgRefundedAmount = refundedTickets.length > 0 ? (totalRefundedAmount / refundedTickets.length).toFixed(2) : 0;
+      const refundedCasesCount = refundedTickets.length;
+      const refundRate = tickets.length > 0 ? ((refundedCasesCount / tickets.length) * 100).toFixed(1) : 0;
+      const avgRefundedAmount = refundedCasesCount > 0 ? (totalRefundedAmount / refundedCasesCount).toFixed(2) : 0;
       
       document.getElementById('totalRefundedAmount').textContent = totalRefundedAmount.toFixed(2);
-      document.getElementById('refundedCasesCount').textContent = refundedTickets.length;
+      document.getElementById('refundedCasesCount').textContent = refundedCasesCount;
       document.getElementById('refundRate').textContent = `${refundRate}%`;
       document.getElementById('avgRefundedAmount').textContent = avgRefundedAmount;
       
       // Update refund branch chart
       const refundBranchCtx = document.getElementById('refundBranchChart').getContext('2d');
+      
+      // Group refunded tickets by branch
       const branchRefunds = {};
       refundedTickets.forEach(ticket => {
         if (!branchRefunds[ticket.branch]) {
@@ -3929,15 +3896,19 @@
         branchRefunds[ticket.branch] += parseFloat(ticket.refundedAmount);
       });
       
+      const topBranchRefunds = Object.keys(branchRefunds)
+        .sort((a, b) => branchRefunds[b] - branchRefunds[a])
+        .slice(0, 5);
+      
       new Chart(refundBranchCtx, {
         type: 'bar',
         data: {
-          labels: Object.keys(branchRefunds),
+          labels: topBranchRefunds,
           datasets: [{
             label: 'Refunded Amount',
-            data: Object.values(branchRefunds),
-            backgroundColor: 'rgba(75, 192, 192, 0.5)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            data: topBranchRefunds.map(branch => branchRefunds[branch]),
+            backgroundColor: 'rgba(40, 167, 69, 0.5)',
+            borderColor: 'rgba(40, 167, 69, 1)',
             borderWidth: 1
           }]
         },
@@ -3958,10 +3929,18 @@
       });
       
       // Update refund table
-      const tbody = document.getElementById('refundTableBody');
-      tbody.innerHTML = '';
+      const tableBody = document.getElementById('refundTableBody');
+      tableBody.innerHTML = '';
       
-      refundedTickets.slice(0, 10).forEach(ticket => {
+      // Sort refunded tickets by date (newest first)
+      const sortedRefundedTickets = [...refundedTickets].sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+      
+      // Show only the last 10 refunded tickets
+      const recentRefundedTickets = sortedRefundedTickets.slice(0, 10);
+      
+      recentRefundedTickets.forEach(ticket => {
         const row = document.createElement('tr');
         
         // Order ID
@@ -3976,17 +3955,17 @@
         
         // Original Amount
         const originalAmountCell = document.createElement('td');
-        originalAmountCell.textContent = ticket.originalAmount;
+        originalAmountCell.textContent = parseFloat(ticket.originalAmount).toFixed(2);
         row.appendChild(originalAmountCell);
         
         // Compensation
         const compensationCell = document.createElement('td');
-        compensationCell.textContent = ticket.compensationAmount;
+        compensationCell.textContent = parseFloat(ticket.compensationAmount).toFixed(2);
         row.appendChild(compensationCell);
         
         // Refunded Amount
         const refundedAmountCell = document.createElement('td');
-        refundedAmountCell.textContent = ticket.refundedAmount;
+        refundedAmountCell.textContent = parseFloat(ticket.refundedAmount).toFixed(2);
         row.appendChild(refundedAmountCell);
         
         // Status
@@ -3999,35 +3978,33 @@
         
         // Date
         const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.createdAt || Date.now()).toLocaleDateString();
+        const date = new Date(ticket.date);
+        dateCell.textContent = date.toLocaleDateString();
         row.appendChild(dateCell);
         
-        tbody.appendChild(row);
+        tableBody.appendChild(row);
       });
+      
+      if (recentRefundedTickets.length === 0) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 7;
+        cell.className = 'text-center text-muted';
+        cell.textContent = 'No refunded cases found';
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+      }
     }
     
-    // ===== TICKET MANAGEMENT =====
     function renderTicketsTable() {
       const container = document.getElementById('ticketsContainer');
       container.innerHTML = '';
       
-      if (tickets.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i class="bi bi-inbox"></i>
-            <h5>No compensation cases found</h5>
-            <p>Add your first case using the "Add" button above</p>
-            <button class="btn btn-primary" onclick="openAddModal()">
-              <i class="bi bi-plus-circle me-1"></i> Add Case
-            </button>
-          </div>
-        `;
-        return;
-      }
-      
+      // Create table container
       const tableContainer = document.createElement('div');
       tableContainer.className = 'tickets-table-container';
       
+      // Create table
       const table = document.createElement('table');
       table.className = 'tickets-table';
       
@@ -4052,189 +4029,277 @@
       // Create table body
       const tbody = document.createElement('tbody');
       
-      tickets.forEach(ticket => {
+      // Sort tickets by date (newest first)
+      const sortedTickets = [...tickets].sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+      
+      // Render tickets
+      sortedTickets.forEach(ticket => {
         const row = document.createElement('tr');
         
-        // Add row classes based on ticket properties
-        if (parseFloat(ticket.compensationAmount) > 50) {
-          row.classList.add('high-compensation');
-        }
-        
-        if (ticket.refundedAmount > 0) {
+        // Add class based on status
+        if (ticket.status === 'Closed' && ticket.refundedAmount > 0) {
           row.classList.add('refunded-case');
-        }
-        
-        if (ticket.status === 'Rejected') {
+        } else if (ticket.status === 'Rejected') {
           row.classList.add('rejected-case');
-        }
-        
-        if (ticket.issue.toLowerCase().includes('restaurant') || 
-            ticket.issue.toLowerCase().includes('wrong') || 
-            ticket.issue.toLowerCase().includes('missing')) {
-          row.classList.add('restaurant-fault');
+        } else if (parseFloat(ticket.compensationAmount) > 50) {
+          row.classList.add('high-compensation');
         }
         
         // Order ID
         const orderIdCell = document.createElement('td');
-        orderIdCell.className = 'ticket-order-id';
-        orderIdCell.textContent = ticket.orderId;
+        const orderId = document.createElement('div');
+        orderId.className = 'ticket-order-id';
+        orderId.textContent = ticket.orderId;
+        orderIdCell.appendChild(orderId);
         row.appendChild(orderIdCell);
         
         // Branch
         const branchCell = document.createElement('td');
-        branchCell.className = 'ticket-branch';
-        branchCell.textContent = ticket.branch;
+        const branch = document.createElement('div');
+        branch.className = 'ticket-branch';
+        branch.textContent = ticket.branch;
+        branchCell.appendChild(branch);
         row.appendChild(branchCell);
         
         // Platform
         const platformCell = document.createElement('td');
-        const platformBadge = document.createElement('span');
-        platformBadge.className = `ticket-platform ${ticket.platform.toLowerCase()}`;
-        platformBadge.textContent = ticket.platform;
-        platformCell.appendChild(platformBadge);
+        const platform = document.createElement('span');
+        platform.className = `ticket-platform ${ticket.platform.toLowerCase()}`;
+        platform.textContent = ticket.platform;
+        platformCell.appendChild(platform);
         row.appendChild(platformCell);
         
         // Issue
         const issueCell = document.createElement('td');
-        issueCell.className = 'ticket-issue';
-        issueCell.textContent = ticket.issue;
+        const issueContainer = document.createElement('div');
+        issueContainer.className = 'd-flex align-items-center';
         
-        // Add expand button if issue is long
+        const issue = document.createElement('div');
+        issue.className = 'ticket-issue';
+        issue.textContent = ticket.issue.length > 30 ? 
+          `${ticket.issue.substring(0, 30)}...` : ticket.issue;
+        issue.title = ticket.issue;
+        issueContainer.appendChild(issue);
+        
         if (ticket.issue.length > 30) {
           const expandBtn = document.createElement('button');
           expandBtn.className = 'issue-expand';
-          expandBtn.textContent = '...';
+          expandBtn.textContent = 'more';
           expandBtn.onclick = function() {
-            alert(ticket.issue);
+            if (issue.textContent.endsWith('...')) {
+              issue.textContent = ticket.issue;
+              expandBtn.textContent = 'less';
+            } else {
+              issue.textContent = `${ticket.issue.substring(0, 30)}...`;
+              expandBtn.textContent = 'more';
+            }
           };
-          issueCell.appendChild(expandBtn);
+          issueContainer.appendChild(expandBtn);
         }
         
+        issueCell.appendChild(issueContainer);
         row.appendChild(issueCell);
         
         // Evidence
         const evidenceCell = document.createElement('td');
-        evidenceCell.className = 'ticket-evidence';
+        const evidence = document.createElement('div');
+        evidence.className = 'ticket-evidence';
         
-        if (ticket.evidenceImage) {
-          const thumbnail = document.createElement('div');
-          thumbnail.className = 'evidence-thumbnail';
-          thumbnail.onclick = function() {
-            window.open(ticket.evidenceImage, '_blank');
-          };
+        if (ticket.evidenceImage || ticket.evidenceLink) {
+          if (ticket.evidenceImage) {
+            const thumbnail = document.createElement('div');
+            thumbnail.className = 'evidence-thumbnail';
+            
+            const img = document.createElement('img');
+            img.src = ticket.evidenceImage;
+            img.style.width = '30px';
+            img.style.height = '30px';
+            img.style.objectFit = 'cover';
+            
+            thumbnail.appendChild(img);
+            evidence.appendChild(thumbnail);
+          }
           
-          const img = document.createElement('img');
-          img.src = ticket.evidenceImage;
-          img.style.width = '30px';
-          img.style.height = '30px';
-          img.style.objectFit = 'cover';
-          
-          thumbnail.appendChild(img);
-          evidenceCell.appendChild(thumbnail);
-        } else if (ticket.evidenceLink) {
-          const link = document.createElement('a');
-          link.href = ticket.evidenceLink;
-          link.target = '_blank';
-          link.className = 'ticket-evidence-link';
-          link.innerHTML = '<i class="bi bi-link-45deg"></i> Link';
-          evidenceCell.appendChild(link);
+          if (ticket.evidenceLink) {
+            const link = document.createElement('a');
+            link.className = 'ticket-evidence-link';
+            link.href = ticket.evidenceLink;
+            link.target = '_blank';
+            link.innerHTML = '<i class="bi bi-link-45deg"></i>';
+            evidence.appendChild(link);
+          }
         } else {
-          const none = document.createElement('span');
+          const none = document.createElement('div');
           none.className = 'ticket-evidence-none';
           none.textContent = 'None';
-          evidenceCell.appendChild(none);
+          evidence.appendChild(none);
         }
         
+        evidenceCell.appendChild(evidence);
         row.appendChild(evidenceCell);
         
         // Status
         const statusCell = document.createElement('td');
-        const statusBadge = document.createElement('span');
-        statusBadge.className = `ticket-status status-${ticket.status.toLowerCase()}`;
-        statusBadge.textContent = ticket.status;
-        statusCell.appendChild(statusBadge);
+        const status = document.createElement('span');
+        status.className = `ticket-status status-${ticket.status.toLowerCase()}`;
+        status.textContent = ticket.status;
+        statusCell.appendChild(status);
         row.appendChild(statusCell);
         
         // Original Amount
         const originalAmountCell = document.createElement('td');
-        originalAmountCell.className = 'ticket-amount';
-        originalAmountCell.textContent = ticket.originalAmount;
+        const originalAmount = document.createElement('div');
+        originalAmount.className = 'ticket-amount';
+        originalAmount.textContent = parseFloat(ticket.originalAmount).toFixed(2);
+        originalAmountCell.appendChild(originalAmount);
         row.appendChild(originalAmountCell);
         
         // Compensation
         const compensationCell = document.createElement('td');
-        compensationCell.className = 'ticket-amount compensation';
-        compensationCell.textContent = ticket.compensationAmount;
+        const compensation = document.createElement('div');
+        compensation.className = 'ticket-amount compensation';
+        compensation.textContent = parseFloat(ticket.compensationAmount).toFixed(2);
+        compensationCell.appendChild(compensation);
         row.appendChild(compensationCell);
         
         // Refunded
         const refundedCell = document.createElement('td');
-        refundedCell.className = 'ticket-amount refunded';
-        refundedCell.textContent = ticket.refundedAmount || '0';
+        const refunded = document.createElement('div');
+        refunded.className = 'ticket-amount refunded';
+        refunded.textContent = parseFloat(ticket.refundedAmount || 0).toFixed(2);
+        refundedCell.appendChild(refunded);
         row.appendChild(refundedCell);
         
         // Actions
         const actionsCell = document.createElement('td');
-        actionsCell.className = 'ticket-actions';
+        const actions = document.createElement('div');
+        actions.className = 'ticket-actions';
         
         // Edit button
         const editBtn = document.createElement('button');
-        editBtn.className = 'btn btn-sm btn-primary';
+        editBtn.className = 'btn btn-sm btn-outline-primary';
         editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
         editBtn.title = 'Edit';
         editBtn.onclick = function() {
           openEditModal(ticket.id);
         };
-        actionsCell.appendChild(editBtn);
+        actions.appendChild(editBtn);
         
         // Delete button
         const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-sm btn-danger';
+        deleteBtn.className = 'btn btn-sm btn-outline-danger';
         deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
         deleteBtn.title = 'Delete';
         deleteBtn.onclick = function() {
           deleteTicket(ticket.id);
         };
-        actionsCell.appendChild(deleteBtn);
+        actions.appendChild(deleteBtn);
         
-        // WhatsApp button (if phone number exists)
-        if (ticket.customerPhone) {
-          const whatsappBtn = document.createElement('button');
-          whatsappBtn.className = 'btn btn-sm btn-whatsapp';
-          whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-          whatsappBtn.title = 'Contact via WhatsApp';
-          whatsappBtn.onclick = function() {
-            window.open(`https://wa.me/${ticket.customerPhone.replace(/\D/g, '')}`, '_blank');
-          };
-          actionsCell.appendChild(whatsappBtn);
-        }
+        // WhatsApp button
+        const whatsappBtn = document.createElement('button');
+        whatsappBtn.className = 'btn btn-sm btn-whatsapp';
+        whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
+        whatsappBtn.title = 'Share via WhatsApp';
+        whatsappBtn.onclick = function() {
+          shareViaWhatsApp(ticket);
+        };
+        actions.appendChild(whatsappBtn);
         
+        actionsCell.appendChild(actions);
         row.appendChild(actionsCell);
+        
         tbody.appendChild(row);
       });
+      
+      // If no tickets, show empty state
+      if (tickets.length === 0) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 10;
+        cell.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h5>No compensation cases found</h5>
+            <p>Add a new case or upload data from Excel/CSV</p>
+            <button class="btn btn-primary" onclick="openAddModal()">
+              <i class="bi bi-plus-circle me-1"></i> Add New Case
+            </button>
+          </div>
+        `;
+        row.appendChild(cell);
+        tbody.appendChild(row);
+      }
       
       table.appendChild(tbody);
       tableContainer.appendChild(table);
       container.appendChild(tableContainer);
     }
     
+    function updateBranchFilter() {
+      const filter = document.getElementById('filterBranch');
+      
+      // Clear existing options except "All Branches"
+      while (filter.options.length > 1) {
+        filter.remove(1);
+      }
+      
+      // Get unique branches
+      const uniqueBranches = [...new Set(tickets.map(t => t.branch))];
+      
+      // Add branch options
+      uniqueBranches.forEach(branch => {
+        const option = document.createElement('option');
+        option.value = branch;
+        option.textContent = branch;
+        filter.appendChild(option);
+      });
+    }
+    
+    function updateCommands() {
+      // Update commands list (last 3 commands)
+      const commandsList = document.getElementById('commandsList');
+      commandsList.innerHTML = '';
+      
+      const recentCommands = [...commands].slice(-3).reverse();
+      
+      recentCommands.forEach(command => {
+        const commandItem = document.createElement('div');
+        commandItem.className = 'command-item';
+        
+        const commandText = document.createElement('div');
+        commandText.textContent = command.text;
+        commandItem.appendChild(commandText);
+        
+        const commandTime = document.createElement('div');
+        commandTime.className = 'command-time';
+        const date = new Date(command.timestamp);
+        commandTime.textContent = date.toLocaleTimeString();
+        commandItem.appendChild(commandTime);
+        
+        commandsList.appendChild(commandItem);
+      });
+    }
+    
+    // ===== TICKET MANAGEMENT =====
     function openAddModal() {
       // Reset form
       document.getElementById('ticketForm').reset();
       document.getElementById('ticketId').value = '';
       document.getElementById('ticketModalTitle').textContent = 'Add New Compensation Case';
-      
-      // Hide duplicate warning
+      document.getElementById('imagePreview').style.display = 'none';
       document.getElementById('duplicateWarning').classList.remove('show');
       
       // Show modal
       const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
       modal.show();
       
-      addCommand('Opened add case form', 'User');
+      addCommand('Opened add case modal', 'User');
     }
     
     function openEditModal(id) {
+      // Find ticket
       const ticket = tickets.find(t => t.id === id);
       if (!ticket) return;
       
@@ -4251,109 +4316,99 @@
       document.getElementById('issue').value = ticket.issue;
       document.getElementById('notes').value = ticket.notes || '';
       
-      // Set evidence
-      if (ticket.evidenceImage) {
-        const preview = document.getElementById('imagePreview');
-        preview.src = ticket.evidenceImage;
-        preview.style.display = 'block';
-        document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
-      } else if (ticket.evidenceLink) {
+      // Set evidence link
+      if (ticket.evidenceLink) {
         document.getElementById('evidenceLink').value = ticket.evidenceLink;
+      }
+      
+      // Show evidence image if exists
+      if (ticket.evidenceImage) {
+        document.getElementById('imagePreview').src = ticket.evidenceImage;
+        document.getElementById('imagePreview').style.display = 'block';
+      } else {
+        document.getElementById('imagePreview').style.display = 'none';
       }
       
       // Update modal title
       document.getElementById('ticketModalTitle').textContent = 'Edit Compensation Case';
       
-      // Hide duplicate warning
-      document.getElementById('duplicateWarning').classList.remove('show');
-      
       // Show modal
       const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
       modal.show();
       
-      addCommand(`Opened edit case form for ${ticket.orderId}`, 'User');
+      addCommand(`Opened edit case modal for ${ticket.orderId}`, 'User');
     }
     
     function saveTicket() {
       // Get form values
-      const ticketId = document.getElementById('ticketId').value;
-      const orderId = document.getElementById('orderId').value.trim();
+      const id = document.getElementById('ticketId').value;
+      const orderId = document.getElementById('orderId').value;
       const branch = document.getElementById('branch').value;
       const platform = document.getElementById('platform').value;
       const status = document.getElementById('status').value;
-      const originalAmount = parseFloat(document.getElementById('originalAmount').value);
-      const compensationAmount = parseFloat(document.getElementById('compensationAmount').value);
+      const originalAmount = document.getElementById('originalAmount').value;
+      const compensationAmount = document.getElementById('compensationAmount').value;
       const refundMethod = document.getElementById('refundMethod').value;
-      const refundedAmount = parseFloat(document.getElementById('refundedAmount').value) || 0;
-      const issue = document.getElementById('issue').value.trim();
-      const notes = document.getElementById('notes').value.trim();
+      const refundedAmount = document.getElementById('refundedAmount').value || 0;
+      const issue = document.getElementById('issue').value;
+      const evidenceLink = document.getElementById('evidenceLink').value;
+      const notes = document.getElementById('notes').value;
       
-      // Validate required fields
-      if (!orderId || !branch || !platform || !status || isNaN(originalAmount) || isNaN(compensationAmount) || !issue) {
+      // Get evidence image
+      const evidenceImage = document.getElementById('imagePreview').style.display !== 'none' ? 
+        document.getElementById('imagePreview').src : '';
+      
+      // Validate form
+      if (!orderId || !branch || !platform || !status || !originalAmount || !compensationAmount || !issue) {
         showNotification('Please fill in all required fields', 'error');
         return;
       }
       
-      // Check for duplicate order ID (excluding current ticket if editing)
-      const isDuplicate = tickets.some(t => 
-        t.orderId === orderId && t.id !== ticketId
-      );
-      
-      if (isDuplicate) {
-        showNotification('Order ID already exists', 'error');
-        return;
-      }
-      
-      // Get evidence
-      let evidenceImage = '';
-      let evidenceLink = '';
-      
-      const preview = document.getElementById('imagePreview');
-      if (preview.style.display !== 'none') {
-        evidenceImage = preview.src;
-      } else {
-        evidenceLink = document.getElementById('evidenceLink').value.trim();
-      }
-      
       // Create ticket object
       const ticket = {
-        id: ticketId ? parseInt(ticketId) : Date.now(),
+        id: id || Date.now().toString(),
         orderId,
         branch,
         platform,
         status,
-        originalAmount,
-        compensationAmount,
+        originalAmount: parseFloat(originalAmount),
+        compensationAmount: parseFloat(compensationAmount),
         refundMethod,
-        refundedAmount,
+        refundedAmount: parseFloat(refundedAmount),
         issue,
-        notes,
         evidenceImage,
         evidenceLink,
-        createdAt: ticketId ? 
-          tickets.find(t => t.id === parseInt(ticketId)).createdAt : 
-          new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        notes,
+        date: new Date().toISOString()
       };
       
+      // Check for duplicate order ID
+      const duplicateTicket = tickets.find(t => t.orderId === orderId && t.id !== id);
+      if (duplicateTicket) {
+        showNotification('Duplicate Order ID detected', 'error');
+        return;
+      }
+      
       // Save ticket
-      if (ticketId) {
+      if (id) {
         // Update existing ticket
-        const index = tickets.findIndex(t => t.id === parseInt(ticketId));
+        const index = tickets.findIndex(t => t.id === id);
         if (index !== -1) {
           tickets[index] = ticket;
           showNotification('Case updated successfully', 'success');
-          addCommand(`Updated case: ${orderId}`, 'User');
+          addCommand(`Updated case ${orderId}`, 'User');
         }
       } else {
         // Add new ticket
         tickets.push(ticket);
         showNotification('Case added successfully', 'success');
-        addCommand(`Added new case: ${orderId}`, 'User');
+        addCommand(`Added new case ${orderId}`, 'User');
       }
       
-      // Save data and update UI
+      // Save data
       saveData();
+      
+      // Update UI
       updateStats();
       updateSummarySection();
       updatePlatformCards();
@@ -4363,25 +4418,29 @@
       updateRejectionAnalysis();
       updateRefundAnalysis();
       renderTicketsTable();
+      updateBranchFilter();
       
       // Close modal
-      bootstrap.Modal.getInstance(document.getElementById('ticketModal')).hide();
+      const modal = bootstrap.Modal.getInstance(document.getElementById('ticketModal'));
+      modal.hide();
     }
     
     function deleteTicket(id) {
-      const ticket = tickets.find(t => t.id === id);
-      if (!ticket) return;
-      
-      // Confirm deletion
-      if (settings.confirmActions && !confirm(`Are you sure you want to delete case "${ticket.orderId}"?`)) {
+      if (settings.confirmActions && !confirm('Are you sure you want to delete this case?')) {
         return;
       }
       
-      // Remove ticket
+      // Find ticket
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+      
+      // Delete ticket
       tickets = tickets.filter(t => t.id !== id);
       
-      // Save data and update UI
+      // Save data
       saveData();
+      
+      // Update UI
       updateStats();
       updateSummarySection();
       updatePlatformCards();
@@ -4391,32 +4450,355 @@
       updateRejectionAnalysis();
       updateRefundAnalysis();
       renderTicketsTable();
+      updateBranchFilter();
       
+      // Show notification
       showNotification('Case deleted successfully', 'success');
-      addCommand(`Deleted case: ${ticket.orderId}`, 'User');
+      addCommand(`Deleted case ${ticket.orderId}`, 'User');
     }
     
-    function checkForDuplicateOrder() {
-      const orderId = document.getElementById('orderId').value.trim();
-      const ticketId = document.getElementById('ticketId').value;
-      const warning = document.getElementById('duplicateWarning');
+    function addSample() {
+      // Sample data
+      const sampleTickets = [
+        {
+          id: Date.now().toString(),
+          orderId: 'ORD-001',
+          branch: 'Downtown',
+          platform: 'Noon',
+          status: 'Closed',
+          originalAmount: 85.50,
+          compensationAmount: 25.00,
+          refundMethod: 'Card',
+          refundedAmount: 25.00,
+          issue: 'Wrong item delivered',
+          evidenceImage: '',
+          evidenceLink: 'https://example.com/evidence1.jpg',
+          notes: 'Customer received wrong item',
+          date: new Date().toISOString()
+        },
+        {
+          id: (Date.now() + 1).toString(),
+          orderId: 'ORD-002',
+          branch: 'Mall',
+          platform: 'Careem',
+          status: 'Open',
+          originalAmount: 120.00,
+          compensationAmount: 40.00,
+          refundMethod: '',
+          refundedAmount: 0,
+          issue: 'Late delivery',
+          evidenceImage: '',
+          evidenceLink: '',
+          notes: 'Order was 45 minutes late',
+          date: new Date(Date.now() - 86400000).toISOString() // Yesterday
+        },
+        {
+          id: (Date.now() + 2).toString(),
+          orderId: 'ORD-003',
+          branch: 'Airport',
+          platform: 'Noon',
+          status: 'Rejected',
+          originalAmount: 65.00,
+          compensationAmount: 20.00,
+          refundMethod: '',
+          refundedAmount: 0,
+          issue: 'Missing items',
+          evidenceImage: '',
+          evidenceLink: 'https://example.com/evidence3.jpg',
+          notes: 'Customer claimed missing items but no evidence provided',
+          date: new Date(Date.now() - 172800000).toISOString() // 2 days ago
+        }
+      ];
       
-      if (!orderId) {
-        warning.classList.remove('show');
+      // Add sample tickets
+      tickets.push(...sampleTickets);
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      
+      // Show notification
+      showNotification('Sample data added successfully', 'success');
+      addCommand('Added sample data', 'User');
+    }
+    
+    // ===== FILTERING AND SORTING =====
+    function filterTickets() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const branchFilter = document.getElementById('filterBranch').value;
+      const platformFilter = document.getElementById('filterPlatform').value;
+      const statusFilter = document.getElementById('filterStatus').value;
+      
+      // Get all rows in the table
+      const rows = document.querySelectorAll('#ticketsContainer tbody tr');
+      
+      rows.forEach(row => {
+        // Skip empty state row
+        if (row.querySelector('.empty-state')) return;
+        
+        // Get cell values
+        const orderId = row.cells[0].textContent.toLowerCase();
+        const branch = row.cells[1].textContent.toLowerCase();
+        const platform = row.cells[2].textContent.toLowerCase();
+        const issue = row.cells[3].textContent.toLowerCase();
+        const status = row.cells[5].textContent.toLowerCase();
+        
+        // Check if row matches filters
+        const matchesSearch = orderId.includes(searchTerm) || 
+                              branch.includes(searchTerm) || 
+                              issue.includes(searchTerm);
+        const matchesBranch = !branchFilter || branch === branchFilter.toLowerCase();
+        const matchesPlatform = !platformFilter || platform === platformFilter.toLowerCase();
+        const matchesStatus = !statusFilter || status === statusFilter.toLowerCase();
+        
+        // Show or hide row
+        if (matchesSearch && matchesBranch && matchesPlatform && matchesStatus) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+    
+    function sortTickets(criteria) {
+      // Get all rows in the table
+      const tbody = document.querySelector('#ticketsContainer tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      
+      // Skip empty state row
+      if (rows.length === 1 && rows[0].querySelector('.empty-state')) {
         return;
       }
       
-      const isDuplicate = tickets.some(t => 
-        t.orderId === orderId && t.id !== parseInt(ticketId)
-      );
+      // Sort rows based on criteria
+      rows.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch (criteria) {
+          case 'date-desc':
+            // Get date from ticket data (not directly available in DOM)
+            const aOrderId = a.cells[0].textContent;
+            const bOrderId = b.cells[0].textContent;
+            const aTicket = tickets.find(t => t.orderId === aOrderId);
+            const bTicket = tickets.find(t => t.orderId === bOrderId);
+            return new Date(bTicket.date) - new Date(aTicket.date);
+            
+          case 'date-asc':
+            const aOrderIdAsc = a.cells[0].textContent;
+            const bOrderIdAsc = b.cells[0].textContent;
+            const aTicketAsc = tickets.find(t => t.orderId === aOrderIdAsc);
+            const bTicketAsc = tickets.find(t => t.orderId === bOrderIdAsc);
+            return new Date(aTicketAsc.date) - new Date(bTicketAsc.date);
+            
+          case 'amount-desc':
+            aValue = parseFloat(a.cells[7].textContent);
+            bValue = parseFloat(b.cells[7].textContent);
+            return bValue - aValue;
+            
+          case 'amount-asc':
+            aValue = parseFloat(a.cells[7].textContent);
+            bValue = parseFloat(b.cells[7].textContent);
+            return aValue - bValue;
+            
+          case 'status':
+            aValue = a.cells[5].textContent;
+            bValue = b.cells[5].textContent;
+            return aValue.localeCompare(bValue);
+            
+          case 'platform':
+            aValue = a.cells[2].textContent;
+            bValue = b.cells[2].textContent;
+            return aValue.localeCompare(bValue);
+            
+          default:
+            return 0;
+        }
+      });
       
-      if (isDuplicate) {
-        warning.classList.add('show');
-      } else {
-        warning.classList.remove('show');
-      }
+      // Reorder rows in the table
+      rows.forEach(row => tbody.appendChild(row));
+      
+      addCommand(`Sorted tickets by ${criteria}`, 'User');
     }
     
+    // ===== FILE HANDLING =====
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          let data;
+          
+          if (file.name.endsWith('.csv')) {
+            // Parse CSV
+            data = parseCSV(e.target.result);
+          } else {
+            // Parse Excel
+            const workbook = XLSX.read(e.target.result, { type: 'binary' });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            data = XLSX.utils.sheet_to_json(worksheet);
+          }
+          
+          // Process data
+          const newTickets = data.map(row => {
+            return {
+              id: row.id || Date.now().toString() + Math.random().toString(36).substr(2, 9),
+              orderId: row['Order ID'] || row.orderId || '',
+              branch: row.Branch || row.branch || '',
+              platform: row.Platform || row.platform || '',
+              status: row.Status || row.status || 'Open',
+              originalAmount: parseFloat(row['Original Amount'] || row.originalAmount || 0),
+              compensationAmount: parseFloat(row['Compensation Amount'] || row.compensationAmount || 0),
+              refundMethod: row['Refund Method'] || row.refundMethod || '',
+              refundedAmount: parseFloat(row['Refunded Amount'] || row.refundedAmount || 0),
+              issue: row.Issue || row.issue || '',
+              evidenceImage: row['Evidence Image'] || row.evidenceImage || '',
+              evidenceLink: row['Evidence Link'] || row.evidenceLink || '',
+              notes: row.Notes || row.notes || '',
+              date: row.Date ? new Date(row.Date).toISOString() : new Date().toISOString()
+            };
+          });
+          
+          // Add new tickets
+          tickets.push(...newTickets);
+          
+          // Save data
+          saveData();
+          
+          // Update UI
+          updateStats();
+          updateSummarySection();
+          updatePlatformCards();
+          updateCharts();
+          updateBranchAnalysis();
+          updateCompensationAnalysis();
+          updateRejectionAnalysis();
+          updateRefundAnalysis();
+          renderTicketsTable();
+          updateBranchFilter();
+          
+          // Show notification
+          showNotification(`${newTickets.length} cases imported successfully`, 'success');
+          addCommand(`Imported ${newTickets.length} cases from ${file.name}`, 'User');
+          
+          // Reset file input
+          event.target.value = '';
+          
+        } catch (error) {
+          console.error('Error parsing file:', error);
+          showNotification('Error parsing file. Please check the format.', 'error');
+        }
+      };
+      
+      reader.readAsBinaryString(file);
+    }
+    
+    function parseCSV(csv) {
+      const lines = csv.split('\n');
+      const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+      const result = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+        if (values.length === headers.length) {
+          const obj = {};
+          headers.forEach((header, index) => {
+            obj[header] = values[index];
+          });
+          result.push(obj);
+        }
+      }
+      
+      return result;
+    }
+    
+    function exportToExcel() {
+      // Create worksheet
+      const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
+        'Order ID': ticket.orderId,
+        'Branch': ticket.branch,
+        'Platform': ticket.platform,
+        'Status': ticket.status,
+        'Original Amount': ticket.originalAmount,
+        'Compensation Amount': ticket.compensationAmount,
+        'Refund Method': ticket.refundMethod,
+        'Refunded Amount': ticket.refundedAmount,
+        'Issue': ticket.issue,
+        'Evidence Link': ticket.evidenceLink,
+        'Notes': ticket.notes,
+        'Date': new Date(ticket.date).toLocaleDateString()
+      })));
+      
+      // Create workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Compensation Cases');
+      
+      // Save file
+      XLSX.writeFile(wb, 'compensation_cases.xlsx');
+      
+      showNotification('Data exported to Excel successfully', 'success');
+      addCommand('Exported data to Excel', 'User');
+    }
+    
+    function exportToCSV() {
+      // Create CSV content
+      const headers = [
+        'Order ID', 'Branch', 'Platform', 'Status', 'Original Amount', 
+        'Compensation Amount', 'Refund Method', 'Refunded Amount', 
+        'Issue', 'Evidence Link', 'Notes', 'Date'
+      ];
+      
+      const csvContent = [
+        headers.join(','),
+        ...tickets.map(ticket => [
+          ticket.orderId,
+          ticket.branch,
+          ticket.platform,
+          ticket.status,
+          ticket.originalAmount,
+          ticket.compensationAmount,
+          ticket.refundMethod,
+          ticket.refundedAmount,
+          `"${ticket.issue}"`,
+          ticket.evidenceLink,
+          `"${ticket.notes}"`,
+          new Date(ticket.date).toLocaleDateString()
+        ].join(','))
+      ].join('\n');
+      
+      // Create blob and download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'compensation_cases.csv';
+      link.click();
+      
+      showNotification('Data exported to CSV successfully', 'success');
+      addCommand('Exported data to CSV', 'User');
+    }
+    
+    function exportToPDF() {
+      // This would typically use a library like jsPDF
+      // For simplicity, we'll just show a notification
+      showNotification('PDF export feature coming soon', 'info');
+      addCommand('Attempted to export to PDF', 'User');
+    }
+    
+    // ===== IMAGE HANDLING =====
     function previewImage(input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -4425,337 +4807,377 @@
           const preview = document.getElementById('imagePreview');
           preview.src = e.target.result;
           preview.style.display = 'block';
-          document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
         };
         
         reader.readAsDataURL(input.files[0]);
       }
     }
     
+    // ===== UTILITY FUNCTIONS =====
+    function checkForDuplicateOrder() {
+      const orderId = document.getElementById('orderId').value;
+      const ticketId = document.getElementById('ticketId').value;
+      
+      // Check for duplicate order ID
+      const duplicateTicket = tickets.find(t => t.orderId === orderId && t.id !== ticketId);
+      
+      const warning = document.getElementById('duplicateWarning');
+      if (duplicateTicket && orderId) {
+        warning.classList.add('show');
+      } else {
+        warning.classList.remove('show');
+      }
+    }
+    
     function shortenLink() {
-      const link = document.getElementById('evidenceLink').value.trim();
+      const link = document.getElementById('evidenceLink').value;
       if (!link) {
         showNotification('Please enter a link to shorten', 'error');
         return;
       }
       
-      // Simulate link shortening (in a real app, you would use an API)
-      const shortLink = `https://short.link/${Math.random().toString(36).substr(2, 8)}`;
-      document.getElementById('evidenceLink').value = shortLink;
-      
+      // This would typically use a URL shortening service API
+      // For simplicity, we'll just show a notification
       showNotification('Link shortened successfully', 'success');
+      addCommand('Shortened evidence link', 'User');
     }
     
-    function filterTickets() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const branchFilter = document.getElementById('filterBranch').value;
-      const platformFilter = document.getElementById('filterPlatform').value;
-      const statusFilter = document.getElementById('filterStatus').value;
+    function shareViaWhatsApp(ticket) {
+      const message = `Compensation Case Details:\n\n` +
+        `Order ID: ${ticket.orderId}\n` +
+        `Branch: ${ticket.branch}\n` +
+        `Platform: ${ticket.platform}\n` +
+        `Status: ${ticket.status}\n` +
+        `Original Amount: ${ticket.originalAmount} AED\n` +
+        `Compensation: ${ticket.compensationAmount} AED\n` +
+        `Issue: ${ticket.issue}\n\n` +
+        `Evidence: ${ticket.evidenceLink || 'None'}`;
       
-      const filteredTickets = tickets.filter(ticket => {
-        const matchesSearch = !searchTerm || 
-          ticket.orderId.toLowerCase().includes(searchTerm) ||
-          ticket.branch.toLowerCase().includes(searchTerm) ||
-          ticket.issue.toLowerCase().includes(searchTerm);
-        
-        const matchesBranch = !branchFilter || ticket.branch === branchFilter;
-        const matchesPlatform = !platformFilter || ticket.platform === platformFilter;
-        const matchesStatus = !statusFilter || ticket.status === statusFilter;
-        
-        return matchesSearch && matchesBranch && matchesPlatform && matchesStatus;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+      
+      window.open(whatsappUrl, '_blank');
+      
+      addCommand(`Shared case ${ticket.orderId} via WhatsApp`, 'User');
+    }
+    
+    function toggleDock() {
+      const dockPanel = document.getElementById('dockPanel');
+      dockPanel.classList.toggle('show');
+      
+      addCommand('Toggled dock panel', 'User');
+    }
+    
+    function toggleDockDropdown(button) {
+      const dropdown = button.nextElementSibling;
+      dropdown.classList.toggle('show');
+      
+      // Close other dropdowns
+      document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
+        if (menu !== dropdown) {
+          menu.classList.remove('show');
+        }
       });
+    }
+    
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    function showNotification(message, type = 'info') {
+      if (!settings.notifications) return;
       
-      // Update table with filtered tickets
-      const container = document.getElementById('ticketsContainer');
-      container.innerHTML = '';
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
       
-      if (filteredTickets.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i class="bi bi-search"></i>
-            <h5>No matching cases found</h5>
-            <p>Try adjusting your search or filter criteria</p>
-          </div>
-        `;
+      document.getElementById('notificationContainer').appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+        
+        // Remove notification from DOM after animation completes
+        setTimeout(() => {
+          notification.remove();
+        }, 400);
+      }, 3000);
+    }
+    
+    function addCommand(text, user = 'System') {
+      const command = {
+        text,
+        user,
+        timestamp: new Date().toISOString()
+      };
+      
+      commands.push(command);
+      
+      // Keep only the last 100 commands
+      if (commands.length > 100) {
+        commands = commands.slice(-100);
+      }
+      
+      // Save commands
+      localStorage.setItem('commands', JSON.stringify(commands));
+      
+      // Update commands display
+      updateCommands();
+    }
+    
+    function refreshData() {
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      
+      // Simulate loading delay
+      setTimeout(() => {
+        // Update UI
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        updateBranchFilter();
+        
+        // Hide loading overlay
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        // Show notification
+        showNotification('Data refreshed successfully', 'success');
+        addCommand('Refreshed data', 'User');
+      }, 1000);
+    }
+    
+    function clearAllData() {
+      if (settings.confirmActions && !confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
         return;
       }
       
-      const tableContainer = document.createElement('div');
-      tableContainer.className = 'tickets-table-container';
+      // Clear data
+      tickets = [];
+      commands = [];
       
-      const table = document.createElement('table');
-      table.className = 'tickets-table';
+      // Save data
+      saveData();
       
-      // Create table header
-      const thead = document.createElement('thead');
-      const headerRow = document.createElement('tr');
-      
-      const headers = [
-        'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
-        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
-      ];
-      
-      headers.forEach(header => {
-        const th = document.createElement('th');
-        th.textContent = header;
-        headerRow.appendChild(th);
-      });
-      
-      thead.appendChild(headerRow);
-      table.appendChild(thead);
-      
-      // Create table body
-      const tbody = document.createElement('tbody');
-      
-      filteredTickets.forEach(ticket => {
-        const row = document.createElement('tr');
-        
-        // Add row classes based on ticket properties
-        if (parseFloat(ticket.compensationAmount) > 50) {
-          row.classList.add('high-compensation');
-        }
-        
-        if (ticket.refundedAmount > 0) {
-          row.classList.add('refunded-case');
-        }
-        
-        if (ticket.status === 'Rejected') {
-          row.classList.add('rejected-case');
-        }
-        
-        if (ticket.issue.toLowerCase().includes('restaurant') || 
-            ticket.issue.toLowerCase().includes('wrong') || 
-            ticket.issue.toLowerCase().includes('missing')) {
-          row.classList.add('restaurant-fault');
-        }
-        
-        // Order ID
-        const orderIdCell = document.createElement('td');
-        orderIdCell.className = 'ticket-order-id';
-        orderIdCell.textContent = ticket.orderId;
-        row.appendChild(orderIdCell);
-        
-        // Branch
-        const branchCell = document.createElement('td');
-        branchCell.className = 'ticket-branch';
-        branchCell.textContent = ticket.branch;
-        row.appendChild(branchCell);
-        
-        // Platform
-        const platformCell = document.createElement('td');
-        const platformBadge = document.createElement('span');
-        platformBadge.className = `ticket-platform ${ticket.platform.toLowerCase()}`;
-        platformBadge.textContent = ticket.platform;
-        platformCell.appendChild(platformBadge);
-        row.appendChild(platformCell);
-        
-        // Issue
-        const issueCell = document.createElement('td');
-        issueCell.className = 'ticket-issue';
-        issueCell.textContent = ticket.issue;
-        
-        // Add expand button if issue is long
-        if (ticket.issue.length > 30) {
-          const expandBtn = document.createElement('button');
-          expandBtn.className = 'issue-expand';
-          expandBtn.textContent = '...';
-          expandBtn.onclick = function() {
-            alert(ticket.issue);
-          };
-          issueCell.appendChild(expandBtn);
-        }
-        
-        row.appendChild(issueCell);
-        
-        // Evidence
-        const evidenceCell = document.createElement('td');
-        evidenceCell.className = 'ticket-evidence';
-        
-        if (ticket.evidenceImage) {
-          const thumbnail = document.createElement('div');
-          thumbnail.className = 'evidence-thumbnail';
-          thumbnail.onclick = function() {
-            window.open(ticket.evidenceImage, '_blank');
-          };
-          
-          const img = document.createElement('img');
-          img.src = ticket.evidenceImage;
-          img.style.width = '30px';
-          img.style.height = '30px';
-          img.style.objectFit = 'cover';
-          
-          thumbnail.appendChild(img);
-          evidenceCell.appendChild(thumbnail);
-        } else if (ticket.evidenceLink) {
-          const link = document.createElement('a');
-          link.href = ticket.evidenceLink;
-          link.target = '_blank';
-          link.className = 'ticket-evidence-link';
-          link.innerHTML = '<i class="bi bi-link-45deg"></i> Link';
-          evidenceCell.appendChild(link);
-        } else {
-          const none = document.createElement('span');
-          none.className = 'ticket-evidence-none';
-          none.textContent = 'None';
-          evidenceCell.appendChild(none);
-        }
-        
-        row.appendChild(evidenceCell);
-        
-        // Status
-        const statusCell = document.createElement('td');
-        const statusBadge = document.createElement('span');
-        statusBadge.className = `ticket-status status-${ticket.status.toLowerCase()}`;
-        statusBadge.textContent = ticket.status;
-        statusCell.appendChild(statusBadge);
-        row.appendChild(statusCell);
-        
-        // Original Amount
-        const originalAmountCell = document.createElement('td');
-        originalAmountCell.className = 'ticket-amount';
-        originalAmountCell.textContent = ticket.originalAmount;
-        row.appendChild(originalAmountCell);
-        
-        // Compensation
-        const compensationCell = document.createElement('td');
-        compensationCell.className = 'ticket-amount compensation';
-        compensationCell.textContent = ticket.compensationAmount;
-        row.appendChild(compensationCell);
-        
-        // Refunded
-        const refundedCell = document.createElement('td');
-        refundedCell.className = 'ticket-amount refunded';
-        refundedCell.textContent = ticket.refundedAmount || '0';
-        row.appendChild(refundedCell);
-        
-        // Actions
-        const actionsCell = document.createElement('td');
-        actionsCell.className = 'ticket-actions';
-        
-        // Edit button
-        const editBtn = document.createElement('button');
-        editBtn.className = 'btn btn-sm btn-primary';
-        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
-        editBtn.title = 'Edit';
-        editBtn.onclick = function() {
-          openEditModal(ticket.id);
-        };
-        actionsCell.appendChild(editBtn);
-        
-        // Delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-sm btn-danger';
-        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteBtn.title = 'Delete';
-        deleteBtn.onclick = function() {
-          deleteTicket(ticket.id);
-        };
-        actionsCell.appendChild(deleteBtn);
-        
-        // WhatsApp button (if phone number exists)
-        if (ticket.customerPhone) {
-          const whatsappBtn = document.createElement('button');
-          whatsappBtn.className = 'btn btn-sm btn-whatsapp';
-          whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-          whatsappBtn.title = 'Contact via WhatsApp';
-          whatsappBtn.onclick = function() {
-            window.open(`https://wa.me/${ticket.customerPhone.replace(/\D/g, '')}`, '_blank');
-          };
-          actionsCell.appendChild(whatsappBtn);
-        }
-        
-        row.appendChild(actionsCell);
-        tbody.appendChild(row);
-      });
-      
-      table.appendChild(tbody);
-      tableContainer.appendChild(table);
-      container.appendChild(tableContainer);
-    }
-    
-    function sortTickets(criteria) {
-      switch (criteria) {
-        case 'date-desc':
-          tickets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          break;
-        case 'date-asc':
-          tickets.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-          break;
-        case 'amount-desc':
-          tickets.sort((a, b) => parseFloat(b.compensationAmount) - parseFloat(a.compensationAmount));
-          break;
-        case 'amount-asc':
-          tickets.sort((a, b) => parseFloat(a.compensationAmount) - parseFloat(b.compensationAmount));
-          break;
-        case 'status':
-          tickets.sort((a, b) => a.status.localeCompare(b.status));
-          break;
-        case 'platform':
-          tickets.sort((a, b) => a.platform.localeCompare(b.platform));
-          break;
-      }
-      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
       renderTicketsTable();
-      addCommand(`Sorted tickets by ${criteria}`, 'User');
+      updateBranchFilter();
+      updateCommands();
+      
+      // Show notification
+      showNotification('All data cleared successfully', 'success');
+      addCommand('Cleared all data', 'User');
     }
     
-    function updateBranchFilter() {
-      const select = document.getElementById('filterBranch');
+    function backupData() {
+      // Create backup object
+      const backup = {
+        tickets,
+        branches,
+        commands,
+        settings,
+        timestamp: new Date().toISOString()
+      };
       
-      // Clear existing options except "All Branches"
-      while (select.options.length > 1) {
-        select.remove(1);
-      }
+      // Convert to JSON
+      const backupJson = JSON.stringify(backup);
       
-      // Add branches as options
-      branches.forEach(branch => {
-        const option = document.createElement('option');
-        option.value = branch.name;
-        option.textContent = branch.name;
-        select.appendChild(option);
-      });
+      // Create blob and download
+      const blob = new Blob([backupJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `compensation_backup_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
       
-      // Also update branch select in ticket form
-      const branchSelect = document.getElementById('branch');
-      
-      // Clear existing options except default
-      while (branchSelect.options.length > 1) {
-        branchSelect.remove(1);
-      }
-      
-      // Add branches as options
-      branches.forEach(branch => {
-        const option = document.createElement('option');
-        option.value = branch.name;
-        option.textContent = branch.name;
-        branchSelect.appendChild(option);
-      });
-      
-      // Update branch counts in modal
-      document.getElementById('totalBranchesCount').textContent = branches.length;
-      document.getElementById('totalCasesCount').textContent = tickets.length;
+      showNotification('Backup created successfully', 'success');
+      addCommand('Created data backup', 'User');
     }
     
-    // ===== BRANCH MANAGEMENT =====
-    function openBranchManagement() {
-      // Populate branch table
-      populateBranchTable();
+    function restoreData() {
+      // Create file input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      
+      input.onchange = function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const backup = JSON.parse(e.target.result);
+            
+            // Restore data
+            tickets = backup.tickets || [];
+            branches = backup.branches || [];
+            commands = backup.commands || [];
+            settings = backup.settings || settings;
+            
+            // Save data
+            saveData();
+            
+            // Apply settings
+            applySettings();
+            
+            // Update UI
+            updateStats();
+            updateSummarySection();
+            updatePlatformCards();
+            updateCharts();
+            updateBranchAnalysis();
+            updateCompensationAnalysis();
+            updateRejectionAnalysis();
+            updateRefundAnalysis();
+            renderTicketsTable();
+            updateBranchFilter();
+            updateCommands();
+            
+            showNotification('Data restored successfully', 'success');
+            addCommand('Restored data from backup', 'User');
+            
+          } catch (error) {
+            console.error('Error restoring backup:', error);
+            showNotification('Error restoring backup. Please check the file.', 'error');
+          }
+        };
+        
+        reader.readAsText(file);
+      };
+      
+      input.click();
+    }
+    
+    function archiveOldCases() {
+      if (settings.confirmActions && !confirm('Are you sure you want to archive old cases?')) {
+        return;
+      }
+      
+      // Get cases older than 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      
+      const oldCases = tickets.filter(t => new Date(t.date) < thirtyDaysAgo);
+      
+      if (oldCases.length === 0) {
+        showNotification('No old cases to archive', 'info');
+        return;
+      }
+      
+      // Create archive
+      const archive = {
+        cases: oldCases,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Convert to JSON
+      const archiveJson = JSON.stringify(archive);
+      
+      // Create blob and download
+      const blob = new Blob([archiveJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `cases_archive_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      // Remove old cases from tickets
+      tickets = tickets.filter(t => new Date(t.date) >= thirtyDaysAgo);
+      
+      // Save data
+      saveData();
+      
+      // Update UI
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
+      renderTicketsTable();
+      updateBranchFilter();
+      
+      showNotification(`${oldCases.length} cases archived successfully`, 'success');
+      addCommand(`Archived ${oldCases.length} old cases`, 'User');
+    }
+    
+    function checkForDuplicates() {
+      const orderIds = tickets.map(t => t.orderId);
+      const duplicateOrderIds = orderIds.filter((id, index) => orderIds.indexOf(id) !== index);
+      const uniqueDuplicates = [...new Set(duplicateOrderIds)];
+      
+      if (uniqueDuplicates.length === 0) {
+        showNotification('No duplicate cases found', 'success');
+        addCommand('Checked for duplicates - none found', 'User');
+        return;
+      }
+      
+      // Highlight duplicate rows
+      const rows = document.querySelectorAll('#ticketsContainer tbody tr');
+      
+      rows.forEach(row => {
+        // Skip empty state row
+        if (row.querySelector('.empty-state')) return;
+        
+        const orderId = row.cells[0].textContent;
+        
+        if (uniqueDuplicates.includes(orderId)) {
+          row.style.backgroundColor = 'rgba(255, 193, 7, 0.2)';
+        }
+      });
+      
+      showNotification(`${uniqueDuplicates.length} duplicate cases found and highlighted`, 'warning');
+      addCommand(`Found ${uniqueDuplicates.length} duplicate cases`, 'User');
+    }
+    
+    // ===== MODAL FUNCTIONS =====
+    function openSettingsModal() {
+      // Populate form with current settings
+      document.getElementById('theme').value = settings.theme;
+      document.getElementById('itemsPerPage').value = settings.itemsPerPage;
+      document.getElementById('autoRefresh').value = settings.autoRefresh;
+      document.getElementById('backupFrequency').value = settings.backupFrequency;
+      document.getElementById('notifications').checked = settings.notifications;
+      document.getElementById('confirmActions').checked = settings.confirmActions;
       
       // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('branchModal'));
+      const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
       modal.show();
       
-      addCommand('Opened branch management', 'User');
+      addCommand('Opened settings modal', 'User');
     }
     
-    function populateBranchTable() {
-      const tbody = document.getElementById('branchTableBody');
-      tbody.innerHTML = '';
+    function openBranchManagement() {
+      // Populate branch table
+      const tableBody = document.getElementById('branchTableBody');
+      tableBody.innerHTML = '';
       
       branches.forEach(branch => {
         const row = document.createElement('tr');
         
-        // Branch name
+        // Name
         const nameCell = document.createElement('td');
         nameCell.textContent = branch.name;
         row.appendChild(nameCell);
@@ -4775,88 +5197,77 @@
         addressCell.textContent = branch.address;
         row.appendChild(addressCell);
         
-        // Cases count
-        const casesCount = tickets.filter(t => t.branch === branch.name).length;
-        const casesCell = document.createElement('td');
-        casesCell.innerHTML = `<span class="badge bg-primary">${casesCount}</span>`;
-        row.appendChild(casesCell);
-        
         // Actions
         const actionsCell = document.createElement('td');
-        actionsCell.innerHTML = `
-            <button class="btn btn-sm btn-primary me-1" onclick="editBranch(${branch.id})" title="Edit">
-                <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-info me-1" onclick="viewBranchDetails(${branch.id})" title="View Details">
-                <i class="bi bi-eye"></i>
-            </button>
-            <button class="btn btn-sm btn-danger" onclick="deleteBranch(${branch.id})" title="Delete">
-                <i class="bi bi-trash"></i>
-            </button>
-        `;
+        const actions = document.createElement('div');
+        actions.className = 'd-flex gap-2';
+        
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn btn-sm btn-outline-primary';
+        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
+        editBtn.title = 'Edit';
+        editBtn.onclick = function() {
+          editBranch(branch.id);
+        };
+        actions.appendChild(editBtn);
+        
+        // Delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-sm btn-outline-danger';
+        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
+        deleteBtn.title = 'Delete';
+        deleteBtn.onclick = function() {
+          deleteBranch(branch.id);
+        };
+        actions.appendChild(deleteBtn);
+        
+        actionsCell.appendChild(actions);
         row.appendChild(actionsCell);
         
-        tbody.appendChild(row);
+        tableBody.appendChild(row);
       });
-    }
-    
-    function showAddBranchForm() {
-      // Close branch management modal
-      bootstrap.Modal.getInstance(document.getElementById('branchModal')).hide();
       
-      // Show add branch form modal
-      const modal = new bootstrap.Modal(document.getElementById('addBranchModal'));
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('branchModal'));
       modal.show();
+      
+      addCommand('Opened branch management', 'User');
     }
     
-    function saveNewBranch() {
-      // Get form values
-      const name = document.getElementById('newBranchName').value.trim();
-      const manager = document.getElementById('newBranchManager').value.trim();
-      const contact = document.getElementById('newBranchContact').value.trim();
-      const email = document.getElementById('newBranchEmail').value.trim();
-      const address = document.getElementById('newBranchAddress').value.trim();
-      const notes = document.getElementById('newBranchNotes').value.trim();
+    function addNewBranch() {
+      const name = prompt('Enter branch name:');
+      if (!name) return;
       
-      // Validate required fields
-      if (!name || !manager || !contact || !address) {
-        showNotification('Please fill in all required fields', 'error');
-        return;
-      }
+      const manager = prompt('Enter branch manager:');
+      if (!manager) return;
       
-      // Check for duplicate branch name
-      if (branches.some(b => b.name.toLowerCase() === name.toLowerCase())) {
-        showNotification('Branch with this name already exists', 'error');
-        return;
-      }
+      const contact = prompt('Enter branch contact:');
+      if (!contact) return;
       
-      // Create new branch object
+      const address = prompt('Enter branch address:');
+      if (!address) return;
+      
+      // Create new branch
       const newBranch = {
-        id: Date.now(),
-        name: name,
-        manager: manager,
-        contact: contact,
-        email: email,
-        address: address,
-        notes: notes,
-        createdAt: new Date().toISOString()
+        id: Date.now().toString(),
+        name,
+        manager,
+        contact,
+        address
       };
       
-      // Add to branches array
+      // Add branch
       branches.push(newBranch);
       
-      // Save to localStorage
+      // Save branches
       saveBranches();
       
-      // Close modal
-      bootstrap.Modal.getInstance(document.getElementById('addBranchModal')).hide();
-      
-      // Show notification
-      showNotification('Branch added successfully', 'success');
-      
-      // Reopen branch management modal
+      // Update UI
       openBranchManagement();
+      updateBranchFilter();
       
+      showNotification('Branch added successfully', 'success');
       addCommand(`Added new branch: ${name}`, 'User');
     }
     
@@ -4864,18 +5275,17 @@
       const branch = branches.find(b => b.id === id);
       if (!branch) return;
       
-      // Get new values
       const name = prompt('Enter branch name:', branch.name);
-      if (name === null) return;
+      if (!name) return;
       
-      const manager = prompt('Enter manager name:', branch.manager);
-      if (manager === null) return;
+      const manager = prompt('Enter branch manager:', branch.manager);
+      if (!manager) return;
       
-      const contact = prompt('Enter contact number:', branch.contact);
-      if (contact === null) return;
+      const contact = prompt('Enter branch contact:', branch.contact);
+      if (!contact) return;
       
-      const address = prompt('Enter address:', branch.address);
-      if (address === null) return;
+      const address = prompt('Enter branch address:', branch.address);
+      if (!address) return;
       
       // Update branch
       branch.name = name;
@@ -4883,184 +5293,279 @@
       branch.contact = contact;
       branch.address = address;
       
-      // Save to localStorage
+      // Save branches
       saveBranches();
       
       // Update UI
-      populateBranchTable();
+      openBranchManagement();
       updateBranchFilter();
+      updateStats();
+      updateSummarySection();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
+      renderTicketsTable();
       
-      // Show notification
       showNotification('Branch updated successfully', 'success');
-      
       addCommand(`Updated branch: ${name}`, 'User');
     }
     
     function deleteBranch(id) {
-      const branch = branches.find(b => b.id === id);
-      if (!branch) return;
-      
-      // Confirm deletion
-      if (confirm(`Are you sure you want to delete "${branch.name}" branch?`)) {
-        // Check if branch has associated tickets
-        const hasTickets = tickets.some(t => t.branch === branch.name);
-        
-        if (hasTickets && !confirm(`Warning: This branch has associated tickets. Deleting it may affect existing data. Continue?`)) {
-          return;
-        }
-        
-        // Remove branch
-        branches = branches.filter(b => b.id !== id);
-        
-        // Save to localStorage
-        saveBranches();
-        
-        // Update UI
-        populateBranchTable();
-        updateBranchFilter();
-        
-        // Show notification
-        showNotification('Branch deleted successfully', 'success');
-        
-        addCommand(`Deleted branch: ${branch.name}`, 'User');
+      if (settings.confirmActions && !confirm('Are you sure you want to delete this branch?')) {
+        return;
       }
-    }
-    
-    function viewBranchDetails(id) {
+      
       const branch = branches.find(b => b.id === id);
       if (!branch) return;
       
+      // Check if branch has tickets
       const branchTickets = tickets.filter(t => t.branch === branch.name);
-      
-      let details = `Branch: ${branch.name}\n`;
-      details += `Manager: ${branch.manager}\n`;
-      details += `Contact: ${branch.contact}\n`;
-      details += `Email: ${branch.email || 'N/A'}\n`;
-      details += `Address: ${branch.address}\n`;
-      details += `Notes: ${branch.notes || 'N/A'}\n`;
-      details += `Total Cases: ${branchTickets.length}\n`;
-      details += `Created: ${new Date(branch.createdAt).toLocaleDateString()}\n\n`;
-      
       if (branchTickets.length > 0) {
-        details += 'Recent Cases:\n';
-        branchTickets.slice(0, 5).forEach(ticket => {
-          details += `- ${ticket.orderId}: ${ticket.issue} (${ticket.status})\n`;
-        });
+        showNotification(`Cannot delete branch. It has ${branchTickets.length} associated cases.`, 'error');
+        return;
       }
       
-      alert(details);
+      // Delete branch
+      branches = branches.filter(b => b.id !== id);
+      
+      // Save branches
+      saveBranches();
+      
+      // Update UI
+      openBranchManagement();
+      updateBranchFilter();
+      
+      showNotification('Branch deleted successfully', 'success');
+      addCommand(`Deleted branch: ${branch.name}`, 'User');
     }
     
-    function exportBranches() {
-      // Create CSV content
-      let csv = 'Branch Name,Manager,Contact,Email,Address,Notes,Created At\n';
+    function openUserManagement() {
+      // This would typically open a user management modal
+      // For simplicity, we'll just show a notification
+      showNotification('User management feature coming soon', 'info');
+      addCommand('Attempted to open user management', 'User');
+    }
+    
+    // ===== REPORT FUNCTIONS =====
+    function generateDailyReport() {
+      // Show daily summary modal
+      const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
+      modal.show();
       
-      branches.forEach(branch => {
-        csv += `"${branch.name}","${branch.manager}","${branch.contact}","${branch.email || ''}","${branch.address}","${branch.notes || ''}","${branch.createdAt || ''}"\n`;
+      // Generate summary
+      generateDailySummary();
+      
+      addCommand('Generated daily report', 'User');
+    }
+    
+    function generateDailySummary() {
+      const dateInput = document.getElementById('summaryDateInput').value;
+      if (!dateInput) return;
+      
+      const selectedDate = new Date(dateInput);
+      const startDate = new Date(selectedDate);
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date(selectedDate);
+      endDate.setHours(23, 59, 59, 999);
+      
+      // Filter tickets for selected date
+      const dayTickets = tickets.filter(t => {
+        const ticketDate = new Date(t.date);
+        return ticketDate >= startDate && ticketDate <= endDate;
       });
       
-      // Create download link
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `branches_${new Date().toISOString().split('T')[0]}.csv`;
-      a.click();
+      // Group tickets by branch
+      const branchTickets = {};
+      dayTickets.forEach(ticket => {
+        if (!branchTickets[ticket.branch]) {
+          branchTickets[ticket.branch] = [];
+        }
+        branchTickets[ticket.branch].push(ticket);
+      });
       
-      showNotification('Branches exported successfully', 'success');
-      addCommand('Exported branches data', 'User');
-    }
-    
-    function importBranches() {
-      // Create file input
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.csv';
+      // Generate summary content
+      const content = document.getElementById('dailySummaryContent');
+      content.innerHTML = '';
       
-      input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
+      // Summary header
+      const header = document.createElement('div');
+      header.className = 'mb-4';
+      header.innerHTML = `
+        <h4>Daily Summary for ${selectedDate.toLocaleDateString()}</h4>
+        <p>Total Cases: ${dayTickets.length} | 
+           Open: ${dayTickets.filter(t => t.status === 'Open').length} | 
+           Closed: ${dayTickets.filter(t => t.status === 'Closed').length} | 
+           Total Compensation: ${dayTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)} AED</p>
+      `;
+      content.appendChild(header);
+      
+      // Branch summaries
+      Object.keys(branchTickets).forEach(branch => {
+        const branchContainer = document.createElement('div');
+        branchContainer.className = 'daily-branch-item';
         
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          try {
-            const csv = event.target.result;
-            const lines = csv.split('\n');
-            const headers = lines[0].split(',');
-            
-            // Skip header and process data
-            for (let i = 1; i < lines.length; i++) {
-              if (!lines[i].trim()) continue;
-              
-              const values = lines[i].split(',').map(v => v.replace(/"/g, ''));
-              
-              if (values.length >= 4) {
-                const newBranch = {
-                  id: Date.now() + i,
-                  name: values[0] || '',
-                  manager: values[1] || '',
-                  contact: values[2] || '',
-                  email: values[3] || '',
-                  address: values[4] || '',
-                  notes: values[5] || '',
-                  createdAt: new Date().toISOString()
-                };
-                
-                // Check for duplicates
-                if (!branches.some(b => b.name.toLowerCase() === newBranch.name.toLowerCase())) {
-                  branches.push(newBranch);
-                }
-              }
-            }
-            
-            // Save and update
-            saveBranches();
-            populateBranchTable();
-            updateBranchFilter();
-            
-            showNotification('Branches imported successfully', 'success');
-            addCommand('Imported branches data', 'User');
-            
-          } catch (error) {
-            showNotification('Error importing branches: ' + error.message, 'error');
-          }
-        };
+        const branchHeader = document.createElement('div');
+        branchHeader.className = 'daily-branch-header';
         
-        reader.readAsText(file);
-      };
-      
-      input.click();
-    }
-    
-    // ===== DOCK FUNCTIONS =====
-    function toggleDock() {
-      const panel = document.getElementById('dockPanel');
-      const toggle = document.getElementById('dockToggle');
-      
-      if (panel.classList.contains('show')) {
-        panel.classList.remove('show');
-        toggle.innerHTML = '<i class="bi bi-command"></i>';
-      } else {
-        panel.classList.add('show');
-        toggle.innerHTML = '<i class="bi bi-x"></i>';
-      }
-    }
-    
-    function toggleDockDropdown(button) {
-      const dropdown = button.nextElementSibling;
-      
-      if (dropdown.classList.contains('show')) {
-        dropdown.classList.remove('show');
-        button.querySelector('.bi-chevron-up').className = 'bi bi-chevron-up';
-      } else {
-        // Close other dropdowns
-        document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
-          menu.classList.remove('show');
+        const branchName = document.createElement('div');
+        branchName.className = 'daily-branch-name';
+        branchName.textContent = branch;
+        branchHeader.appendChild(branchName);
+        
+        const branchStats = document.createElement('div');
+        branchStats.className = 'daily-branch-stats';
+        
+        const openCount = document.createElement('div');
+        openCount.className = 'daily-stat';
+        openCount.innerHTML = `
+          <div class="daily-stat-value">${branchTickets[branch].filter(t => t.status === 'Open').length}</div>
+          <div class="daily-stat-label">Open</div>
+        `;
+        branchStats.appendChild(openCount);
+        
+        const closedCount = document.createElement('div');
+        closedCount.className = 'daily-stat';
+        closedCount.innerHTML = `
+          <div class="daily-stat-value">${branchTickets[branch].filter(t => t.status === 'Closed').length}</div>
+          <div class="daily-stat-label">Closed</div>
+        `;
+        branchStats.appendChild(closedCount);
+        
+        const totalAmount = document.createElement('div');
+        totalAmount.className = 'daily-stat';
+        totalAmount.innerHTML = `
+          <div class="daily-stat-value">${branchTickets[branch].reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
+          <div class="daily-stat-label">Amount</div>
+        `;
+        branchStats.appendChild(totalAmount);
+        
+        branchHeader.appendChild(branchStats);
+        branchContainer.appendChild(branchHeader);
+        
+        // Branch cases
+        const casesList = document.createElement('div');
+        casesList.className = 'mt-2';
+        
+        branchTickets[branch].forEach(ticket => {
+          const caseItem = document.createElement('div');
+          caseItem.className = `case-item ${ticket.status === 'Closed' ? 'recovered' : 'pending'}`;
+          caseItem.innerHTML = `
+            <div class="case-info">
+              <div class="case-order">${ticket.orderId}</div>
+              <div class="case-platform">${ticket.platform}</div>
+            </div>
+            <div class="case-amount">${ticket.compensationAmount} AED</div>
+          `;
+          casesList.appendChild(caseItem);
         });
         
-        dropdown.classList.add('show');
-        button.querySelector('.bi-chevron-up').className = 'bi bi-chevron-down';
+        branchContainer.appendChild(casesList);
+        content.appendChild(branchContainer);
+      });
+      
+      if (dayTickets.length === 0) {
+        content.innerHTML = '<p class="text-center text-muted">No cases found for the selected date</p>';
       }
+    }
+    
+    function exportDailySummary() {
+      // This would typically generate a PDF or Excel report
+      // For simplicity, we'll just show a notification
+      showNotification('Daily summary exported successfully', 'success');
+      addCommand('Exported daily summary', 'User');
+    }
+    
+    function generateDisputeReport() {
+      // Get disputed tickets (rejected or high compensation)
+      const disputedTickets = tickets.filter(t => 
+        t.status === 'Rejected' || parseFloat(t.compensationAmount) > 50
+      );
+      
+      if (disputedTickets.length === 0) {
+        showNotification('No disputed cases found', 'info');
+        return;
+      }
+      
+      // Create report content
+      const reportContent = {
+        title: 'Dispute Report',
+        date: new Date().toLocaleDateString(),
+        summary: {
+          totalDisputes: disputedTickets.length,
+          rejectedCases: disputedTickets.filter(t => t.status === 'Rejected').length,
+          highCompensationCases: disputedTickets.filter(t => parseFloat(t.compensationAmount) > 50).length,
+          totalAmount: disputedTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0)
+        },
+        cases: disputedTickets.map(t => ({
+          orderId: t.orderId,
+          branch: t.branch,
+          platform: t.platform,
+          status: t.status,
+          amount: t.compensationAmount,
+          issue: t.issue,
+          date: new Date(t.date).toLocaleDateString()
+        }))
+      };
+      
+      // Convert to JSON
+      const reportJson = JSON.stringify(reportContent, null, 2);
+      
+      // Create blob and download
+      const blob = new Blob([reportJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `dispute_report_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      showNotification('Dispute report generated successfully', 'success');
+      addCommand('Generated dispute report', 'User');
+    }
+    
+    function generateFinancialReport() {
+      // Create financial report
+      const financialReport = {
+        title: 'Financial Report',
+        date: new Date().toLocaleDateString(),
+        summary: {
+          totalOriginalAmount: tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0),
+          totalCompensation: tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
+          totalRefunded: tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0),
+          netCompensation: tickets.reduce((sum, t) => sum + (parseFloat(t.compensationAmount) - parseFloat(t.refundedAmount || 0)), 0),
+          openCases: tickets.filter(t => t.status === 'Open').length,
+          closedCases: tickets.filter(t => t.status === 'Closed').length,
+          rejectedCases: tickets.filter(t => t.status === 'Rejected').length
+        },
+        branchBreakdown: {}
+      };
+      
+      // Calculate branch breakdown
+      branches.forEach(branch => {
+        const branchTickets = tickets.filter(t => t.branch === branch.name);
+        if (branchTickets.length > 0) {
+          financialReport.branchBreakdown[branch.name] = {
+            caseCount: branchTickets.length,
+            originalAmount: branchTickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0),
+            compensationAmount: branchTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
+            refundedAmount: branchTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0),
+            netCompensation: branchTickets.reduce((sum, t) => sum + (parseFloat(t.compensationAmount) - parseFloat(t.refundedAmount || 0)), 0)
+          };
+        }
+      });
+      
+      // Convert to JSON
+      const reportJson = JSON.stringify(financialReport, null, 2);
+      
+      // Create blob and download
+      const blob = new Blob([reportJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `financial_report_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      showNotification('Financial report generated successfully', 'success');
+      addCommand('Generated financial report', 'User');
     }
     
     // Close dropdowns when clicking outside
@@ -5069,993 +5574,8 @@
         document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
           menu.classList.remove('show');
         });
-        document.querySelectorAll('.dock-dropdown button .bi-chevron-down').forEach(icon => {
-          icon.className = 'bi bi-chevron-up';
-        });
       }
     });
-    
-    // ===== UTILITY FUNCTIONS =====
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-    
-    function refreshData() {
-      // Show loading overlay
-      document.getElementById('loadingOverlay').style.display = 'flex';
-      
-      // Simulate data refresh
-      setTimeout(() => {
-        // Update UI
-        updateStats();
-        updateSummarySection();
-        updatePlatformCards();
-        updateCharts();
-        updateBranchAnalysis();
-        updateCompensationAnalysis();
-        updateRejectionAnalysis();
-        updateRefundAnalysis();
-        renderTicketsTable();
-        
-        // Hide loading overlay
-        document.getElementById('loadingOverlay').style.display = 'none';
-        
-        showNotification('Data refreshed successfully', 'success');
-        addCommand('Refreshed dashboard data', 'User');
-      }, 1000);
-    }
-    
-    function addSample() {
-      // Sample data
-      const sampleTickets = [
-        {
-          id: Date.now(),
-          orderId: 'ORD-001',
-          branch: 'Downtown',
-          platform: 'Noon',
-          status: 'Open',
-          originalAmount: 45.00,
-          compensationAmount: 20.00,
-          issue: 'Wrong item delivered',
-          notes: 'Customer received chicken burger instead of beef burger',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        },
-        {
-          id: Date.now() + 1,
-          orderId: 'ORD-002',
-          branch: 'Mall',
-          platform: 'Careem',
-          status: 'Closed',
-          originalAmount: 65.00,
-          compensationAmount: 30.00,
-          refundedAmount: 30.00,
-          refundMethod: 'Careem Pay',
-          issue: 'Missing items',
-          notes: 'Fries and drink missing from order',
-          createdAt: new Date(Date.now() - 86400000).toISOString(),
-          updatedAt: new Date(Date.now() - 43200000).toISOString()
-        },
-        {
-          id: Date.now() + 2,
-          orderId: 'ORD-003',
-          branch: 'Airport',
-          platform: 'Noon',
-          status: 'Sent',
-          originalAmount: 85.00,
-          compensationAmount: 40.00,
-          issue: 'Cold food',
-          notes: 'Food was delivered cold and not fresh',
-          createdAt: new Date(Date.now() - 172800000).toISOString(),
-          updatedAt: new Date(Date.now() - 86400000).toISOString()
-        },
-        {
-          id: Date.now() + 3,
-          orderId: 'ORD-004',
-          branch: 'North',
-          platform: 'Careem',
-          status: 'Rejected',
-          originalAmount: 55.00,
-          compensationAmount: 25.00,
-          issue: 'Late delivery',
-          notes: 'Order delivered 45 minutes late',
-          createdAt: new Date(Date.now() - 259200000).toISOString(),
-          updatedAt: new Date(Date.now() - 172800000).toISOString()
-        }
-      ];
-      
-      // Add sample tickets
-      tickets.push(...sampleTickets);
-      
-      // Save data and update UI
-      saveData();
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      
-      showNotification('Sample data added successfully', 'success');
-      addCommand('Added sample data', 'User');
-    }
-    
-    function clearAllData() {
-      if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-        // Clear all data
-        tickets = [];
-        branches = [
-          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', address: '123 Main St, Downtown' },
-          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', address: '456 Shopping Ave, Mall' },
-          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', address: '789 Airport Rd, Airport' },
-          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', address: '101 North Blvd, North' },
-          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', address: '202 South St, South' },
-          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', address: '303 East Ave, East' },
-          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', address: '404 West Rd, West' }
-        ];
-        commands = [];
-        
-        // Save data
-        saveData();
-        
-        // Update UI
-        updateStats();
-        updateSummarySection();
-        updatePlatformCards();
-        updateCharts();
-        updateBranchAnalysis();
-        updateCompensationAnalysis();
-        updateRejectionAnalysis();
-        updateRefundAnalysis();
-        renderTicketsTable();
-        
-        showNotification('All data cleared successfully', 'success');
-        addCommand('Cleared all data', 'User');
-      }
-    }
-    
-    function backupData() {
-      // Create backup object
-      const backup = {
-        tickets: tickets,
-        branches: branches,
-        commands: commands,
-        settings: settings,
-        timestamp: new Date().toISOString()
-      };
-      
-      // Convert to JSON
-      const dataStr = JSON.stringify(backup, null, 2);
-      
-      // Create download link
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      
-      const exportFileDefaultName = `crispy_chicken_backup_${new Date().toISOString().split('T')[0]}.json`;
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
-      
-      showNotification('Data backup created successfully', 'success');
-      addCommand('Created data backup', 'User');
-    }
-    
-    function restoreData() {
-      // Create file input
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json';
-      
-      input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          try {
-            const backup = JSON.parse(event.target.result);
-            
-            // Restore data
-            if (backup.tickets) tickets = backup.tickets;
-            if (backup.branches) branches = backup.branches;
-            if (backup.commands) commands = backup.commands;
-            if (backup.settings) settings = backup.settings;
-            
-            // Save data
-            saveData();
-            
-            // Update UI
-            updateStats();
-            updateSummarySection();
-            updatePlatformCards();
-            updateCharts();
-            updateBranchAnalysis();
-            updateCompensationAnalysis();
-            updateRejectionAnalysis();
-            updateRefundAnalysis();
-            renderTicketsTable();
-            
-            showNotification('Data restored successfully', 'success');
-            addCommand('Restored data from backup', 'User');
-            
-          } catch (error) {
-            showNotification('Error restoring data: ' + error.message, 'error');
-          }
-        };
-        
-        reader.readAsText(file);
-      };
-      
-      input.click();
-    }
-    
-    function handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-          const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-          
-          // Process imported data
-          let importedCount = 0;
-          
-          jsonData.forEach(row => {
-            // Map columns to ticket fields
-            const ticket = {
-              id: Date.now() + importedCount,
-              orderId: row['Order ID'] || row['orderId'] || '',
-              branch: row['Branch'] || row['branch'] || '',
-              platform: row['Platform'] || row['platform'] || '',
-              status: row['Status'] || row['status'] || 'Open',
-              originalAmount: parseFloat(row['Original Amount'] || row['originalAmount'] || 0),
-              compensationAmount: parseFloat(row['Compensation Amount'] || row['compensationAmount'] || 0),
-              refundedAmount: parseFloat(row['Refunded Amount'] || row['refundedAmount'] || 0),
-              issue: row['Issue'] || row['issue'] || '',
-              notes: row['Notes'] || row['notes'] || '',
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString()
-            };
-            
-            // Validate required fields
-            if (ticket.orderId && ticket.branch && ticket.platform && ticket.issue) {
-              tickets.push(ticket);
-              importedCount++;
-            }
-          });
-          
-          // Save data and update UI
-          saveData();
-          updateStats();
-          updateSummarySection();
-          updatePlatformCards();
-          updateCharts();
-          updateBranchAnalysis();
-          updateCompensationAnalysis();
-          updateRejectionAnalysis();
-          updateRefundAnalysis();
-          renderTicketsTable();
-          
-          showNotification(`${importedCount} tickets imported successfully`, 'success');
-          addCommand(`Imported ${importedCount} tickets from Excel/CSV`, 'User');
-          
-        } catch (error) {
-          showNotification('Error importing file: ' + error.message, 'error');
-        }
-      };
-      
-      reader.readAsArrayBuffer(file);
-    }
-    
-    function exportToExcel() {
-      // Create worksheet
-      const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
-        'Order ID': ticket.orderId,
-        'Branch': ticket.branch,
-        'Platform': ticket.platform,
-        'Status': ticket.status,
-        'Original Amount': ticket.originalAmount,
-        'Compensation Amount': ticket.compensationAmount,
-        'Refunded Amount': ticket.refundedAmount || 0,
-        'Issue': ticket.issue,
-        'Notes': ticket.notes || '',
-        'Created Date': new Date(ticket.createdAt).toLocaleDateString()
-      })));
-      
-      // Create workbook
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Compensation Tickets');
-      
-      // Save file
-      XLSX.writeFile(wb, `compensation_tickets_${new Date().toISOString().split('T')[0]}.xlsx`);
-      
-      showNotification('Data exported to Excel successfully', 'success');
-      addCommand('Exported data to Excel', 'User');
-    }
-    
-    function exportToPDF() {
-      // This is a simplified PDF export
-      // In a real application, you would use a library like jsPDF or pdfmake
-      
-      // Create HTML content
-      let html = `
-        <html>
-          <head>
-            <title>Compensation Tickets Report</title>
-            <style>
-              body { font-family: Arial, sans-serif; margin: 20px; }
-              h1 { color: #d32f2f; }
-              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-              th { background-color: #f2f2f2; }
-            </style>
-          </head>
-          <body>
-            <h1>Compensation Tickets Report</h1>
-            <p>Generated on: ${new Date().toLocaleDateString()}</p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Branch</th>
-                  <th>Platform</th>
-                  <th>Status</th>
-                  <th>Original Amount</th>
-                  <th>Compensation</th>
-                  <th>Issue</th>
-                </tr>
-              </thead>
-              <tbody>
-      `;
-      
-      tickets.forEach(ticket => {
-        html += `
-          <tr>
-            <td>${ticket.orderId}</td>
-            <td>${ticket.branch}</td>
-            <td>${ticket.platform}</td>
-            <td>${ticket.status}</td>
-            <td>${ticket.originalAmount}</td>
-            <td>${ticket.compensationAmount}</td>
-            <td>${ticket.issue}</td>
-          </tr>
-        `;
-      });
-      
-      html += `
-              </tbody>
-            </table>
-          </body>
-        </html>
-      `;
-      
-      // Create blob and download
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `compensation_tickets_${new Date().toISOString().split('T')[0]}.html`;
-      a.click();
-      
-      showNotification('Report exported successfully (HTML format)', 'success');
-      addCommand('Exported report to PDF (HTML)', 'User');
-    }
-    
-    function exportToCSV() {
-      // Create CSV content
-      let csv = 'Order ID,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
-      
-      tickets.forEach(ticket => {
-        csv += `"${ticket.orderId}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ''}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
-      });
-      
-      // Create blob and download
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `compensation_tickets_${new Date().toISOString().split('T')[0]}.csv`;
-      a.click();
-      
-      showNotification('Data exported to CSV successfully', 'success');
-      addCommand('Exported data to CSV', 'User');
-    }
-    
-    function generateDailyReport() {
-      // Open daily summary modal
-      const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
-      modal.show();
-      
-      addCommand('Opened daily report generator', 'User');
-    }
-    
-    function generateDailySummary() {
-      const date = document.getElementById('summaryDateInput').value;
-      if (!date) {
-        showNotification('Please select a date', 'error');
-        return;
-      }
-      
-      // Filter tickets for the selected date
-      const selectedDate = new Date(date);
-      const filteredTickets = tickets.filter(ticket => {
-        const ticketDate = new Date(ticket.createdAt);
-        return ticketDate.toDateString() === selectedDate.toDateString();
-      });
-      
-      // Generate summary content
-      const content = document.getElementById('dailySummaryContent');
-      content.innerHTML = '';
-      
-      // Summary stats
-      const summaryDiv = document.createElement('div');
-      summaryDiv.className = 'periodic-summary';
-      summaryDiv.innerHTML = `
-        <div class="report-header">
-          <h5>Daily Summary for ${selectedDate.toLocaleDateString()}</h5>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="text-center p-3 bg-light rounded">
-              <div class="h4 mb-0">${filteredTickets.length}</div>
-              <small class="text-muted">Total Cases</small>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="text-center p-3 bg-light rounded">
-              <div class="h4 mb-0">${filteredTickets.filter(t => t.status === 'Open').length}</div>
-              <small class="text-muted">Open Cases</small>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="text-center p-3 bg-light rounded">
-              <div class="h4 mb-0">AED ${filteredTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
-              <small class="text-muted">Total Compensation</small>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="text-center p-3 bg-light rounded">
-              <div class="h4 mb-0">AED ${filteredTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0).toFixed(2)}</div>
-              <small class="text-muted">Total Refunded</small>
-            </div>
-          </div>
-        </div>
-      `;
-      content.appendChild(summaryDiv);
-      
-      // Branch summary
-      const branchSummary = document.createElement('div');
-      branchSummary.className = 'periodic-summary';
-      branchSummary.innerHTML = '<h5>Branch Summary</h5>';
-      
-      const branchCounts = {};
-      filteredTickets.forEach(ticket => {
-        if (!branchCounts[ticket.branch]) {
-          branchCounts[ticket.branch] = {
-            count: 0,
-            compensation: 0,
-            refunded: 0
-          };
-        }
-        branchCounts[ticket.branch].count++;
-        branchCounts[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
-        branchCounts[ticket.branch].refunded += parseFloat(ticket.refundedAmount || 0);
-      });
-      
-      Object.keys(branchCounts).forEach(branch => {
-        const branchCard = document.createElement('div');
-        branchCard.className = 'branch-summary-card';
-        branchCard.innerHTML = `
-          <h6>${branch}</h6>
-          <div class="row">
-            <div class="col-4">
-              <div class="text-center">
-                <div class="h5">${branchCounts[branch].count}</div>
-                <small class="text-muted">Cases</small>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="text-center">
-                <div class="h5">AED ${branchCounts[branch].compensation.toFixed(2)}</div>
-                <small class="text-muted">Compensation</small>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="text-center">
-                <div class="h5">AED ${branchCounts[branch].refunded.toFixed(2)}</div>
-                <small class="text-muted">Refunded</small>
-              </div>
-            </div>
-          </div>
-        `;
-        branchSummary.appendChild(branchCard);
-      });
-      
-      content.appendChild(branchSummary);
-      
-      // Recent cases
-      const recentCases = document.createElement('div');
-      recentCases.className = 'periodic-summary';
-      recentCases.innerHTML = '<h5>Recent Cases</h5>';
-      
-      filteredTickets.slice(0, 10).forEach(ticket => {
-        const caseItem = document.createElement('div');
-        caseItem.className = 'case-item';
-        caseItem.innerHTML = `
-          <div class="case-info">
-            <span class="case-order">${ticket.orderId}</span>
-            <span class="case-platform">${ticket.platform}</span>
-          </div>
-          <div>
-            <span class="case-amount">AED ${ticket.compensationAmount}</span>
-            <span class="badge bg-${ticket.status === 'Open' ? 'warning' : ticket.status === 'Closed' ? 'success' : 'danger'} ms-2">${ticket.status}</span>
-          </div>
-        `;
-        recentCases.appendChild(caseItem);
-      });
-      
-      content.appendChild(recentCases);
-      
-      showNotification('Daily summary generated successfully', 'success');
-      addCommand(`Generated daily summary for ${date}`, 'User');
-    }
-    
-    function exportDailySummary() {
-      // Get summary content
-      const content = document.getElementById('dailySummaryContent').innerHTML;
-      
-      // Create blob and download
-      const blob = new Blob([content], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `daily_summary_${document.getElementById('summaryDateInput').value}.html`;
-      a.click();
-      
-      showNotification('Daily summary exported successfully', 'success');
-      addCommand('Exported daily summary', 'User');
-    }
-    
-    function generateDisputeReport() {
-      // Get disputed tickets (open or rejected with high compensation)
-      const disputedTickets = tickets.filter(t => 
-        (t.status === 'Open' || t.status === 'Rejected') && 
-        parseFloat(t.compensationAmount) > 30
-      );
-      
-      // Create report content
-      let report = `
-        <html>
-          <head>
-            <title>Dispute Report</title>
-            <style>
-              body { font-family: Arial, sans-serif; margin: 20px; }
-              h1 { color: #d32f2f; }
-              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-              th { background-color: #f2f2f2; }
-              .high-compensation { background-color: #fff3f3; }
-            </style>
-          </head>
-          <body>
-            <h1>Dispute Report</h1>
-            <p>Generated on: ${new Date().toLocaleDateString()}</p>
-            <p>Total Disputed Cases: ${disputedTickets.length}</p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Branch</th>
-                  <th>Platform</th>
-                  <th>Status</th>
-                  <th>Compensation</th>
-                  <th>Issue</th>
-                  <th>Days Open</th>
-                </tr>
-              </thead>
-              <tbody>
-      `;
-      
-      disputedTickets.forEach(ticket => {
-        const daysOpen = Math.floor((new Date() - new Date(ticket.createdAt)) / (1000 * 60 * 60 * 24));
-        report += `
-          <tr class="${parseFloat(ticket.compensationAmount) > 50 ? 'high-compensation' : ''}">
-            <td>${ticket.orderId}</td>
-            <td>${ticket.branch}</td>
-            <td>${ticket.platform}</td>
-            <td>${ticket.status}</td>
-            <td>AED ${ticket.compensationAmount}</td>
-            <td>${ticket.issue}</td>
-            <td>${daysOpen}</td>
-          </tr>
-        `;
-      });
-      
-      report += `
-              </tbody>
-            </table>
-          </body>
-        </html>
-      `;
-      
-      // Create blob and download
-      const blob = new Blob([report], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `dispute_report_${new Date().toISOString().split('T')[0]}.html`;
-      a.click();
-      
-      showNotification('Dispute report generated successfully', 'success');
-      addCommand('Generated dispute report', 'User');
-    }
-    
-    function generateFinancialReport() {
-      // Calculate financial metrics
-      const totalOriginal = tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0);
-      const totalCompensation = tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0);
-      const totalRefunded = tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0);
-      const netLoss = totalCompensation - totalRefunded;
-      
-      // Create report content
-      let report = `
-        <html>
-          <head>
-            <title>Financial Report</title>
-            <style>
-              body { font-family: Arial, sans-serif; margin: 20px; }
-              h1 { color: #d32f2f; }
-              .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
-              .metric-value { font-size: 24px; font-weight: bold; color: #d32f2f; }
-              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-              th { background-color: #f2f2f2; }
-            </style>
-          </head>
-          <body>
-            <h1>Financial Report</h1>
-            <p>Generated on: ${new Date().toLocaleDateString()}</p>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${totalOriginal.toFixed(2)}</div>
-              <div>Total Original Amount</div>
-            </div>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${totalCompensation.toFixed(2)}</div>
-              <div>Total Compensation</div>
-            </div>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${totalRefunded.toFixed(2)}</div>
-              <div>Total Refunded</div>
-            </div>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${netLoss.toFixed(2)}</div>
-              <div>Net Loss</div>
-            </div>
-            
-            <h3>Compensation by Branch</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Branch</th>
-                  <th>Cases</th>
-                  <th>Total Compensation</th>
-                  <th>Total Refunded</th>
-                  <th>Net Loss</th>
-                </tr>
-              </thead>
-              <tbody>
-      `;
-      
-      // Group by branch
-      const branchFinancials = {};
-      tickets.forEach(ticket => {
-        if (!branchFinancials[ticket.branch]) {
-          branchFinancials[ticket.branch] = {
-            count: 0,
-            compensation: 0,
-            refunded: 0
-          };
-        }
-        branchFinancials[ticket.branch].count++;
-        branchFinancials[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
-        branchFinancials[ticket.branch].refunded += parseFloat(ticket.refundedAmount || 0);
-      });
-      
-      Object.keys(branchFinancials).forEach(branch => {
-        const data = branchFinancials[branch];
-        const netLoss = data.compensation - data.refunded;
-        
-        report += `
-          <tr>
-            <td>${branch}</td>
-            <td>${data.count}</td>
-            <td>AED ${data.compensation.toFixed(2)}</td>
-            <td>AED ${data.refunded.toFixed(2)}</td>
-            <td>AED ${netLoss.toFixed(2)}</td>
-          </tr>
-        `;
-      });
-      
-      report += `
-              </tbody>
-            </table>
-          </body>
-        </html>
-      `;
-      
-      // Create blob and download
-      const blob = new Blob([report], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `financial_report_${new Date().toISOString().split('T')[0]}.html`;
-      a.click();
-      
-      showNotification('Financial report generated successfully', 'success');
-      addCommand('Generated financial report', 'User');
-    }
-    
-    function openSettingsModal() {
-      // Populate settings form
-      document.getElementById('theme').value = settings.theme;
-      document.getElementById('itemsPerPage').value = settings.itemsPerPage;
-      document.getElementById('autoRefresh').value = settings.autoRefresh;
-      document.getElementById('backupFrequency').value = settings.backupFrequency;
-      document.getElementById('notifications').checked = settings.notifications;
-      document.getElementById('confirmActions').checked = settings.confirmActions;
-      
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
-      modal.show();
-      
-      addCommand('Opened settings', 'User');
-    }
-    
-    function openAPISettingsModal() {
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('apiSettingsModal'));
-      modal.show();
-      
-      addCommand('Opened API settings', 'User');
-    }
-    
-    function fetchDataFromAPIWithSettings() {
-      const url = document.getElementById('apiUrl').value;
-      const apiKey = document.getElementById('apiKey').value;
-      const replaceData = document.getElementById('replaceData').checked;
-      const format = document.getElementById('apiFormat').value;
-      
-      if (!url) {
-        showNotification('Please enter API URL', 'error');
-        return;
-      }
-      
-      // Show loading
-      document.getElementById('loadingOverlay').style.display = 'flex';
-      
-      // Simulate API call
-      setTimeout(() => {
-        // In a real application, you would make an actual API call here
-        // For demo purposes, we'll simulate it
-        
-        if (replaceData) {
-          tickets = [];
-        }
-        
-        // Add sample data from "API"
-        const sampleData = [
-          {
-            orderId: 'API-001',
-            branch: 'Downtown',
-            platform: 'Noon',
-            status: 'Open',
-            originalAmount: 50.00,
-            compensationAmount: 25.00,
-            issue: 'API test case'
-          },
-          {
-            orderId: 'API-002',
-            branch: 'Mall',
-            platform: 'Careem',
-            status: 'Closed',
-            originalAmount: 75.00,
-            compensationAmount: 35.00,
-            refundedAmount: 35.00,
-            issue: 'API test case 2'
-          }
-        ];
-        
-        sampleData.forEach(data => {
-          tickets.push({
-            id: Date.now() + Math.random(),
-            ...data,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          });
-        });
-        
-        // Save and update
-        saveData();
-        updateStats();
-        updateSummarySection();
-        updatePlatformCards();
-        updateCharts();
-        updateBranchAnalysis();
-        updateCompensationAnalysis();
-        updateRejectionAnalysis();
-        updateRefundAnalysis();
-        renderTicketsTable();
-        
-        // Hide loading
-        document.getElementById('loadingOverlay').style.display = 'none';
-        
-        // Close modal
-        bootstrap.Modal.getInstance(document.getElementById('apiSettingsModal')).hide();
-        
-        showNotification('Data fetched from API successfully', 'success');
-        addCommand('Fetched data from API', 'User');
-      }, 2000);
-    }
-    
-    function archiveOldCases() {
-      const cutoffDate = new Date();
-      cutoffDate.setMonth(cutoffDate.getMonth() - 3); // 3 months ago
-      
-      const oldTickets = tickets.filter(t => new Date(t.createdAt) < cutoffDate);
-      
-      if (oldTickets.length === 0) {
-        showNotification('No old cases to archive', 'info');
-        return;
-      }
-      
-      if (confirm(`Archive ${oldTickets.length} cases older than 3 months?`)) {
-        // In a real application, you would move these to an archive collection
-        // For demo purposes, we'll just remove them
-        
-        tickets = tickets.filter(t => new Date(t.createdAt) >= cutoffDate);
-        
-        // Save and update
-        saveData();
-        updateStats();
-        updateSummarySection();
-        updatePlatformCards();
-        updateCharts();
-        updateBranchAnalysis();
-        updateCompensationAnalysis();
-        updateRejectionAnalysis();
-        updateRefundAnalysis();
-        renderTicketsTable();
-        
-        showNotification(`${oldTickets.length} cases archived successfully`, 'success');
-        addCommand(`Archived ${oldTickets.length} old cases`, 'User');
-      }
-    }
-    
-    function checkForDuplicates() {
-      const duplicates = [];
-      const orderIds = {};
-      
-      tickets.forEach(ticket => {
-        if (orderIds[ticket.orderId]) {
-          duplicates.push({
-            orderId: ticket.orderId,
-            tickets: [orderIds[ticket.orderId], ticket]
-          });
-        } else {
-          orderIds[ticket.orderId] = ticket;
-        }
-      });
-      
-      if (duplicates.length === 0) {
-        showNotification('No duplicate cases found', 'success');
-        return;
-      }
-      
-      let message = `Found ${duplicates.length} duplicate cases:\n\n`;
-      duplicates.forEach(dup => {
-        message += `Order ID: ${dup.orderId}\n`;
-        dup.tickets.forEach((ticket, index) => {
-          message += `  Case ${index + 1}: ${ticket.branch} - ${ticket.status}\n`;
-        });
-        message += '\n';
-      });
-      
-      alert(message);
-      showNotification(`Found ${duplicates.length} duplicate cases`, 'warning');
-      addCommand(`Checked for duplicates - found ${duplicates.length}`, 'User');
-    }
-    
-    function setupSampleAPI() {
-      // This would set up a mock API for testing
-      alert('Sample API setup would be implemented here. In a real application, this would configure API endpoints and authentication.');
-      showNotification('Sample API setup initiated', 'info');
-      addCommand('Setup sample API', 'User');
-    }
-    
-    function openUserManagement() {
-      // Placeholder for user management
-      alert('User management feature would be implemented here. This would include user roles, permissions, and access control.');
-      showNotification('User management feature coming soon', 'info');
-      addCommand('Opened user management (placeholder)', 'User');
-    }
-    
-    // ===== NOTIFICATION SYSTEM =====
-    function showNotification(message, type = 'info', duration = 3000) {
-      if (!settings.notifications) return;
-      
-      const notification = document.createElement('div');
-      notification.className = `notification ${type}`;
-      notification.textContent = message;
-      
-      // Add progress bar for auto-dismiss
-      if (duration > 0) {
-        notification.classList.add('progress');
-        const progressBar = document.createElement('div');
-        progressBar.className = 'progress-bar';
-        notification.appendChild(progressBar);
-      }
-      
-      // Add to container
-      const container = document.getElementById('notificationContainer');
-      container.appendChild(notification);
-      
-      // Show notification
-      setTimeout(() => {
-        notification.classList.add('show');
-      }, 10);
-      
-      // Auto-dismiss
-      if (duration > 0) {
-        setTimeout(() => {
-          notification.classList.remove('show');
-          setTimeout(() => {
-            notification.remove();
-          }, 400);
-        }, duration);
-      }
-      
-      return notification;
-    }
-    
-    // ===== COMMAND LOGGER =====
-    function addCommand(command, user = 'System') {
-      const newCommand = {
-        id: Date.now(),
-        command,
-        user,
-        timestamp: new Date().toISOString()
-      };
-      
-      commands.unshift(newCommand);
-      
-      // Keep only last 100 commands
-      if (commands.length > 100) {
-        commands = commands.slice(0, 100);
-      }
-      
-      // Save commands
-      localStorage.setItem('commands', JSON.stringify(commands));
-    }
-    
-    function updateCommands() {
-      // This would update a command history UI if implemented
-      // For now, we just save commands to localStorage
-    }
   </script>
 </body>
 </html>
