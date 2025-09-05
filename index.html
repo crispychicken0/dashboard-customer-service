@@ -423,6 +423,161 @@
       border-radius: 4px;
     }
     
+    /* ===== DISPUTE SECTION ===== */
+    .dispute-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    
+    .dispute-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .dispute-header h5 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-primary);
+    }
+    
+    .dispute-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    
+    .dispute-card {
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dispute-card.urgent {
+      background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.1));
+      border: 1px solid rgba(220, 53, 69, 0.2);
+    }
+    
+    .dispute-card.urgent:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .dispute-card.pending {
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 193, 7, 0.1));
+      border: 1px solid rgba(255, 193, 7, 0.2);
+    }
+    
+    .dispute-card.pending:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .dispute-card.escalated {
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(13, 110, 253, 0.1));
+      border: 1px solid rgba(13, 110, 253, 0.2);
+    }
+    
+    .dispute-card.escalated:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .dispute-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .dispute-card.urgent .dispute-badge {
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+    }
+    
+    .dispute-card.pending .dispute-badge {
+      background: rgba(255, 193, 7, 0.9);
+      color: white;
+    }
+    
+    .dispute-card.escalated .dispute-badge {
+      background: rgba(13, 110, 253, 0.9);
+      color: white;
+    }
+    
+    .dispute-card h6 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 15px 0 10px;
+      color: var(--text-primary);
+    }
+    
+    .dispute-count {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .dispute-card.urgent .dispute-count {
+      color: var(--crispy-red);
+    }
+    
+    .dispute-card.pending .dispute-count {
+      color: #ffc107;
+    }
+    
+    .dispute-card.escalated .dispute-count {
+      color: #0d6efd;
+    }
+    
+    .dispute-timeline {
+      margin-top: 30px;
+    }
+    
+    .dispute-timeline h6 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid var(--crispy-red);
+    }
+    
+    .timeline-time {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-right: 15px;
+      white-space: nowrap;
+    }
+    
+    .timeline-text {
+      flex: 1;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    
     /* ===== COMPENSATION ANALYSIS ===== */
     .compensation-analysis-section {
       background: var(--card-bg);
@@ -1056,6 +1211,22 @@
       background-color: rgba(255, 248, 220, 0.8) !important;
     }
     
+    .tickets-table tbody tr.escalated-case {
+      background-color: rgba(13, 110, 253, 0.1) !important;
+    }
+    
+    .tickets-table tbody tr.escalated-case:hover {
+      background-color: rgba(13, 110, 253, 0.2) !important;
+    }
+    
+    .tickets-table tbody tr.evidence-missing {
+      background-color: rgba(255, 193, 7, 0.1) !important;
+    }
+    
+    .tickets-table tbody tr.evidence-missing:hover {
+      background-color: rgba(255, 193, 7, 0.2) !important;
+    }
+    
     /* ===== STATUS BADGE COLORS ===== */
     .status-open {
       background: rgba(13, 110, 253, 0.1);
@@ -1075,6 +1246,11 @@
     .status-rejected {
       background: rgba(220, 53, 69, 0.1);
       color: #dc3545;
+    }
+    
+    .status-escalated {
+      background: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
     }
     
     /* ===== EMPTY STATE ===== */
@@ -1212,6 +1388,7 @@
       margin-bottom: 16px;
       position: relative;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
     
     .image-upload-container:hover {
@@ -1451,6 +1628,33 @@
     
     .dock-section.tools button:hover {
       background: linear-gradient(135deg, rgba(244, 67, 54, 0.4), rgba(244, 67, 54, 0.2));
+    }
+    
+    /* ===== COMMAND INPUT - TEAL THEME ===== */
+    .dock-section.command-input button {
+      background: linear-gradient(135deg, rgba(0, 150, 136, 0.3), rgba(0, 150, 136, 0.1));
+    }
+    
+    .dock-section.command-input button:hover {
+      background: linear-gradient(135deg, rgba(0, 150, 136, 0.4), rgba(0, 150, 136, 0.2));
+    }
+    
+    .dock-section.command-input .form-control {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    .dock-section.command-input .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .dock-section.command-input .form-control:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+      color: white;
     }
     
     /* ===== DROPDOWN IN DOCK ===== */
@@ -1749,106 +1953,6 @@
       display: block;
     }
     
-    /* ===== DISPUTE REPORT STYLES ===== */
-    .dispute-report-section, .periodic-summary {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .report-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #d32f2f;
-      padding-bottom: 10px;
-    }
-    
-    .report-header h5 {
-      color: #d32f2f;
-      font-weight: bold;
-    }
-    
-    .branch-report-card, .branch-summary-card {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-left: 4px solid #d32f2f;
-    }
-    
-    .case-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 5px;
-    }
-    
-    .case-item.pending {
-      background: #fff3cd;
-    }
-    
-    .case-item.recovered {
-      background: #d4edda;
-    }
-    
-    .case-info {
-      display: flex;
-      gap: 15px;
-    }
-    
-    .case-order {
-      font-weight: bold;
-    }
-    
-    .case-platform {
-      color: #6c757d;
-    }
-    
-    .case-amount {
-      color: #d32f2f;
-      font-weight: bold;
-    }
-    
-    .platform-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    
-    .platform-item {
-      background: white;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    
-    .platform-name {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    
-    .platform-data {
-      font-size: 0.9rem;
-    }
-    
-    /* ===== UTILITY CLASSES ===== */
-    .rounded-16 {
-      border-radius: 16px !important;
-    }
-    
-    .rounded-12 {
-      border-radius: 12px !important;
-    }
-    
-    .rounded-8 {
-      border-radius: 8px !important;
-    }
-    
     /* ===== PRINT STYLES ===== */
     @media print{
       #dock, .tickets-header .btn, .action-buttons, .navbar, .modal, .notification, .commands-window, .storage-indicator { display:none !important; }
@@ -2127,6 +2231,53 @@
       </div>
     </section>
     
+    <!-- ===== DISPUTE SECTION ===== -->
+    <section class="dispute-section">
+      <div class="dispute-header">
+        <h5>Dispute Management</h5>
+        <div class="text-muted">
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          Active disputes requiring attention
+        </div>
+      </div>
+      
+      <div class="dispute-grid">
+        <div class="dispute-card urgent">
+          <div class="dispute-badge">Urgent</div>
+          <h6>High Compensation Cases</h6>
+          <div class="dispute-count" id="urgentCases">0</div>
+          <button class="btn btn-sm btn-danger" onclick="viewUrgentCases()">
+            View All
+          </button>
+        </div>
+        
+        <div class="dispute-card pending">
+          <div class="dispute-badge">Pending</div>
+          <h6>Evidence Required</h6>
+          <div class="dispute-count" id="evidencePending">0</div>
+          <button class="btn btn-sm btn-warning" onclick="requestEvidenceForAll()">
+            Request Evidence
+          </button>
+        </div>
+        
+        <div class="dispute-card escalated">
+          <div class="dispute-badge">Escalated</div>
+          <h6>Management Review</h6>
+          <div class="dispute-count" id="escalatedCases">0</div>
+          <button class="btn btn-sm btn-info" onclick="viewEscalatedCases()">
+            Track Progress
+          </button>
+        </div>
+      </div>
+      
+      <div class="dispute-timeline">
+        <h6>Recent Dispute Actions</h6>
+        <div id="disputeTimeline">
+          <!-- Timeline items will be populated here -->
+        </div>
+      </div>
+    </section>
+    
     <!-- ===== PLATFORM CARDS ===== -->
     <section class="platform-cards">
       <div class="platform-card">
@@ -2275,6 +2426,7 @@
             <option>Sent</option>
             <option>Closed</option>
             <option>Rejected</option>
+            <option>Escalated</option>
           </select>
           <div class="sort-controls">
             <label class="form-label me-2">Sort by:</label>
@@ -2406,6 +2558,10 @@
           <i class="bi bi-tools"></i> Tools
         </div>
         <div class="dock-section-buttons">
+          <button onclick="clearOldData()">
+            <i class="bi bi-trash3"></i>
+            <span>Clear Old Data</span>
+          </button>
           <button onclick="clearAllData()">
             <i class="bi bi-trash3"></i>
             <span>Clear All Data</span>
@@ -2418,6 +2574,20 @@
             <i class="bi bi-clipboard-check"></i>
             <span>Check Duplicates</span>
           </button>
+        </div>
+      </div>
+      
+      <div class="dock-section command-input">
+        <div class="dock-section-title">
+          <i class="bi bi-terminal"></i> Command Input
+        </div>
+        <div class="dock-section-buttons">
+          <div class="input-group">
+            <input type="text" class="form-control" id="commandInput" placeholder="Enter command...">
+            <button class="btn btn-primary" onclick="addCustomCommand()">
+              <i class="bi bi-send"></i> Add
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -2490,6 +2660,7 @@
                     <option value="Sent">Sent</option>
                     <option value="Closed">Closed</option>
                     <option value="Rejected">Rejected</option>
+                    <option value="Escalated">Escalated</option>
                   </select>
                 </div>
               </div>
@@ -2528,6 +2699,71 @@
                   <label for="refundedAmount" class="form-label">Refunded Amount (AED)</label>
                   <input type="number" class="form-control" id="refundedAmount" step="0.01">
                 </div>
+              </div>
+            </div>
+            
+            <!-- Dispute Support Section -->
+            <div class="mb-3">
+              <h6 class="mb-3"><i class="bi bi-shield-check me-2"></i>Dispute Support</h6>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="disputeCategory" class="form-label">Dispute Category</label>
+                  <select class="form-select" id="disputeCategory">
+                    <option value="">Select Category</option>
+                    <option value="wrong-item">Wrong Item</option>
+                    <option value="late-delivery">Late Delivery</option>
+                    <option value="missing-items">Missing Items</option>
+                    <option value="quality-issue">Quality Issue</option>
+                    <option value="service-issue">Service Issue</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="escalationLevel" class="form-label">Escalation Level</label>
+                  <select class="form-select" id="escalationLevel">
+                    <option value="level-1">Level 1 - Branch Manager</option>
+                    <option value="level-2">Level 2 - Area Manager</option>
+                    <option value="level-3">Level 3 - Regional Manager</option>
+                    <option value="level-4">Level 4 - Head Office</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <label for="evidenceChecklist" class="form-label">Evidence Collected</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="evidencePhoto" value="photo">
+                    <label class="form-check-label" for="evidencePhoto">Photos</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="evidenceReceipt" value="receipt">
+                    <label class="form-check-label" for="evidenceReceipt">Receipt</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="evidenceVideo" value="video">
+                    <label class="form-check-label" for="evidenceVideo">Video</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="evidenceTestimony" value="testimony">
+                    <label class="form-check-label" for="evidenceTestimony">Customer Testimony</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="policyReference" class="form-label">Policy Reference</label>
+                  <input type="text" class="form-control" id="policyReference" placeholder="e.g., Policy Section 2.3">
+                  
+                  <label for="resolutionDeadline" class="form-label mt-2">Resolution Deadline</label>
+                  <input type="date" class="form-control" id="resolutionDeadline">
+                </div>
+              </div>
+              
+              <div class="mt-3">
+                <label for="disputeNotes" class="form-label">Dispute Resolution Notes</label>
+                <textarea class="form-control" id="disputeNotes" rows="3" placeholder="Add notes for dispute resolution..."></textarea>
               </div>
             </div>
             
@@ -2666,6 +2902,7 @@
                   <th>Branch Name</th>
                   <th>Manager</th>
                   <th>Contact</th>
+                  <th>WhatsApp</th>
                   <th>Address</th>
                   <th>Actions</th>
                 </tr>
@@ -2766,6 +3003,7 @@
       renderTicketsTable();
       updateBranchFilter();
       updateCommands();
+      updateDisputeDashboard();
       
       // Set current date for summary
       const today = new Date();
@@ -2787,6 +3025,9 @@
       
       // Add command
       addCommand('Dashboard initialized', 'System');
+      
+      // Start dispute urgency check
+      setInterval(checkDisputeUrgency, 300000); // Check every 5 minutes
     });
     
     // ===== DATA MANAGEMENT =====
@@ -2796,7 +3037,7 @@
       if (ticketsData) {
         tickets = JSON.parse(ticketsData);
       } else {
-        // Initialize with sample data if none exists
+        // Initialize with empty array if no data exists
         tickets = [];
       }
       
@@ -2807,13 +3048,13 @@
       } else {
         // Initialize with default branches
         branches = [
-          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', address: '123 Main St, Downtown' },
-          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', address: '456 Shopping Ave, Mall' },
-          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', address: '789 Airport Rd, Airport' },
-          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', address: '101 North Blvd, North' },
-          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', address: '202 South St, South' },
-          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', address: '303 East Ave, East' },
-          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', address: '404 West Rd, West' }
+          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', whatsapp: '+971501234567', address: '123 Main St, Downtown' },
+          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', whatsapp: '+971502345678', address: '456 Shopping Ave, Mall' },
+          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', whatsapp: '+971503456789', address: '789 Airport Rd, Airport' },
+          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', whatsapp: '+971504567890', address: '101 North Blvd, North' },
+          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', whatsapp: '+971505678901', address: '202 South St, South' },
+          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', whatsapp: '+971506789012', address: '303 East Ave, East' },
+          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', whatsapp: '+971507890123', address: '404 West Rd, West' }
         ];
         saveBranches();
       }
@@ -2952,6 +3193,20 @@
       document.getElementById('confirmActions').addEventListener('change', function() {
         settings.confirmActions = this.checked;
       });
+      
+      // Command input keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+Shift+C to focus command input
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+          e.preventDefault();
+          document.getElementById('commandInput').focus();
+        }
+        
+        // Enter key to submit command
+        if (e.key === 'Enter' && document.activeElement.id === 'commandInput') {
+          addCustomCommand();
+        }
+      });
     }
     
     // ===== UI UPDATE FUNCTIONS =====
@@ -2964,6 +3219,7 @@
       const sentTickets = tickets.filter(t => t.status === 'Sent').length;
       const closedTickets = tickets.filter(t => t.status === 'Closed').length;
       const rejectedTickets = tickets.filter(t => t.status === 'Rejected').length;
+      const escalatedTickets = tickets.filter(t => t.status === 'Escalated').length;
       
       document.getElementById('openTickets').textContent = openTickets;
       document.getElementById('sentTickets').textContent = sentTickets;
@@ -3098,25 +3354,28 @@
       new Chart(statusCtx, {
         type: 'doughnut',
         data: {
-          labels: ['Open', 'Sent', 'Closed', 'Rejected'],
+          labels: ['Open', 'Sent', 'Closed', 'Rejected', 'Escalated'],
           datasets: [{
             data: [
               tickets.filter(t => t.status === 'Open').length,
               tickets.filter(t => t.status === 'Sent').length,
               tickets.filter(t => t.status === 'Closed').length,
-              tickets.filter(t => t.status === 'Rejected').length
+              tickets.filter(t => t.status === 'Rejected').length,
+              tickets.filter(t => t.status === 'Escalated').length
             ],
             backgroundColor: [
               'rgba(13, 110, 253, 0.5)',
               'rgba(255, 193, 7, 0.5)',
               'rgba(25, 135, 84, 0.5)',
-              'rgba(220, 53, 69, 0.5)'
+              'rgba(220, 53, 69, 0.5)',
+              'rgba(13, 110, 253, 0.5)'
             ],
             borderColor: [
               'rgba(13, 110, 253, 1)',
               'rgba(255, 193, 7, 1)',
               'rgba(25, 135, 84, 1)',
-              'rgba(220, 53, 69, 1)'
+              'rgba(220, 53, 69, 1)',
+              'rgba(13, 110, 253, 1)'
             ],
             borderWidth: 1
           }]
@@ -3143,2439 +3402,3 @@
             data: [
               tickets.filter(t => t.platform === 'Noon').length,
               tickets.filter(t => t.platform === 'Careem').length
-            ],
-            backgroundColor: [
-              'rgba(255, 112, 67, 0.5)',
-              'rgba(126, 87, 194, 0.5)'
-            ],
-            borderColor: [
-              'rgba(255, 112, 67, 1)',
-              'rgba(126, 87, 194, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
-      // Platform Compensation Chart
-      const platformCompensationCtx = document.getElementById('platformCompensationChart').getContext('2d');
-      new Chart(platformCompensationCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Noon', 'Careem'],
-          datasets: [{
-            label: 'Refunded',
-            data: [
-              tickets.filter(t => t.platform === 'Noon' && t.refundedAmount > 0).length,
-              tickets.filter(t => t.platform === 'Careem' && t.refundedAmount > 0).length
-            ],
-            backgroundColor: [
-              'rgba(255, 112, 67, 0.5)',
-              'rgba(126, 87, 194, 0.5)'
-            ],
-            borderColor: [
-              'rgba(255, 112, 67, 1)',
-              'rgba(126, 87, 194, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
-      // Branch Cases Chart
-      const branchCasesCtx = document.getElementById('branchCasesChart').getContext('2d');
-      const branchCounts = {};
-      tickets.forEach(t => {
-        branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
-      });
-      
-      const topBranches = Object.keys(branchCounts)
-        .sort((a, b) => branchCounts[b] - branchCounts[a])
-        .slice(0, 5);
-      
-      new Chart(branchCasesCtx, {
-        type: 'bar',
-        data: {
-          labels: topBranches,
-          datasets: [{
-            label: 'Cases',
-            data: topBranches.map(branch => branchCounts[branch]),
-            backgroundColor: 'rgba(211, 47, 47, 0.5)',
-            borderColor: 'rgba(211, 47, 47, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            x: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
-      // Case Types Chart
-      const caseTypesCtx = document.getElementById('caseTypesChart').getContext('2d');
-      const caseTypes = {};
-      tickets.forEach(t => {
-        // Extract case type from issue description (simplified)
-        const caseType = t.issue.split(' ')[0] || 'Other';
-        caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
-      });
-      
-      const topCaseTypes = Object.keys(caseTypes)
-        .sort((a, b) => caseTypes[b] - caseTypes[a])
-        .slice(0, 5);
-      
-      new Chart(caseTypesCtx, {
-        type: 'pie',
-        data: {
-          labels: topCaseTypes,
-          datasets: [{
-            data: topCaseTypes.map(caseType => caseTypes[caseType]),
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.5)',
-              'rgba(54, 162, 235, 0.5)',
-              'rgba(255, 206, 86, 0.5)',
-              'rgba(75, 192, 192, 0.5)',
-              'rgba(153, 102, 255, 0.5)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'right'
-            }
-          }
-        }
-      });
-    }
-    
-    function updatePlatformCards() {
-      const noonCount = tickets.filter(t => t.platform === 'Noon').length;
-      const careemCount = tickets.filter(t => t.platform === 'Careem').length;
-      const total = tickets.length;
-      
-      const noonPercentage = total > 0 ? ((noonCount / total) * 100).toFixed(1) : 0;
-      const careemPercentage = total > 0 ? ((careemCount / total) * 100).toFixed(1) : 0;
-      
-      document.getElementById('noonCount').textContent = noonCount;
-      document.getElementById('careemCount').textContent = careemCount;
-      document.getElementById('noonPercentage').textContent = `${noonPercentage}%`;
-      document.getElementById('careemPercentage').textContent = `${careemPercentage}%`;
-    }
-    
-    function updateCharts() {
-      // Branch Chart
-      const branchCtx = document.getElementById('branchChart').getContext('2d');
-      const branchCounts = {};
-      tickets.forEach(t => {
-        branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
-      });
-      
-      const topBranches = Object.keys(branchCounts)
-        .sort((a, b) => branchCounts[b] - branchCounts[a])
-        .slice(0, 5);
-      
-      new Chart(branchCtx, {
-        type: 'bar',
-        data: {
-          labels: topBranches,
-          datasets: [{
-            label: 'Cases',
-            data: topBranches.map(branch => branchCounts[branch]),
-            backgroundColor: 'rgba(211, 47, 47, 0.5)',
-            borderColor: 'rgba(211, 47, 47, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
-      // Case Chart
-      const caseCtx = document.getElementById('caseChart').getContext('2d');
-      const caseTypes = {};
-      tickets.forEach(t => {
-        // Extract case type from issue description (simplified)
-        const caseType = t.issue.split(' ')[0] || 'Other';
-        caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
-      });
-      
-      const topCaseTypes = Object.keys(caseTypes)
-        .sort((a, b) => caseTypes[b] - caseTypes[a])
-        .slice(0, 5);
-      
-      new Chart(caseCtx, {
-        type: 'doughnut',
-        data: {
-          labels: topCaseTypes,
-          datasets: [{
-            data: topCaseTypes.map(caseType => caseTypes[caseType]),
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.5)',
-              'rgba(54, 162, 235, 0.5)',
-              'rgba(255, 206, 86, 0.5)',
-              'rgba(75, 192, 192, 0.5)',
-              'rgba(153, 102, 255, 0.5)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'right'
-            }
-          }
-        }
-      });
-      
-      // Update labels
-      document.getElementById('topBranchLabel').textContent = 
-        topBranches.length > 0 ? `Top: ${topBranches[0]} (${branchCounts[topBranches[0]]} cases)` : 'No data';
-      
-      document.getElementById('topCaseLabel').textContent = 
-        topCaseTypes.length > 0 ? `Top: ${topCaseTypes[0]} (${caseTypes[topCaseTypes[0]]} cases)` : 'No data';
-    }
-    
-    function updateBranchAnalysis() {
-      const container = document.getElementById('branchAnalysisContainer');
-      container.innerHTML = '';
-      
-      // Group tickets by branch
-      const branchTickets = {};
-      tickets.forEach(ticket => {
-        if (!branchTickets[ticket.branch]) {
-          branchTickets[ticket.branch] = [];
-        }
-        branchTickets[ticket.branch].push(ticket);
-      });
-      
-      // Create branch analysis grid
-      const grid = document.createElement('div');
-      grid.className = 'branch-analysis-grid';
-      
-      // Create a card for each branch
-      Object.keys(branchTickets).forEach(branch => {
-        const branchCard = document.createElement('div');
-        branchCard.className = 'branch-card';
-        
-        const branchHeader = document.createElement('h6');
-        branchHeader.textContent = branch;
-        branchCard.appendChild(branchHeader);
-        
-        // Create branch stats
-        const stats = document.createElement('div');
-        stats.className = 'branch-stats';
-        
-        const openCount = branchTickets[branch].filter(t => t.status === 'Open').length;
-        const sentCount = branchTickets[branch].filter(t => t.status === 'Sent').length;
-        const closedCount = branchTickets[branch].filter(t => t.status === 'Closed').length;
-        const rejectedCount = branchTickets[branch].filter(t => t.status === 'Rejected').length;
-        
-        // Open stat
-        const openStat = document.createElement('div');
-        openStat.className = 'branch-stat-item';
-        const openValue = document.createElement('div');
-        openValue.className = 'branch-stat-value';
-        openValue.textContent = openCount;
-        openValue.style.color = '#0d6efd';
-        const openLabel = document.createElement('div');
-        openLabel.className = 'branch-stat-label';
-        openLabel.textContent = 'Open';
-        openStat.appendChild(openValue);
-        openStat.appendChild(openLabel);
-        stats.appendChild(openStat);
-        
-        // Sent stat
-        const sentStat = document.createElement('div');
-        sentStat.className = 'branch-stat-item';
-        const sentValue = document.createElement('div');
-        sentValue.className = 'branch-stat-value';
-        sentValue.textContent = sentCount;
-        sentValue.style.color = '#ffc107';
-        const sentLabel = document.createElement('div');
-        sentLabel.className = 'branch-stat-label';
-        sentLabel.textContent = 'Sent';
-        sentStat.appendChild(sentValue);
-        sentStat.appendChild(sentLabel);
-        stats.appendChild(sentStat);
-        
-        // Closed stat
-        const closedStat = document.createElement('div');
-        closedStat.className = 'branch-stat-item';
-        const closedValue = document.createElement('div');
-        closedValue.className = 'branch-stat-value';
-        closedValue.textContent = closedCount;
-        closedValue.style.color = '#198754';
-        const closedLabel = document.createElement('div');
-        closedLabel.className = 'branch-stat-label';
-        closedLabel.textContent = 'Closed';
-        closedStat.appendChild(closedValue);
-        closedStat.appendChild(closedLabel);
-        stats.appendChild(closedStat);
-        
-        // Rejected stat
-        const rejectedStat = document.createElement('div');
-        rejectedStat.className = 'branch-stat-item';
-        const rejectedValue = document.createElement('div');
-        rejectedValue.className = 'branch-stat-value';
-        rejectedValue.textContent = rejectedCount;
-        rejectedValue.style.color = '#dc3545';
-        const rejectedLabel = document.createElement('div');
-        rejectedLabel.className = 'branch-stat-label';
-        rejectedLabel.textContent = 'Rejected';
-        rejectedStat.appendChild(rejectedValue);
-        rejectedStat.appendChild(rejectedLabel);
-        stats.appendChild(rejectedStat);
-        
-        branchCard.appendChild(stats);
-        
-        // Create case reasons
-        const reasons = document.createElement('div');
-        reasons.className = 'case-reasons';
-        
-        const reasonsTitle = document.createElement('h6');
-        reasonsTitle.textContent = 'Top Case Reasons';
-        reasons.appendChild(reasonsTitle);
-        
-        // Count case reasons
-        const reasonCounts = {};
-        branchTickets[branch].forEach(ticket => {
-          // Extract case type from issue description (simplified)
-          const reason = ticket.issue.split(' ')[0] || 'Other';
-          reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
-        });
-        
-        // Sort reasons by count
-        const sortedReasons = Object.keys(reasonCounts)
-          .sort((a, b) => reasonCounts[b] - reasonCounts[a])
-          .slice(0, 3);
-        
-        // Create reason items
-        sortedReasons.forEach(reason => {
-          const reasonItem = document.createElement('div');
-          reasonItem.className = 'case-reason-item';
-          
-          const reasonInfo = document.createElement('div');
-          reasonInfo.className = 'case-reason-info';
-          
-          const reasonName = document.createElement('div');
-          reasonName.className = 'case-reason-name';
-          reasonName.textContent = reason;
-          
-          const reasonCount = document.createElement('div');
-          reasonCount.className = 'case-reason-count';
-          reasonCount.textContent = `${reasonCounts[reason]} cases`;
-          
-          reasonInfo.appendChild(reasonName);
-          reasonInfo.appendChild(reasonCount);
-          
-          const reasonBar = document.createElement('div');
-          reasonBar.className = 'case-reason-bar';
-          
-          const reasonProgress = document.createElement('div');
-          reasonProgress.className = 'case-reason-progress';
-          const percentage = (reasonCounts[reason] / branchTickets[branch].length) * 100;
-          reasonProgress.style.width = `${percentage}%`;
-          
-          reasonBar.appendChild(reasonProgress);
-          
-          reasonItem.appendChild(reasonInfo);
-          reasonItem.appendChild(reasonBar);
-          
-          reasons.appendChild(reasonItem);
-        });
-        
-        branchCard.appendChild(reasons);
-        grid.appendChild(branchCard);
-      });
-      
-      container.appendChild(grid);
-      
-      // Update case analysis badge
-      const openTickets = tickets.filter(t => t.status === 'Open').length;
-      const totalTickets = tickets.length;
-      const percentage = totalTickets > 0 ? (openTickets / totalTickets) * 100 : 0;
-      
-      const badge = document.getElementById('caseAnalysisBadge');
-      badge.textContent = `${percentage.toFixed(1)}% Open Cases`;
-      
-      if (percentage > 30) {
-        badge.className = 'case-badge badge-high';
-      } else if (percentage > 15) {
-        badge.className = 'case-badge badge-medium';
-      } else {
-        badge.className = 'case-badge badge-low';
-      }
-    }
-    
-    function updateCompensationAnalysis() {
-      const container = document.getElementById('compensationAnalysisContainer');
-      container.innerHTML = '';
-      
-      // Group tickets by compensation type (simplified - using issue description)
-      const compensationTypes = {};
-      tickets.forEach(ticket => {
-        if (ticket.compensationAmount > 0) {
-          // Extract compensation type from issue description (simplified)
-          const compType = ticket.issue.split(' ')[0] || 'Other';
-          if (!compensationTypes[compType]) {
-            compensationTypes[compType] = {
-              count: 0,
-              totalAmount: 0,
-              refundedAmount: 0
-            };
-          }
-          compensationTypes[compType].count++;
-          compensationTypes[compType].totalAmount += parseFloat(ticket.compensationAmount);
-          compensationTypes[compType].refundedAmount += parseFloat(ticket.refundedAmount || 0);
-        }
-      });
-      
-      // Create grid
-      const grid = document.createElement('div');
-      grid.className = 'compensation-analysis-grid';
-      
-      // Create a card for each compensation type
-      Object.keys(compensationTypes).forEach(type => {
-        const card = document.createElement('div');
-        card.className = 'compensation-card';
-        
-        const header = document.createElement('h6');
-        header.textContent = type;
-        card.appendChild(header);
-        
-        // Create stats
-        const stats = document.createElement('div');
-        stats.className = 'compensation-stats';
-        
-        // Count stat
-        const countStat = document.createElement('div');
-        countStat.className = 'stat-item';
-        const countValue = document.createElement('div');
-        countValue.className = 'stat-value';
-        countValue.textContent = compensationTypes[type].count;
-        const countLabel = document.createElement('div');
-        countLabel.className = 'stat-label';
-        countLabel.textContent = 'Cases';
-        countStat.appendChild(countValue);
-        countStat.appendChild(countLabel);
-        stats.appendChild(countStat);
-        
-        // Total amount stat
-        const amountStat = document.createElement('div');
-        amountStat.className = 'stat-item';
-        const amountValue = document.createElement('div');
-        amountValue.className = 'stat-value';
-        amountValue.textContent = compensationTypes[type].totalAmount.toFixed(2);
-        const amountLabel = document.createElement('div');
-        amountLabel.className = 'stat-label';
-        amountLabel.textContent = 'Total Amount';
-        amountStat.appendChild(amountValue);
-        amountStat.appendChild(amountLabel);
-        stats.appendChild(amountStat);
-        
-        // Refunded amount stat
-        const refundedStat = document.createElement('div');
-        refundedStat.className = 'stat-item';
-        const refundedValue = document.createElement('div');
-        refundedValue.className = 'stat-value';
-        refundedValue.textContent = compensationTypes[type].refundedAmount.toFixed(2);
-        const refundedLabel = document.createElement('div');
-        refundedLabel.className = 'stat-label';
-        refundedLabel.textContent = 'Refunded';
-        refundedStat.appendChild(refundedValue);
-        refundedStat.appendChild(refundedLabel);
-        stats.appendChild(refundedStat);
-        
-        // Refund rate stat
-        const rateStat = document.createElement('div');
-        rateStat.className = 'stat-item';
-        const rateValue = document.createElement('div');
-        rateValue.className = 'stat-value';
-        const rate = compensationTypes[type].totalAmount > 0 ? 
-          ((compensationTypes[type].refundedAmount / compensationTypes[type].totalAmount) * 100).toFixed(1) : 0;
-        rateValue.textContent = `${rate}%`;
-        const rateLabel = document.createElement('div');
-        rateLabel.className = 'stat-label';
-        rateLabel.textContent = 'Refund Rate';
-        rateStat.appendChild(rateValue);
-        rateStat.appendChild(rateLabel);
-        stats.appendChild(rateStat);
-        
-        card.appendChild(stats);
-        grid.appendChild(card);
-      });
-      
-      container.appendChild(grid);
-    }
-    
-    function updateRejectionAnalysis() {
-      const container = document.getElementById('rejectionAnalysisContainer');
-      container.innerHTML = '';
-      
-      // Get rejected tickets
-      const rejectedTickets = tickets.filter(t => t.status === 'Rejected');
-      
-      if (rejectedTickets.length === 0) {
-        container.innerHTML = '<p class="text-center text-muted">No rejected cases found</p>';
-        return;
-      }
-      
-      // Group rejected tickets by branch
-      const branchRejections = {};
-      rejectedTickets.forEach(ticket => {
-        if (!branchRejections[ticket.branch]) {
-          branchRejections[ticket.branch] = {
-            count: 0,
-            totalAmount: 0
-          };
-        }
-        branchRejections[ticket.branch].count++;
-        branchRejections[ticket.branch].totalAmount += parseFloat(ticket.compensationAmount);
-      });
-      
-      // Group rejected tickets by platform
-      const platformRejections = {};
-      rejectedTickets.forEach(ticket => {
-        if (!platformRejections[ticket.platform]) {
-          platformRejections[ticket.platform] = {
-            count: 0,
-            totalAmount: 0
-          };
-        }
-        platformRejections[ticket.platform].count++;
-        platformRejections[ticket.platform].totalAmount += parseFloat(ticket.compensationAmount);
-      });
-      
-      // Create grid
-      const grid = document.createElement('div');
-      grid.className = 'rejection-analysis-grid';
-      
-      // Create a card for branch rejections
-      const branchCard = document.createElement('div');
-      branchCard.className = 'rejection-card';
-      
-      const branchHeader = document.createElement('h6');
-      branchHeader.textContent = 'Rejections by Branch';
-      branchCard.appendChild(branchHeader);
-      
-      // Create stats
-      const branchStats = document.createElement('div');
-      branchStats.className = 'rejection-stats';
-      
-      // Total rejections stat
-      const totalRejectionsStat = document.createElement('div');
-      totalRejectionsStat.className = 'rejection-metric-item';
-      const totalRejectionsValue = document.createElement('div');
-      totalRejectionsValue.className = 'rejection-metric-value';
-      totalRejectionsValue.textContent = rejectedTickets.length;
-      const totalRejectionsLabel = document.createElement('div');
-      totalRejectionsLabel.className = 'rejection-metric-label';
-      totalRejectionsLabel.textContent = 'Total Rejections';
-      totalRejectionsStat.appendChild(totalRejectionsValue);
-      totalRejectionsStat.appendChild(totalRejectionsLabel);
-      branchStats.appendChild(totalRejectionsStat);
-      
-      // Total rejected amount stat
-      const totalRejectedAmountStat = document.createElement('div');
-      totalRejectedAmountStat.className = 'rejection-metric-item';
-      const totalRejectedAmountValue = document.createElement('div');
-      totalRejectedAmountValue.className = 'rejection-metric-value';
-      const totalRejectedAmount = rejectedTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0);
-      totalRejectedAmountValue.textContent = totalRejectedAmount.toFixed(2);
-      const totalRejectedAmountLabel = document.createElement('div');
-      totalRejectedAmountLabel.className = 'rejection-metric-label';
-      totalRejectedAmountLabel.textContent = 'Total Amount';
-      totalRejectedAmountStat.appendChild(totalRejectedAmountValue);
-      totalRejectedAmountStat.appendChild(totalRejectedAmountLabel);
-      branchStats.appendChild(totalRejectedAmountStat);
-      
-      // Rejection rate stat
-      const rejectionRateStat = document.createElement('div');
-      rejectionRateStat.className = 'rejection-metric-item';
-      const rejectionRateValue = document.createElement('div');
-      rejectionRateValue.className = 'rejection-metric-value';
-      const rejectionRate = tickets.length > 0 ? ((rejectedTickets.length / tickets.length) * 100).toFixed(1) : 0;
-      rejectionRateValue.textContent = `${rejectionRate}%`;
-      const rejectionRateLabel = document.createElement('div');
-      rejectionRateLabel.className = 'rejection-metric-label';
-      rejectionRateLabel.textContent = 'Rejection Rate';
-      rejectionRateStat.appendChild(rejectionRateValue);
-      rejectionRateStat.appendChild(rejectionRateLabel);
-      branchStats.appendChild(rejectionRateStat);
-      
-      // Top rejecting branch stat
-      const topBranchStat = document.createElement('div');
-      topBranchStat.className = 'rejection-metric-item';
-      const topBranchValue = document.createElement('div');
-      topBranchValue.className = 'rejection-metric-value';
-      const topBranch = Object.keys(branchRejections).reduce((a, b) => 
-        branchRejections[a].count > branchRejections[b].count ? a : b, '-');
-      topBranchValue.textContent = topBranch;
-      const topBranchLabel = document.createElement('div');
-      topBranchLabel.className = 'rejection-metric-label';
-      topBranchLabel.textContent = 'Top Branch';
-      topBranchStat.appendChild(topBranchValue);
-      topBranchStat.appendChild(topBranchLabel);
-      branchStats.appendChild(topBranchStat);
-      
-      branchCard.appendChild(branchStats);
-      grid.appendChild(branchCard);
-      
-      // Create a card for platform rejections
-      const platformCard = document.createElement('div');
-      platformCard.className = 'rejection-card';
-      
-      const platformHeader = document.createElement('h6');
-      platformHeader.textContent = 'Rejections by Platform';
-      platformCard.appendChild(platformHeader);
-      
-      // Create stats
-      const platformStats = document.createElement('div');
-      platformStats.className = 'rejection-stats';
-      
-      // Noon rejections stat
-      const noonRejectionsStat = document.createElement('div');
-      noonRejectionsStat.className = 'rejection-metric-item';
-      const noonRejectionsValue = document.createElement('div');
-      noonRejectionsValue.className = 'rejection-metric-value';
-      const noonRejections = rejectedTickets.filter(t => t.platform === 'Noon').length;
-      noonRejectionsValue.textContent = noonRejections;
-      const noonRejectionsLabel = document.createElement('div');
-      noonRejectionsLabel.className = 'rejection-metric-label';
-      noonRejectionsLabel.textContent = 'Noon Rejections';
-      noonRejectionsStat.appendChild(noonRejectionsValue);
-      noonRejectionsStat.appendChild(noonRejectionsLabel);
-      platformStats.appendChild(noonRejectionsStat);
-      
-      // Careem rejections stat
-      const careemRejectionsStat = document.createElement('div');
-      careemRejectionsStat.className = 'rejection-metric-item';
-      const careemRejectionsValue = document.createElement('div');
-      careemRejectionsValue.className = 'rejection-metric-value';
-      const careemRejections = rejectedTickets.filter(t => t.platform === 'Careem').length;
-      careemRejectionsValue.textContent = careemRejections;
-      const careemRejectionsLabel = document.createElement('div');
-      careemRejectionsLabel.className = 'rejection-metric-label';
-      careemRejectionsLabel.textContent = 'Careem Rejections';
-      careemRejectionsStat.appendChild(careemRejectionsValue);
-      careemRejectionsStat.appendChild(careemRejectionsLabel);
-      platformStats.appendChild(careemRejectionsStat);
-      
-      // Noon rejection rate stat
-      const noonRejectionRateStat = document.createElement('div');
-      noonRejectionRateStat.className = 'rejection-metric-item';
-      const noonRejectionRateValue = document.createElement('div');
-      noonRejectionRateValue.className = 'rejection-metric-value';
-      const noonTickets = tickets.filter(t => t.platform === 'Noon').length;
-      const noonRejectionRate = noonTickets > 0 ? ((noonRejections / noonTickets) * 100).toFixed(1) : 0;
-      noonRejectionRateValue.textContent = `${noonRejectionRate}%`;
-      const noonRejectionRateLabel = document.createElement('div');
-      noonRejectionRateLabel.className = 'rejection-metric-label';
-      noonRejectionRateLabel.textContent = 'Noon Rate';
-      noonRejectionRateStat.appendChild(noonRejectionRateValue);
-      noonRejectionRateStat.appendChild(noonRejectionRateLabel);
-      platformStats.appendChild(noonRejectionRateStat);
-      
-      // Careem rejection rate stat
-      const careemRejectionRateStat = document.createElement('div');
-      careemRejectionRateStat.className = 'rejection-metric-item';
-      const careemRejectionRateValue = document.createElement('div');
-      careemRejectionRateValue.className = 'rejection-metric-value';
-      const careemTickets = tickets.filter(t => t.platform === 'Careem').length;
-      const careemRejectionRate = careemTickets > 0 ? ((careemRejections / careemTickets) * 100).toFixed(1) : 0;
-      careemRejectionRateValue.textContent = `${careemRejectionRate}%`;
-      const careemRejectionRateLabel = document.createElement('div');
-      careemRejectionRateLabel.className = 'rejection-metric-label';
-      careemRejectionRateLabel.textContent = 'Careem Rate';
-      careemRejectionRateStat.appendChild(careemRejectionRateValue);
-      careemRejectionRateStat.appendChild(careemRejectionRateLabel);
-      platformStats.appendChild(careemRejectionRateStat);
-      
-      platformCard.appendChild(platformStats);
-      grid.appendChild(platformCard);
-      
-      container.appendChild(grid);
-    }
-    
-    function updateRefundAnalysis() {
-      // Get refunded tickets
-      const refundedTickets = tickets.filter(t => t.refundedAmount > 0);
-      
-      // Update refund metrics
-      const totalRefundedAmount = refundedTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0);
-      const refundedCasesCount = refundedTickets.length;
-      const refundRate = tickets.length > 0 ? ((refundedCasesCount / tickets.length) * 100).toFixed(1) : 0;
-      const avgRefundedAmount = refundedCasesCount > 0 ? (totalRefundedAmount / refundedCasesCount).toFixed(2) : 0;
-      
-      document.getElementById('totalRefundedAmount').textContent = totalRefundedAmount.toFixed(2);
-      document.getElementById('refundedCasesCount').textContent = refundedCasesCount;
-      document.getElementById('refundRate').textContent = `${refundRate}%`;
-      document.getElementById('avgRefundedAmount').textContent = avgRefundedAmount;
-      
-      // Update refund branch chart
-      const refundBranchCtx = document.getElementById('refundBranchChart').getContext('2d');
-      
-      // Group refunded tickets by branch
-      const branchRefunds = {};
-      refundedTickets.forEach(ticket => {
-        if (!branchRefunds[ticket.branch]) {
-          branchRefunds[ticket.branch] = 0;
-        }
-        branchRefunds[ticket.branch] += parseFloat(ticket.refundedAmount);
-      });
-      
-      const topBranchRefunds = Object.keys(branchRefunds)
-        .sort((a, b) => branchRefunds[b] - branchRefunds[a])
-        .slice(0, 5);
-      
-      new Chart(refundBranchCtx, {
-        type: 'bar',
-        data: {
-          labels: topBranchRefunds,
-          datasets: [{
-            label: 'Refunded Amount',
-            data: topBranchRefunds.map(branch => branchRefunds[branch]),
-            backgroundColor: 'rgba(40, 167, 69, 0.5)',
-            borderColor: 'rgba(40, 167, 69, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
-      // Update refund table
-      const tableBody = document.getElementById('refundTableBody');
-      tableBody.innerHTML = '';
-      
-      // Sort refunded tickets by date (newest first)
-      const sortedRefundedTickets = [...refundedTickets].sort((a, b) => {
-        return new Date(b.date) - new Date(a.date);
-      });
-      
-      // Show only the last 10 refunded tickets
-      const recentRefundedTickets = sortedRefundedTickets.slice(0, 10);
-      
-      recentRefundedTickets.forEach(ticket => {
-        const row = document.createElement('tr');
-        
-        // Order ID
-        const orderIdCell = document.createElement('td');
-        orderIdCell.textContent = ticket.orderId;
-        row.appendChild(orderIdCell);
-        
-        // Branch
-        const branchCell = document.createElement('td');
-        branchCell.textContent = ticket.branch;
-        row.appendChild(branchCell);
-        
-        // Original Amount
-        const originalAmountCell = document.createElement('td');
-        originalAmountCell.textContent = parseFloat(ticket.originalAmount).toFixed(2);
-        row.appendChild(originalAmountCell);
-        
-        // Compensation
-        const compensationCell = document.createElement('td');
-        compensationCell.textContent = parseFloat(ticket.compensationAmount).toFixed(2);
-        row.appendChild(compensationCell);
-        
-        // Refunded Amount
-        const refundedAmountCell = document.createElement('td');
-        refundedAmountCell.textContent = parseFloat(ticket.refundedAmount).toFixed(2);
-        row.appendChild(refundedAmountCell);
-        
-        // Status
-        const statusCell = document.createElement('td');
-        const statusBadge = document.createElement('span');
-        statusBadge.className = 'refund-status-badge status-refunded';
-        statusBadge.textContent = 'Refunded';
-        statusCell.appendChild(statusBadge);
-        row.appendChild(statusCell);
-        
-        // Date
-        const dateCell = document.createElement('td');
-        const date = new Date(ticket.date);
-        dateCell.textContent = date.toLocaleDateString();
-        row.appendChild(dateCell);
-        
-        tableBody.appendChild(row);
-      });
-      
-      if (recentRefundedTickets.length === 0) {
-        const row = document.createElement('tr');
-        const cell = document.createElement('td');
-        cell.colSpan = 7;
-        cell.className = 'text-center text-muted';
-        cell.textContent = 'No refunded cases found';
-        row.appendChild(cell);
-        tableBody.appendChild(row);
-      }
-    }
-    
-    function renderTicketsTable() {
-      const container = document.getElementById('ticketsContainer');
-      container.innerHTML = '';
-      
-      // Create table container
-      const tableContainer = document.createElement('div');
-      tableContainer.className = 'tickets-table-container';
-      
-      // Create table
-      const table = document.createElement('table');
-      table.className = 'tickets-table';
-      
-      // Create table header
-      const thead = document.createElement('thead');
-      const headerRow = document.createElement('tr');
-      
-      const headers = [
-        'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
-        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
-      ];
-      
-      headers.forEach(header => {
-        const th = document.createElement('th');
-        th.textContent = header;
-        headerRow.appendChild(th);
-      });
-      
-      thead.appendChild(headerRow);
-      table.appendChild(thead);
-      
-      // Create table body
-      const tbody = document.createElement('tbody');
-      
-      // Sort tickets by date (newest first)
-      const sortedTickets = [...tickets].sort((a, b) => {
-        return new Date(b.date) - new Date(a.date);
-      });
-      
-      // Render tickets
-      sortedTickets.forEach(ticket => {
-        const row = document.createElement('tr');
-        
-        // Add class based on status
-        if (ticket.status === 'Closed' && ticket.refundedAmount > 0) {
-          row.classList.add('refunded-case');
-        } else if (ticket.status === 'Rejected') {
-          row.classList.add('rejected-case');
-        } else if (parseFloat(ticket.compensationAmount) > 50) {
-          row.classList.add('high-compensation');
-        }
-        
-        // Order ID
-        const orderIdCell = document.createElement('td');
-        const orderId = document.createElement('div');
-        orderId.className = 'ticket-order-id';
-        orderId.textContent = ticket.orderId;
-        orderIdCell.appendChild(orderId);
-        row.appendChild(orderIdCell);
-        
-        // Branch
-        const branchCell = document.createElement('td');
-        const branch = document.createElement('div');
-        branch.className = 'ticket-branch';
-        branch.textContent = ticket.branch;
-        branchCell.appendChild(branch);
-        row.appendChild(branchCell);
-        
-        // Platform
-        const platformCell = document.createElement('td');
-        const platform = document.createElement('span');
-        platform.className = `ticket-platform ${ticket.platform.toLowerCase()}`;
-        platform.textContent = ticket.platform;
-        platformCell.appendChild(platform);
-        row.appendChild(platformCell);
-        
-        // Issue
-        const issueCell = document.createElement('td');
-        const issueContainer = document.createElement('div');
-        issueContainer.className = 'd-flex align-items-center';
-        
-        const issue = document.createElement('div');
-        issue.className = 'ticket-issue';
-        issue.textContent = ticket.issue.length > 30 ? 
-          `${ticket.issue.substring(0, 30)}...` : ticket.issue;
-        issue.title = ticket.issue;
-        issueContainer.appendChild(issue);
-        
-        if (ticket.issue.length > 30) {
-          const expandBtn = document.createElement('button');
-          expandBtn.className = 'issue-expand';
-          expandBtn.textContent = 'more';
-          expandBtn.onclick = function() {
-            if (issue.textContent.endsWith('...')) {
-              issue.textContent = ticket.issue;
-              expandBtn.textContent = 'less';
-            } else {
-              issue.textContent = `${ticket.issue.substring(0, 30)}...`;
-              expandBtn.textContent = 'more';
-            }
-          };
-          issueContainer.appendChild(expandBtn);
-        }
-        
-        issueCell.appendChild(issueContainer);
-        row.appendChild(issueCell);
-        
-        // Evidence
-        const evidenceCell = document.createElement('td');
-        const evidence = document.createElement('div');
-        evidence.className = 'ticket-evidence';
-        
-        if (ticket.evidenceImage || ticket.evidenceLink) {
-          if (ticket.evidenceImage) {
-            const thumbnail = document.createElement('div');
-            thumbnail.className = 'evidence-thumbnail';
-            
-            const img = document.createElement('img');
-            img.src = ticket.evidenceImage;
-            img.style.width = '30px';
-            img.style.height = '30px';
-            img.style.objectFit = 'cover';
-            
-            thumbnail.appendChild(img);
-            evidence.appendChild(thumbnail);
-          }
-          
-          if (ticket.evidenceLink) {
-            const link = document.createElement('a');
-            link.className = 'ticket-evidence-link';
-            link.href = ticket.evidenceLink;
-            link.target = '_blank';
-            link.innerHTML = '<i class="bi bi-link-45deg"></i>';
-            evidence.appendChild(link);
-          }
-        } else {
-          const none = document.createElement('div');
-          none.className = 'ticket-evidence-none';
-          none.textContent = 'None';
-          evidence.appendChild(none);
-        }
-        
-        evidenceCell.appendChild(evidence);
-        row.appendChild(evidenceCell);
-        
-        // Status
-        const statusCell = document.createElement('td');
-        const status = document.createElement('span');
-        status.className = `ticket-status status-${ticket.status.toLowerCase()}`;
-        status.textContent = ticket.status;
-        statusCell.appendChild(status);
-        row.appendChild(statusCell);
-        
-        // Original Amount
-        const originalAmountCell = document.createElement('td');
-        const originalAmount = document.createElement('div');
-        originalAmount.className = 'ticket-amount';
-        originalAmount.textContent = parseFloat(ticket.originalAmount).toFixed(2);
-        originalAmountCell.appendChild(originalAmount);
-        row.appendChild(originalAmountCell);
-        
-        // Compensation
-        const compensationCell = document.createElement('td');
-        const compensation = document.createElement('div');
-        compensation.className = 'ticket-amount compensation';
-        compensation.textContent = parseFloat(ticket.compensationAmount).toFixed(2);
-        compensationCell.appendChild(compensation);
-        row.appendChild(compensationCell);
-        
-        // Refunded
-        const refundedCell = document.createElement('td');
-        const refunded = document.createElement('div');
-        refunded.className = 'ticket-amount refunded';
-        refunded.textContent = parseFloat(ticket.refundedAmount || 0).toFixed(2);
-        refundedCell.appendChild(refunded);
-        row.appendChild(refundedCell);
-        
-        // Actions
-        const actionsCell = document.createElement('td');
-        const actions = document.createElement('div');
-        actions.className = 'ticket-actions';
-        
-        // Edit button
-        const editBtn = document.createElement('button');
-        editBtn.className = 'btn btn-sm btn-outline-primary';
-        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
-        editBtn.title = 'Edit';
-        editBtn.onclick = function() {
-          openEditModal(ticket.id);
-        };
-        actions.appendChild(editBtn);
-        
-        // Delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-sm btn-outline-danger';
-        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteBtn.title = 'Delete';
-        deleteBtn.onclick = function() {
-          deleteTicket(ticket.id);
-        };
-        actions.appendChild(deleteBtn);
-        
-        // WhatsApp button
-        const whatsappBtn = document.createElement('button');
-        whatsappBtn.className = 'btn btn-sm btn-whatsapp';
-        whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-        whatsappBtn.title = 'Share via WhatsApp';
-        whatsappBtn.onclick = function() {
-          shareViaWhatsApp(ticket);
-        };
-        actions.appendChild(whatsappBtn);
-        
-        actionsCell.appendChild(actions);
-        row.appendChild(actionsCell);
-        
-        tbody.appendChild(row);
-      });
-      
-      // If no tickets, show empty state
-      if (tickets.length === 0) {
-        const row = document.createElement('tr');
-        const cell = document.createElement('td');
-        cell.colSpan = 10;
-        cell.innerHTML = `
-          <div class="empty-state">
-            <i class="bi bi-inbox"></i>
-            <h5>No compensation cases found</h5>
-            <p>Add a new case or upload data from Excel/CSV</p>
-            <button class="btn btn-primary" onclick="openAddModal()">
-              <i class="bi bi-plus-circle me-1"></i> Add New Case
-            </button>
-          </div>
-        `;
-        row.appendChild(cell);
-        tbody.appendChild(row);
-      }
-      
-      table.appendChild(tbody);
-      tableContainer.appendChild(table);
-      container.appendChild(tableContainer);
-    }
-    
-    function updateBranchFilter() {
-      const filter = document.getElementById('filterBranch');
-      
-      // Clear existing options except "All Branches"
-      while (filter.options.length > 1) {
-        filter.remove(1);
-      }
-      
-      // Get unique branches
-      const uniqueBranches = [...new Set(tickets.map(t => t.branch))];
-      
-      // Add branch options
-      uniqueBranches.forEach(branch => {
-        const option = document.createElement('option');
-        option.value = branch;
-        option.textContent = branch;
-        filter.appendChild(option);
-      });
-    }
-    
-    function updateCommands() {
-      // Update commands list (last 3 commands)
-      const commandsList = document.getElementById('commandsList');
-      commandsList.innerHTML = '';
-      
-      const recentCommands = [...commands].slice(-3).reverse();
-      
-      recentCommands.forEach(command => {
-        const commandItem = document.createElement('div');
-        commandItem.className = 'command-item';
-        
-        const commandText = document.createElement('div');
-        commandText.textContent = command.text;
-        commandItem.appendChild(commandText);
-        
-        const commandTime = document.createElement('div');
-        commandTime.className = 'command-time';
-        const date = new Date(command.timestamp);
-        commandTime.textContent = date.toLocaleTimeString();
-        commandItem.appendChild(commandTime);
-        
-        commandsList.appendChild(commandItem);
-      });
-    }
-    
-    // ===== TICKET MANAGEMENT =====
-    function openAddModal() {
-      // Reset form
-      document.getElementById('ticketForm').reset();
-      document.getElementById('ticketId').value = '';
-      document.getElementById('ticketModalTitle').textContent = 'Add New Compensation Case';
-      document.getElementById('imagePreview').style.display = 'none';
-      document.getElementById('duplicateWarning').classList.remove('show');
-      
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
-      modal.show();
-      
-      addCommand('Opened add case modal', 'User');
-    }
-    
-    function openEditModal(id) {
-      // Find ticket
-      const ticket = tickets.find(t => t.id === id);
-      if (!ticket) return;
-      
-      // Populate form
-      document.getElementById('ticketId').value = ticket.id;
-      document.getElementById('orderId').value = ticket.orderId;
-      document.getElementById('branch').value = ticket.branch;
-      document.getElementById('platform').value = ticket.platform;
-      document.getElementById('status').value = ticket.status;
-      document.getElementById('originalAmount').value = ticket.originalAmount;
-      document.getElementById('compensationAmount').value = ticket.compensationAmount;
-      document.getElementById('refundMethod').value = ticket.refundMethod || '';
-      document.getElementById('refundedAmount').value = ticket.refundedAmount || '';
-      document.getElementById('issue').value = ticket.issue;
-      document.getElementById('notes').value = ticket.notes || '';
-      
-      // Set evidence link
-      if (ticket.evidenceLink) {
-        document.getElementById('evidenceLink').value = ticket.evidenceLink;
-      }
-      
-      // Show evidence image if exists
-      if (ticket.evidenceImage) {
-        document.getElementById('imagePreview').src = ticket.evidenceImage;
-        document.getElementById('imagePreview').style.display = 'block';
-      } else {
-        document.getElementById('imagePreview').style.display = 'none';
-      }
-      
-      // Update modal title
-      document.getElementById('ticketModalTitle').textContent = 'Edit Compensation Case';
-      
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
-      modal.show();
-      
-      addCommand(`Opened edit case modal for ${ticket.orderId}`, 'User');
-    }
-    
-    function saveTicket() {
-      // Get form values
-      const id = document.getElementById('ticketId').value;
-      const orderId = document.getElementById('orderId').value;
-      const branch = document.getElementById('branch').value;
-      const platform = document.getElementById('platform').value;
-      const status = document.getElementById('status').value;
-      const originalAmount = document.getElementById('originalAmount').value;
-      const compensationAmount = document.getElementById('compensationAmount').value;
-      const refundMethod = document.getElementById('refundMethod').value;
-      const refundedAmount = document.getElementById('refundedAmount').value || 0;
-      const issue = document.getElementById('issue').value;
-      const evidenceLink = document.getElementById('evidenceLink').value;
-      const notes = document.getElementById('notes').value;
-      
-      // Get evidence image
-      const evidenceImage = document.getElementById('imagePreview').style.display !== 'none' ? 
-        document.getElementById('imagePreview').src : '';
-      
-      // Validate form
-      if (!orderId || !branch || !platform || !status || !originalAmount || !compensationAmount || !issue) {
-        showNotification('Please fill in all required fields', 'error');
-        return;
-      }
-      
-      // Create ticket object
-      const ticket = {
-        id: id || Date.now().toString(),
-        orderId,
-        branch,
-        platform,
-        status,
-        originalAmount: parseFloat(originalAmount),
-        compensationAmount: parseFloat(compensationAmount),
-        refundMethod,
-        refundedAmount: parseFloat(refundedAmount),
-        issue,
-        evidenceImage,
-        evidenceLink,
-        notes,
-        date: new Date().toISOString()
-      };
-      
-      // Check for duplicate order ID
-      const duplicateTicket = tickets.find(t => t.orderId === orderId && t.id !== id);
-      if (duplicateTicket) {
-        showNotification('Duplicate Order ID detected', 'error');
-        return;
-      }
-      
-      // Save ticket
-      if (id) {
-        // Update existing ticket
-        const index = tickets.findIndex(t => t.id === id);
-        if (index !== -1) {
-          tickets[index] = ticket;
-          showNotification('Case updated successfully', 'success');
-          addCommand(`Updated case ${orderId}`, 'User');
-        }
-      } else {
-        // Add new ticket
-        tickets.push(ticket);
-        showNotification('Case added successfully', 'success');
-        addCommand(`Added new case ${orderId}`, 'User');
-      }
-      
-      // Save data
-      saveData();
-      
-      // Update UI
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      updateBranchFilter();
-      
-      // Close modal
-      const modal = bootstrap.Modal.getInstance(document.getElementById('ticketModal'));
-      modal.hide();
-    }
-    
-    function deleteTicket(id) {
-      if (settings.confirmActions && !confirm('Are you sure you want to delete this case?')) {
-        return;
-      }
-      
-      // Find ticket
-      const ticket = tickets.find(t => t.id === id);
-      if (!ticket) return;
-      
-      // Delete ticket
-      tickets = tickets.filter(t => t.id !== id);
-      
-      // Save data
-      saveData();
-      
-      // Update UI
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      updateBranchFilter();
-      
-      // Show notification
-      showNotification('Case deleted successfully', 'success');
-      addCommand(`Deleted case ${ticket.orderId}`, 'User');
-    }
-    
-    function addSample() {
-      // Sample data
-      const sampleTickets = [
-        {
-          id: Date.now().toString(),
-          orderId: 'ORD-001',
-          branch: 'Downtown',
-          platform: 'Noon',
-          status: 'Closed',
-          originalAmount: 85.50,
-          compensationAmount: 25.00,
-          refundMethod: 'Card',
-          refundedAmount: 25.00,
-          issue: 'Wrong item delivered',
-          evidenceImage: '',
-          evidenceLink: 'https://example.com/evidence1.jpg',
-          notes: 'Customer received wrong item',
-          date: new Date().toISOString()
-        },
-        {
-          id: (Date.now() + 1).toString(),
-          orderId: 'ORD-002',
-          branch: 'Mall',
-          platform: 'Careem',
-          status: 'Open',
-          originalAmount: 120.00,
-          compensationAmount: 40.00,
-          refundMethod: '',
-          refundedAmount: 0,
-          issue: 'Late delivery',
-          evidenceImage: '',
-          evidenceLink: '',
-          notes: 'Order was 45 minutes late',
-          date: new Date(Date.now() - 86400000).toISOString() // Yesterday
-        },
-        {
-          id: (Date.now() + 2).toString(),
-          orderId: 'ORD-003',
-          branch: 'Airport',
-          platform: 'Noon',
-          status: 'Rejected',
-          originalAmount: 65.00,
-          compensationAmount: 20.00,
-          refundMethod: '',
-          refundedAmount: 0,
-          issue: 'Missing items',
-          evidenceImage: '',
-          evidenceLink: 'https://example.com/evidence3.jpg',
-          notes: 'Customer claimed missing items but no evidence provided',
-          date: new Date(Date.now() - 172800000).toISOString() // 2 days ago
-        }
-      ];
-      
-      // Add sample tickets
-      tickets.push(...sampleTickets);
-      
-      // Save data
-      saveData();
-      
-      // Update UI
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      updateBranchFilter();
-      
-      // Show notification
-      showNotification('Sample data added successfully', 'success');
-      addCommand('Added sample data', 'User');
-    }
-    
-    // ===== FILTERING AND SORTING =====
-    function filterTickets() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const branchFilter = document.getElementById('filterBranch').value;
-      const platformFilter = document.getElementById('filterPlatform').value;
-      const statusFilter = document.getElementById('filterStatus').value;
-      
-      // Get all rows in the table
-      const rows = document.querySelectorAll('#ticketsContainer tbody tr');
-      
-      rows.forEach(row => {
-        // Skip empty state row
-        if (row.querySelector('.empty-state')) return;
-        
-        // Get cell values
-        const orderId = row.cells[0].textContent.toLowerCase();
-        const branch = row.cells[1].textContent.toLowerCase();
-        const platform = row.cells[2].textContent.toLowerCase();
-        const issue = row.cells[3].textContent.toLowerCase();
-        const status = row.cells[5].textContent.toLowerCase();
-        
-        // Check if row matches filters
-        const matchesSearch = orderId.includes(searchTerm) || 
-                              branch.includes(searchTerm) || 
-                              issue.includes(searchTerm);
-        const matchesBranch = !branchFilter || branch === branchFilter.toLowerCase();
-        const matchesPlatform = !platformFilter || platform === platformFilter.toLowerCase();
-        const matchesStatus = !statusFilter || status === statusFilter.toLowerCase();
-        
-        // Show or hide row
-        if (matchesSearch && matchesBranch && matchesPlatform && matchesStatus) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    }
-    
-    function sortTickets(criteria) {
-      // Get all rows in the table
-      const tbody = document.querySelector('#ticketsContainer tbody');
-      const rows = Array.from(tbody.querySelectorAll('tr'));
-      
-      // Skip empty state row
-      if (rows.length === 1 && rows[0].querySelector('.empty-state')) {
-        return;
-      }
-      
-      // Sort rows based on criteria
-      rows.sort((a, b) => {
-        let aValue, bValue;
-        
-        switch (criteria) {
-          case 'date-desc':
-            // Get date from ticket data (not directly available in DOM)
-            const aOrderId = a.cells[0].textContent;
-            const bOrderId = b.cells[0].textContent;
-            const aTicket = tickets.find(t => t.orderId === aOrderId);
-            const bTicket = tickets.find(t => t.orderId === bOrderId);
-            return new Date(bTicket.date) - new Date(aTicket.date);
-            
-          case 'date-asc':
-            const aOrderIdAsc = a.cells[0].textContent;
-            const bOrderIdAsc = b.cells[0].textContent;
-            const aTicketAsc = tickets.find(t => t.orderId === aOrderIdAsc);
-            const bTicketAsc = tickets.find(t => t.orderId === bOrderIdAsc);
-            return new Date(aTicketAsc.date) - new Date(bTicketAsc.date);
-            
-          case 'amount-desc':
-            aValue = parseFloat(a.cells[7].textContent);
-            bValue = parseFloat(b.cells[7].textContent);
-            return bValue - aValue;
-            
-          case 'amount-asc':
-            aValue = parseFloat(a.cells[7].textContent);
-            bValue = parseFloat(b.cells[7].textContent);
-            return aValue - bValue;
-            
-          case 'status':
-            aValue = a.cells[5].textContent;
-            bValue = b.cells[5].textContent;
-            return aValue.localeCompare(bValue);
-            
-          case 'platform':
-            aValue = a.cells[2].textContent;
-            bValue = b.cells[2].textContent;
-            return aValue.localeCompare(bValue);
-            
-          default:
-            return 0;
-        }
-      });
-      
-      // Reorder rows in the table
-      rows.forEach(row => tbody.appendChild(row));
-      
-      addCommand(`Sorted tickets by ${criteria}`, 'User');
-    }
-    
-    // ===== FILE HANDLING =====
-    function handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          let data;
-          
-          if (file.name.endsWith('.csv')) {
-            // Parse CSV
-            data = parseCSV(e.target.result);
-          } else {
-            // Parse Excel
-            const workbook = XLSX.read(e.target.result, { type: 'binary' });
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            data = XLSX.utils.sheet_to_json(worksheet);
-          }
-          
-          // Process data
-          const newTickets = data.map(row => {
-            return {
-              id: row.id || Date.now().toString() + Math.random().toString(36).substr(2, 9),
-              orderId: row['Order ID'] || row.orderId || '',
-              branch: row.Branch || row.branch || '',
-              platform: row.Platform || row.platform || '',
-              status: row.Status || row.status || 'Open',
-              originalAmount: parseFloat(row['Original Amount'] || row.originalAmount || 0),
-              compensationAmount: parseFloat(row['Compensation Amount'] || row.compensationAmount || 0),
-              refundMethod: row['Refund Method'] || row.refundMethod || '',
-              refundedAmount: parseFloat(row['Refunded Amount'] || row.refundedAmount || 0),
-              issue: row.Issue || row.issue || '',
-              evidenceImage: row['Evidence Image'] || row.evidenceImage || '',
-              evidenceLink: row['Evidence Link'] || row.evidenceLink || '',
-              notes: row.Notes || row.notes || '',
-              date: row.Date ? new Date(row.Date).toISOString() : new Date().toISOString()
-            };
-          });
-          
-          // Add new tickets
-          tickets.push(...newTickets);
-          
-          // Save data
-          saveData();
-          
-          // Update UI
-          updateStats();
-          updateSummarySection();
-          updatePlatformCards();
-          updateCharts();
-          updateBranchAnalysis();
-          updateCompensationAnalysis();
-          updateRejectionAnalysis();
-          updateRefundAnalysis();
-          renderTicketsTable();
-          updateBranchFilter();
-          
-          // Show notification
-          showNotification(`${newTickets.length} cases imported successfully`, 'success');
-          addCommand(`Imported ${newTickets.length} cases from ${file.name}`, 'User');
-          
-          // Reset file input
-          event.target.value = '';
-          
-        } catch (error) {
-          console.error('Error parsing file:', error);
-          showNotification('Error parsing file. Please check the format.', 'error');
-        }
-      };
-      
-      reader.readAsBinaryString(file);
-    }
-    
-    function parseCSV(csv) {
-      const lines = csv.split('\n');
-      const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-      const result = [];
-      
-      for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
-        if (values.length === headers.length) {
-          const obj = {};
-          headers.forEach((header, index) => {
-            obj[header] = values[index];
-          });
-          result.push(obj);
-        }
-      }
-      
-      return result;
-    }
-    
-    function exportToExcel() {
-      // Create worksheet
-      const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
-        'Order ID': ticket.orderId,
-        'Branch': ticket.branch,
-        'Platform': ticket.platform,
-        'Status': ticket.status,
-        'Original Amount': ticket.originalAmount,
-        'Compensation Amount': ticket.compensationAmount,
-        'Refund Method': ticket.refundMethod,
-        'Refunded Amount': ticket.refundedAmount,
-        'Issue': ticket.issue,
-        'Evidence Link': ticket.evidenceLink,
-        'Notes': ticket.notes,
-        'Date': new Date(ticket.date).toLocaleDateString()
-      })));
-      
-      // Create workbook
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Compensation Cases');
-      
-      // Save file
-      XLSX.writeFile(wb, 'compensation_cases.xlsx');
-      
-      showNotification('Data exported to Excel successfully', 'success');
-      addCommand('Exported data to Excel', 'User');
-    }
-    
-    function exportToCSV() {
-      // Create CSV content
-      const headers = [
-        'Order ID', 'Branch', 'Platform', 'Status', 'Original Amount', 
-        'Compensation Amount', 'Refund Method', 'Refunded Amount', 
-        'Issue', 'Evidence Link', 'Notes', 'Date'
-      ];
-      
-      const csvContent = [
-        headers.join(','),
-        ...tickets.map(ticket => [
-          ticket.orderId,
-          ticket.branch,
-          ticket.platform,
-          ticket.status,
-          ticket.originalAmount,
-          ticket.compensationAmount,
-          ticket.refundMethod,
-          ticket.refundedAmount,
-          `"${ticket.issue}"`,
-          ticket.evidenceLink,
-          `"${ticket.notes}"`,
-          new Date(ticket.date).toLocaleDateString()
-        ].join(','))
-      ].join('\n');
-      
-      // Create blob and download
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'compensation_cases.csv';
-      link.click();
-      
-      showNotification('Data exported to CSV successfully', 'success');
-      addCommand('Exported data to CSV', 'User');
-    }
-    
-    function exportToPDF() {
-      // This would typically use a library like jsPDF
-      // For simplicity, we'll just show a notification
-      showNotification('PDF export feature coming soon', 'info');
-      addCommand('Attempted to export to PDF', 'User');
-    }
-    
-    // ===== IMAGE HANDLING =====
-    function previewImage(input) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-          const preview = document.getElementById('imagePreview');
-          preview.src = e.target.result;
-          preview.style.display = 'block';
-        };
-        
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-    
-    // ===== UTILITY FUNCTIONS =====
-    function checkForDuplicateOrder() {
-      const orderId = document.getElementById('orderId').value;
-      const ticketId = document.getElementById('ticketId').value;
-      
-      // Check for duplicate order ID
-      const duplicateTicket = tickets.find(t => t.orderId === orderId && t.id !== ticketId);
-      
-      const warning = document.getElementById('duplicateWarning');
-      if (duplicateTicket && orderId) {
-        warning.classList.add('show');
-      } else {
-        warning.classList.remove('show');
-      }
-    }
-    
-    function shortenLink() {
-      const link = document.getElementById('evidenceLink').value;
-      if (!link) {
-        showNotification('Please enter a link to shorten', 'error');
-        return;
-      }
-      
-      // This would typically use a URL shortening service API
-      // For simplicity, we'll just show a notification
-      showNotification('Link shortened successfully', 'success');
-      addCommand('Shortened evidence link', 'User');
-    }
-    
-    function shareViaWhatsApp(ticket) {
-      const message = `Compensation Case Details:\n\n` +
-        `Order ID: ${ticket.orderId}\n` +
-        `Branch: ${ticket.branch}\n` +
-        `Platform: ${ticket.platform}\n` +
-        `Status: ${ticket.status}\n` +
-        `Original Amount: ${ticket.originalAmount} AED\n` +
-        `Compensation: ${ticket.compensationAmount} AED\n` +
-        `Issue: ${ticket.issue}\n\n` +
-        `Evidence: ${ticket.evidenceLink || 'None'}`;
-      
-      const encodedMessage = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-      
-      window.open(whatsappUrl, '_blank');
-      
-      addCommand(`Shared case ${ticket.orderId} via WhatsApp`, 'User');
-    }
-    
-    function toggleDock() {
-      const dockPanel = document.getElementById('dockPanel');
-      dockPanel.classList.toggle('show');
-      
-      addCommand('Toggled dock panel', 'User');
-    }
-    
-    function toggleDockDropdown(button) {
-      const dropdown = button.nextElementSibling;
-      dropdown.classList.toggle('show');
-      
-      // Close other dropdowns
-      document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
-        if (menu !== dropdown) {
-          menu.classList.remove('show');
-        }
-      });
-    }
-    
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-    
-    function showNotification(message, type = 'info') {
-      if (!settings.notifications) return;
-      
-      const notification = document.createElement('div');
-      notification.className = `notification ${type}`;
-      notification.textContent = message;
-      
-      document.getElementById('notificationContainer').appendChild(notification);
-      
-      // Show notification
-      setTimeout(() => {
-        notification.classList.add('show');
-      }, 10);
-      
-      // Hide notification after 3 seconds
-      setTimeout(() => {
-        notification.classList.remove('show');
-        
-        // Remove notification from DOM after animation completes
-        setTimeout(() => {
-          notification.remove();
-        }, 400);
-      }, 3000);
-    }
-    
-    function addCommand(text, user = 'System') {
-      const command = {
-        text,
-        user,
-        timestamp: new Date().toISOString()
-      };
-      
-      commands.push(command);
-      
-      // Keep only the last 100 commands
-      if (commands.length > 100) {
-        commands = commands.slice(-100);
-      }
-      
-      // Save commands
-      localStorage.setItem('commands', JSON.stringify(commands));
-      
-      // Update commands display
-      updateCommands();
-    }
-    
-    function refreshData() {
-      // Show loading overlay
-      document.getElementById('loadingOverlay').style.display = 'flex';
-      
-      // Simulate loading delay
-      setTimeout(() => {
-        // Update UI
-        updateStats();
-        updateSummarySection();
-        updatePlatformCards();
-        updateCharts();
-        updateBranchAnalysis();
-        updateCompensationAnalysis();
-        updateRejectionAnalysis();
-        updateRefundAnalysis();
-        renderTicketsTable();
-        updateBranchFilter();
-        
-        // Hide loading overlay
-        document.getElementById('loadingOverlay').style.display = 'none';
-        
-        // Show notification
-        showNotification('Data refreshed successfully', 'success');
-        addCommand('Refreshed data', 'User');
-      }, 1000);
-    }
-    
-    function clearAllData() {
-      if (settings.confirmActions && !confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-        return;
-      }
-      
-      // Clear data
-      tickets = [];
-      commands = [];
-      
-      // Save data
-      saveData();
-      
-      // Update UI
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      updateBranchFilter();
-      updateCommands();
-      
-      // Show notification
-      showNotification('All data cleared successfully', 'success');
-      addCommand('Cleared all data', 'User');
-    }
-    
-    function backupData() {
-      // Create backup object
-      const backup = {
-        tickets,
-        branches,
-        commands,
-        settings,
-        timestamp: new Date().toISOString()
-      };
-      
-      // Convert to JSON
-      const backupJson = JSON.stringify(backup);
-      
-      // Create blob and download
-      const blob = new Blob([backupJson], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `compensation_backup_${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      
-      showNotification('Backup created successfully', 'success');
-      addCommand('Created data backup', 'User');
-    }
-    
-    function restoreData() {
-      // Create file input
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json';
-      
-      input.onchange = function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          try {
-            const backup = JSON.parse(e.target.result);
-            
-            // Restore data
-            tickets = backup.tickets || [];
-            branches = backup.branches || [];
-            commands = backup.commands || [];
-            settings = backup.settings || settings;
-            
-            // Save data
-            saveData();
-            
-            // Apply settings
-            applySettings();
-            
-            // Update UI
-            updateStats();
-            updateSummarySection();
-            updatePlatformCards();
-            updateCharts();
-            updateBranchAnalysis();
-            updateCompensationAnalysis();
-            updateRejectionAnalysis();
-            updateRefundAnalysis();
-            renderTicketsTable();
-            updateBranchFilter();
-            updateCommands();
-            
-            showNotification('Data restored successfully', 'success');
-            addCommand('Restored data from backup', 'User');
-            
-          } catch (error) {
-            console.error('Error restoring backup:', error);
-            showNotification('Error restoring backup. Please check the file.', 'error');
-          }
-        };
-        
-        reader.readAsText(file);
-      };
-      
-      input.click();
-    }
-    
-    function archiveOldCases() {
-      if (settings.confirmActions && !confirm('Are you sure you want to archive old cases?')) {
-        return;
-      }
-      
-      // Get cases older than 30 days
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      
-      const oldCases = tickets.filter(t => new Date(t.date) < thirtyDaysAgo);
-      
-      if (oldCases.length === 0) {
-        showNotification('No old cases to archive', 'info');
-        return;
-      }
-      
-      // Create archive
-      const archive = {
-        cases: oldCases,
-        timestamp: new Date().toISOString()
-      };
-      
-      // Convert to JSON
-      const archiveJson = JSON.stringify(archive);
-      
-      // Create blob and download
-      const blob = new Blob([archiveJson], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `cases_archive_${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      
-      // Remove old cases from tickets
-      tickets = tickets.filter(t => new Date(t.date) >= thirtyDaysAgo);
-      
-      // Save data
-      saveData();
-      
-      // Update UI
-      updateStats();
-      updateSummarySection();
-      updatePlatformCards();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      updateBranchFilter();
-      
-      showNotification(`${oldCases.length} cases archived successfully`, 'success');
-      addCommand(`Archived ${oldCases.length} old cases`, 'User');
-    }
-    
-    function checkForDuplicates() {
-      const orderIds = tickets.map(t => t.orderId);
-      const duplicateOrderIds = orderIds.filter((id, index) => orderIds.indexOf(id) !== index);
-      const uniqueDuplicates = [...new Set(duplicateOrderIds)];
-      
-      if (uniqueDuplicates.length === 0) {
-        showNotification('No duplicate cases found', 'success');
-        addCommand('Checked for duplicates - none found', 'User');
-        return;
-      }
-      
-      // Highlight duplicate rows
-      const rows = document.querySelectorAll('#ticketsContainer tbody tr');
-      
-      rows.forEach(row => {
-        // Skip empty state row
-        if (row.querySelector('.empty-state')) return;
-        
-        const orderId = row.cells[0].textContent;
-        
-        if (uniqueDuplicates.includes(orderId)) {
-          row.style.backgroundColor = 'rgba(255, 193, 7, 0.2)';
-        }
-      });
-      
-      showNotification(`${uniqueDuplicates.length} duplicate cases found and highlighted`, 'warning');
-      addCommand(`Found ${uniqueDuplicates.length} duplicate cases`, 'User');
-    }
-    
-    // ===== MODAL FUNCTIONS =====
-    function openSettingsModal() {
-      // Populate form with current settings
-      document.getElementById('theme').value = settings.theme;
-      document.getElementById('itemsPerPage').value = settings.itemsPerPage;
-      document.getElementById('autoRefresh').value = settings.autoRefresh;
-      document.getElementById('backupFrequency').value = settings.backupFrequency;
-      document.getElementById('notifications').checked = settings.notifications;
-      document.getElementById('confirmActions').checked = settings.confirmActions;
-      
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
-      modal.show();
-      
-      addCommand('Opened settings modal', 'User');
-    }
-    
-    function openBranchManagement() {
-      // Populate branch table
-      const tableBody = document.getElementById('branchTableBody');
-      tableBody.innerHTML = '';
-      
-      branches.forEach(branch => {
-        const row = document.createElement('tr');
-        
-        // Name
-        const nameCell = document.createElement('td');
-        nameCell.textContent = branch.name;
-        row.appendChild(nameCell);
-        
-        // Manager
-        const managerCell = document.createElement('td');
-        managerCell.textContent = branch.manager;
-        row.appendChild(managerCell);
-        
-        // Contact
-        const contactCell = document.createElement('td');
-        contactCell.textContent = branch.contact;
-        row.appendChild(contactCell);
-        
-        // Address
-        const addressCell = document.createElement('td');
-        addressCell.textContent = branch.address;
-        row.appendChild(addressCell);
-        
-        // Actions
-        const actionsCell = document.createElement('td');
-        const actions = document.createElement('div');
-        actions.className = 'd-flex gap-2';
-        
-        // Edit button
-        const editBtn = document.createElement('button');
-        editBtn.className = 'btn btn-sm btn-outline-primary';
-        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
-        editBtn.title = 'Edit';
-        editBtn.onclick = function() {
-          editBranch(branch.id);
-        };
-        actions.appendChild(editBtn);
-        
-        // Delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-sm btn-outline-danger';
-        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteBtn.title = 'Delete';
-        deleteBtn.onclick = function() {
-          deleteBranch(branch.id);
-        };
-        actions.appendChild(deleteBtn);
-        
-        actionsCell.appendChild(actions);
-        row.appendChild(actionsCell);
-        
-        tableBody.appendChild(row);
-      });
-      
-      // Show modal
-      const modal = new bootstrap.Modal(document.getElementById('branchModal'));
-      modal.show();
-      
-      addCommand('Opened branch management', 'User');
-    }
-    
-    function addNewBranch() {
-      const name = prompt('Enter branch name:');
-      if (!name) return;
-      
-      const manager = prompt('Enter branch manager:');
-      if (!manager) return;
-      
-      const contact = prompt('Enter branch contact:');
-      if (!contact) return;
-      
-      const address = prompt('Enter branch address:');
-      if (!address) return;
-      
-      // Create new branch
-      const newBranch = {
-        id: Date.now().toString(),
-        name,
-        manager,
-        contact,
-        address
-      };
-      
-      // Add branch
-      branches.push(newBranch);
-      
-      // Save branches
-      saveBranches();
-      
-      // Update UI
-      openBranchManagement();
-      updateBranchFilter();
-      
-      showNotification('Branch added successfully', 'success');
-      addCommand(`Added new branch: ${name}`, 'User');
-    }
-    
-    function editBranch(id) {
-      const branch = branches.find(b => b.id === id);
-      if (!branch) return;
-      
-      const name = prompt('Enter branch name:', branch.name);
-      if (!name) return;
-      
-      const manager = prompt('Enter branch manager:', branch.manager);
-      if (!manager) return;
-      
-      const contact = prompt('Enter branch contact:', branch.contact);
-      if (!contact) return;
-      
-      const address = prompt('Enter branch address:', branch.address);
-      if (!address) return;
-      
-      // Update branch
-      branch.name = name;
-      branch.manager = manager;
-      branch.contact = contact;
-      branch.address = address;
-      
-      // Save branches
-      saveBranches();
-      
-      // Update UI
-      openBranchManagement();
-      updateBranchFilter();
-      updateStats();
-      updateSummarySection();
-      updateCharts();
-      updateBranchAnalysis();
-      updateCompensationAnalysis();
-      updateRejectionAnalysis();
-      updateRefundAnalysis();
-      renderTicketsTable();
-      
-      showNotification('Branch updated successfully', 'success');
-      addCommand(`Updated branch: ${name}`, 'User');
-    }
-    
-    function deleteBranch(id) {
-      if (settings.confirmActions && !confirm('Are you sure you want to delete this branch?')) {
-        return;
-      }
-      
-      const branch = branches.find(b => b.id === id);
-      if (!branch) return;
-      
-      // Check if branch has tickets
-      const branchTickets = tickets.filter(t => t.branch === branch.name);
-      if (branchTickets.length > 0) {
-        showNotification(`Cannot delete branch. It has ${branchTickets.length} associated cases.`, 'error');
-        return;
-      }
-      
-      // Delete branch
-      branches = branches.filter(b => b.id !== id);
-      
-      // Save branches
-      saveBranches();
-      
-      // Update UI
-      openBranchManagement();
-      updateBranchFilter();
-      
-      showNotification('Branch deleted successfully', 'success');
-      addCommand(`Deleted branch: ${branch.name}`, 'User');
-    }
-    
-    function openUserManagement() {
-      // This would typically open a user management modal
-      // For simplicity, we'll just show a notification
-      showNotification('User management feature coming soon', 'info');
-      addCommand('Attempted to open user management', 'User');
-    }
-    
-    // ===== REPORT FUNCTIONS =====
-    function generateDailyReport() {
-      // Show daily summary modal
-      const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
-      modal.show();
-      
-      // Generate summary
-      generateDailySummary();
-      
-      addCommand('Generated daily report', 'User');
-    }
-    
-    function generateDailySummary() {
-      const dateInput = document.getElementById('summaryDateInput').value;
-      if (!dateInput) return;
-      
-      const selectedDate = new Date(dateInput);
-      const startDate = new Date(selectedDate);
-      startDate.setHours(0, 0, 0, 0);
-      const endDate = new Date(selectedDate);
-      endDate.setHours(23, 59, 59, 999);
-      
-      // Filter tickets for selected date
-      const dayTickets = tickets.filter(t => {
-        const ticketDate = new Date(t.date);
-        return ticketDate >= startDate && ticketDate <= endDate;
-      });
-      
-      // Group tickets by branch
-      const branchTickets = {};
-      dayTickets.forEach(ticket => {
-        if (!branchTickets[ticket.branch]) {
-          branchTickets[ticket.branch] = [];
-        }
-        branchTickets[ticket.branch].push(ticket);
-      });
-      
-      // Generate summary content
-      const content = document.getElementById('dailySummaryContent');
-      content.innerHTML = '';
-      
-      // Summary header
-      const header = document.createElement('div');
-      header.className = 'mb-4';
-      header.innerHTML = `
-        <h4>Daily Summary for ${selectedDate.toLocaleDateString()}</h4>
-        <p>Total Cases: ${dayTickets.length} | 
-           Open: ${dayTickets.filter(t => t.status === 'Open').length} | 
-           Closed: ${dayTickets.filter(t => t.status === 'Closed').length} | 
-           Total Compensation: ${dayTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)} AED</p>
-      `;
-      content.appendChild(header);
-      
-      // Branch summaries
-      Object.keys(branchTickets).forEach(branch => {
-        const branchContainer = document.createElement('div');
-        branchContainer.className = 'daily-branch-item';
-        
-        const branchHeader = document.createElement('div');
-        branchHeader.className = 'daily-branch-header';
-        
-        const branchName = document.createElement('div');
-        branchName.className = 'daily-branch-name';
-        branchName.textContent = branch;
-        branchHeader.appendChild(branchName);
-        
-        const branchStats = document.createElement('div');
-        branchStats.className = 'daily-branch-stats';
-        
-        const openCount = document.createElement('div');
-        openCount.className = 'daily-stat';
-        openCount.innerHTML = `
-          <div class="daily-stat-value">${branchTickets[branch].filter(t => t.status === 'Open').length}</div>
-          <div class="daily-stat-label">Open</div>
-        `;
-        branchStats.appendChild(openCount);
-        
-        const closedCount = document.createElement('div');
-        closedCount.className = 'daily-stat';
-        closedCount.innerHTML = `
-          <div class="daily-stat-value">${branchTickets[branch].filter(t => t.status === 'Closed').length}</div>
-          <div class="daily-stat-label">Closed</div>
-        `;
-        branchStats.appendChild(closedCount);
-        
-        const totalAmount = document.createElement('div');
-        totalAmount.className = 'daily-stat';
-        totalAmount.innerHTML = `
-          <div class="daily-stat-value">${branchTickets[branch].reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
-          <div class="daily-stat-label">Amount</div>
-        `;
-        branchStats.appendChild(totalAmount);
-        
-        branchHeader.appendChild(branchStats);
-        branchContainer.appendChild(branchHeader);
-        
-        // Branch cases
-        const casesList = document.createElement('div');
-        casesList.className = 'mt-2';
-        
-        branchTickets[branch].forEach(ticket => {
-          const caseItem = document.createElement('div');
-          caseItem.className = `case-item ${ticket.status === 'Closed' ? 'recovered' : 'pending'}`;
-          caseItem.innerHTML = `
-            <div class="case-info">
-              <div class="case-order">${ticket.orderId}</div>
-              <div class="case-platform">${ticket.platform}</div>
-            </div>
-            <div class="case-amount">${ticket.compensationAmount} AED</div>
-          `;
-          casesList.appendChild(caseItem);
-        });
-        
-        branchContainer.appendChild(casesList);
-        content.appendChild(branchContainer);
-      });
-      
-      if (dayTickets.length === 0) {
-        content.innerHTML = '<p class="text-center text-muted">No cases found for the selected date</p>';
-      }
-    }
-    
-    function exportDailySummary() {
-      // This would typically generate a PDF or Excel report
-      // For simplicity, we'll just show a notification
-      showNotification('Daily summary exported successfully', 'success');
-      addCommand('Exported daily summary', 'User');
-    }
-    
-    function generateDisputeReport() {
-      // Get disputed tickets (rejected or high compensation)
-      const disputedTickets = tickets.filter(t => 
-        t.status === 'Rejected' || parseFloat(t.compensationAmount) > 50
-      );
-      
-      if (disputedTickets.length === 0) {
-        showNotification('No disputed cases found', 'info');
-        return;
-      }
-      
-      // Create report content
-      const reportContent = {
-        title: 'Dispute Report',
-        date: new Date().toLocaleDateString(),
-        summary: {
-          totalDisputes: disputedTickets.length,
-          rejectedCases: disputedTickets.filter(t => t.status === 'Rejected').length,
-          highCompensationCases: disputedTickets.filter(t => parseFloat(t.compensationAmount) > 50).length,
-          totalAmount: disputedTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0)
-        },
-        cases: disputedTickets.map(t => ({
-          orderId: t.orderId,
-          branch: t.branch,
-          platform: t.platform,
-          status: t.status,
-          amount: t.compensationAmount,
-          issue: t.issue,
-          date: new Date(t.date).toLocaleDateString()
-        }))
-      };
-      
-      // Convert to JSON
-      const reportJson = JSON.stringify(reportContent, null, 2);
-      
-      // Create blob and download
-      const blob = new Blob([reportJson], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `dispute_report_${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      
-      showNotification('Dispute report generated successfully', 'success');
-      addCommand('Generated dispute report', 'User');
-    }
-    
-    function generateFinancialReport() {
-      // Create financial report
-      const financialReport = {
-        title: 'Financial Report',
-        date: new Date().toLocaleDateString(),
-        summary: {
-          totalOriginalAmount: tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0),
-          totalCompensation: tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
-          totalRefunded: tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0),
-          netCompensation: tickets.reduce((sum, t) => sum + (parseFloat(t.compensationAmount) - parseFloat(t.refundedAmount || 0)), 0),
-          openCases: tickets.filter(t => t.status === 'Open').length,
-          closedCases: tickets.filter(t => t.status === 'Closed').length,
-          rejectedCases: tickets.filter(t => t.status === 'Rejected').length
-        },
-        branchBreakdown: {}
-      };
-      
-      // Calculate branch breakdown
-      branches.forEach(branch => {
-        const branchTickets = tickets.filter(t => t.branch === branch.name);
-        if (branchTickets.length > 0) {
-          financialReport.branchBreakdown[branch.name] = {
-            caseCount: branchTickets.length,
-            originalAmount: branchTickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0),
-            compensationAmount: branchTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0),
-            refundedAmount: branchTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0),
-            netCompensation: branchTickets.reduce((sum, t) => sum + (parseFloat(t.compensationAmount) - parseFloat(t.refundedAmount || 0)), 0)
-          };
-        }
-      });
-      
-      // Convert to JSON
-      const reportJson = JSON.stringify(financialReport, null, 2);
-      
-      // Create blob and download
-      const blob = new Blob([reportJson], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `financial_report_${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      
-      showNotification('Financial report generated successfully', 'success');
-      addCommand('Generated financial report', 'User');
-    }
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-      if (!event.target.closest('.dock-dropdown')) {
-        document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
-          menu.classList.remove('show');
-        });
-      }
-    });
-  </script>
-</body>
-</html>
