@@ -1453,107 +1453,300 @@
       background: linear-gradient(135deg, rgba(244, 67, 54, 0.4), rgba(244, 67, 54, 0.2));
     }
     
-    /* ===== NOTIFICATION BADGE ===== */
-    .notification-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #dc3545;
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    /* ===== DROPDOWN IN DOCK ===== */
+    .dock-dropdown {
+      position: relative;
     }
     
-    /* ===== NOTIFICATIONS PANEL ===== */
-    .notifications-panel {
-      position: fixed;
-      top: 80px;
-      right: 24px;
-      width: 400px;
-      max-height: 70vh;
-      background: white;
+    .dock-dropdown-menu {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      min-width: 200px;
+      margin-bottom: 12px;
+      z-index: 10;
+      display: none;
+      padding: 8px;
+    }
+    
+    .dock-dropdown-menu.show {
+      display: block;
+      animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-10px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .dock-dropdown-item {
+      padding: 10px 14px;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border-radius: 10px;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .dock-dropdown-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .dock-dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(-4px);
+    }
+    
+    .dock-dropdown-item i {
+      font-size: 0.9rem;
+    }
+    
+    /* ===== SCROLLBAR STYLING FOR DOCK PANEL ===== */
+    .dock-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .dock-panel::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    
+    .dock-panel::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
+    }
+    
+    .dock-panel::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.5);
+    }
+    
+    /* ===== LOADING INDICATOR FOR BUTTONS ===== */
+    .dock-panel button.loading {
+      color: transparent;
+    }
+    
+    .dock-panel button.loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 2px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spinner 0.8s linear infinite;
+    }
+    
+    @keyframes spinner {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* ===== NOTIFICATION SYSTEM ===== */
+    .notification {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      color: #fff;
       z-index: 3000;
       display: none;
-      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width: 400px;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
-    .notifications-panel.show {
+    .notification.show {
       display: block;
-      animation: slideIn 0.3s ease;
     }
     
-    .notifications-header {
-      padding: 20px;
-      border-bottom: 1px solid #eee;
+    .notification.success {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(56, 142, 60, 0.9));
+    }
+    
+    .notification.error {
+      background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(211, 47, 47, 0.9));
+    }
+    
+    .notification.warning {
+      background: linear-gradient(135deg, rgba(255, 152, 0, 0.9), rgba(245, 124, 0, 0.9));
+    }
+    
+    .notification.info {
+      background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(25, 118, 210, 0.9));
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    /* ===== PROGRESS INDICATOR FOR NOTIFICATIONS ===== */
+    .notification.progress {
+      padding-bottom: 8px;
+    }
+    
+    .notification .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 0 0 16px 16px;
+      animation: progress 3s linear forwards;
+    }
+    
+    @keyframes progress {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+    
+    /* ===== NOTIFICATION CONTAINER FOR MULTIPLE NOTIFICATIONS ===== */
+    .notification-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 3000;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+    }
+    
+    /* ===== TOAST NOTIFICATION STYLE ===== */
+    .toast-notification {
+      position: relative;
+      padding: 16px 24px;
+      border-radius: 16px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width: 400px;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: toastSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes toastSlideIn {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* ===== LOADING SPINNER ===== */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* ===== LOADING OVERLAY ===== */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
       align-items: center;
+      flex-direction: column;
+      gap: 16px;
+      color: white;
     }
     
-    .notifications-header h5 {
+    .loading-overlay .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border-width: 4px;
+    }
+    
+    .loading-overlay .loading-text {
       font-size: 1.2rem;
-      font-weight: 700;
-      margin: 0;
+      font-weight: 500;
     }
     
-    .notifications-list {
-      max-height: calc(70vh - 80px);
-      overflow-y: auto;
+    /* ===== STORAGE INDICATOR ===== */
+    .storage-indicator {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
     
-    .notification-item {
-      padding: 16px 20px;
-      border-bottom: 1px solid #eee;
-      transition: background-color 0.2s;
+    .storage-warning {
+      background: rgba(220, 53, 69, 0.9) !important;
+      animation: pulse 2s infinite;
     }
     
-    .notification-item:hover {
-      background-color: #f8f9fa;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     
-    .notification-item.unread {
-      background-color: rgba(211, 47, 47, 0.05);
+    /* ===== DUPLICATE WARNING ===== */
+    .duplicate-warning {
+      font-size: 0.85rem;
+      display: none;
     }
     
-    .notification-item:last-child {
-      border-bottom: none;
-    }
-    
-    .notification-title {
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #333;
-    }
-    
-    .notification-message {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 5px;
-    }
-    
-    .notification-time {
-      font-size: 0.8rem;
-      color: #999;
-    }
-    
-    .notification-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    
-    .notification-actions button {
-      font-size: 0.8rem;
-      padding: 4px 8px;
+    .duplicate-warning.show {
+      display: block;
     }
     
     /* ===== DISPUTE REPORT STYLES ===== */
@@ -1777,12 +1970,6 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link text-white fw-semibold" href="#">Dashboard</a></li>
-          <li class="nav-item position-relative">
-            <a class="nav-link text-white position-relative" href="#" onclick="showNotifications()">
-              <i class="bi bi-bell"></i>
-              <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -2117,17 +2304,6 @@
     </section>
   </main>
   
-  <!-- ===== NOTIFICATIONS PANEL ===== -->
-  <div id="notificationsPanel" class="notifications-panel">
-    <div class="notifications-header">
-      <h5>الإشعارات</h5>
-      <button class="btn btn-sm btn-outline-light" onclick="markAllAsRead()">تحديد الكل كمقروء</button>
-    </div>
-    <div id="notificationsList" class="notifications-list">
-      <!-- سيتم ملء الإشعارات هنا -->
-    </div>
-  </div>
-  
   <!-- ===== DOCK PANEL ===== -->
   <div id="dock">
     <div id="dockPanel" class="dock-panel">
@@ -2276,148 +2452,128 @@
           <form id="ticketForm">
             <input type="hidden" id="ticketId">
             
-            <!-- قسم المعلومات الأساسية -->
-            <fieldset class="mb-4">
-              <legend><i class="bi bi-info-circle me-2"></i> المعلومات الأساسية</legend>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="orderId" class="form-label">رقم الطلب <span class="text-danger">*</span></label>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="orderId" class="form-label">Order ID</label>
                   <input type="text" class="form-control" id="orderId" required>
                   <div class="duplicate-warning text-danger mt-1" id="duplicateWarning">
-                    <i class="bi bi-exclamation-triangle"></i> تم العثور على رقم طلب مكرر
+                    <i class="bi bi-exclamation-triangle"></i> Duplicate Order ID detected
                   </div>
                 </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="caseDate" class="form-label">تاريخ الحالة <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="caseDate" required>
-                </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="branch" class="form-label">الفرع <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="branch" class="form-label">Branch</label>
                   <select class="form-select" id="branch" required>
-                    <option value="">اختر الفرع</option>
-                    <!-- سيتم ملء الخيارات من خلال JavaScript -->
+                    <option value="">Select Branch</option>
+                    <option value="Downtown">Downtown</option>
+                    <option value="Mall">Mall</option>
+                    <option value="Airport">Airport</option>
+                    <option value="North">North</option>
+                    <option value="South">South</option>
+                    <option value="East">East</option>
+                    <option value="West">West</option>
                   </select>
                 </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="platform" class="form-label">المنصة <span class="text-danger">*</span></label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="platform" class="form-label">Platform</label>
                   <select class="form-select" id="platform" required>
-                    <option value="">اختر المنصة</option>
+                    <option value="">Select Platform</option>
                     <option value="Noon">Noon</option>
                     <option value="Careem">Careem</option>
                   </select>
                 </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="status" class="form-label">الحالة <span class="text-danger">*</span></label>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
                   <select class="form-select" id="status" required>
-                    <option value="Open">مفتوح</option>
-                    <option value="Sent">تم الإرسال</option>
-                    <option value="Closed">مغلق</option>
-                    <option value="Rejected">مرفوض</option>
+                    <option value="Open">Open</option>
+                    <option value="Sent">Sent</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Rejected">Rejected</option>
                   </select>
                 </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="customerPhone" class="form-label">رقم هاتف العميل</label>
-                  <input type="tel" class="form-control" id="customerPhone" placeholder="+971501234567">
-                </div>
               </div>
-            </fieldset>
+            </div>
             
-            <!-- قسم المالية -->
-            <fieldset class="mb-4">
-              <legend><i class="bi bi-currency-exchange me-2"></i> المعلومات المالية</legend>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="originalAmount" class="form-label">المبلغ الأصلي (AED) <span class="text-danger">*</span></label>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="originalAmount" class="form-label">Original Amount (AED)</label>
                   <input type="number" class="form-control" id="originalAmount" step="0.01" required>
                 </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="compensationAmount" class="form-label">مبلغ التعويض (AED) <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="compensationAmount" class="form-label">Compensation Amount (AED)</label>
                   <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
                 </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="refundMethod" class="form-label">طريقة الاسترداد</label>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="refundMethod" class="form-label">Refund Method</label>
                   <select class="form-select" id="refundMethod">
-                    <option value="">لم يتم الاسترداد</option>
+                    <option value="">Not Refunded</option>
                     <option value="Careem Pay">Careem Pay</option>
-                    <option value="Card">بطاقة ائتمان</option>
-                    <option value="Cash">نقداً</option>
-                    <option value="Bank Transfer">تحويل بنكي</option>
+                    <option value="Card">Card</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
                   </select>
                 </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="refundedAmount" class="form-label">المبلغ المسترد (AED)</label>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="refundedAmount" class="form-label">Refunded Amount (AED)</label>
                   <input type="number" class="form-control" id="refundedAmount" step="0.01">
                 </div>
               </div>
-            </fieldset>
+            </div>
             
-            <!-- قسم تفاصيل الحالة -->
-            <fieldset class="mb-4">
-              <legend><i class="bi bi-chat-dots me-2"></i> تفاصيل الحالة</legend>
-              
-              <div class="mb-3">
-                <label for="issue" class="form-label">وصف المشكلة <span class="text-danger">*</span></label>
-                <textarea class="form-control" id="issue" rows="3" required></textarea>
-              </div>
-              
-              <div class="mb-3">
-                <label for="notes" class="form-label">ملاحظات إضافية</label>
-                <textarea class="form-control" id="notes" rows="2"></textarea>
-              </div>
-            </fieldset>
+            <div class="mb-3">
+              <label for="issue" class="form-label">Issue Description</label>
+              <textarea class="form-control" id="issue" rows="3" required></textarea>
+            </div>
             
-            <!-- قسم الأدلة -->
-            <fieldset class="mb-4">
-              <legend><i class="bi bi-image me-2"></i> الأدلة</legend>
-              
+            <div class="mb-3">
+              <label for="evidence" class="form-label">Evidence</label>
               <div class="image-upload-container">
-                <input type="file" id="evidence" accept="image/*" onchange="handleImageUpload(this)">
+                <input type="file" id="evidence" accept="image/*" onchange="previewImage(this)">
                 <div id="imagePreviewContainer">
-                  <p>انقر أو اسحب الصورة هنا للرفع</p>
+                  <p>Click or drag image here to upload</p>
                   <img id="imagePreview" class="image-preview" style="display: none;">
-                  <div class="progress mt-2" id="uploadProgress" style="display: none;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                         role="progressbar" style="width: 0%"></div>
-                  </div>
-                  <button type="button" class="btn btn-sm btn-danger mt-2" 
-                          id="removeImageBtn" onclick="removeImage()" style="display: none;">
-                    <i class="bi bi-trash"></i> إزالة الصورة
-                  </button>
                 </div>
               </div>
               
               <div class="short-link-container mt-3">
-                <label for="evidenceLink" class="form-label">أو أدخل رابط الأدلة</label>
+                <label for="evidenceLink" class="form-label">Or provide evidence link</label>
                 <div class="input-group">
-                  <input type="url" class="form-control short-link-input" id="evidenceLink" 
-                         placeholder="https://example.com/evidence.jpg">
+                  <input type="url" class="form-control short-link-input" id="evidenceLink" placeholder="https://example.com/evidence.jpg">
                   <button class="btn btn-outline-secondary" type="button" onclick="shortenLink()">
-                    <i class="bi bi-link-45deg"></i> اختصار الرابط
+                    <i class="bi bi-link-45deg"></i> Shorten
                   </button>
                 </div>
               </div>
-            </fieldset>
+            </div>
+            
+            <div class="mb-3">
+              <label for="notes" class="form-label">Additional Notes</label>
+              <textarea class="form-control" id="notes" rows="2"></textarea>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-          <button type="button" class="btn btn-primary" onclick="saveTicket()">حفظ الحالة</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveTicket()">Save Case</button>
         </div>
       </div>
     </div>
@@ -2489,8 +2645,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-          <button type="button" class="btn btn-primary" onclick="saveSettings()">حفظ الإعدادات</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
         </div>
       </div>
     </div>
@@ -2558,7 +2714,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -2601,8 +2757,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-          <button type="button" class="btn btn-primary" onclick="saveNewBranch()">حفظ الفرع</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveNewBranch()">Save Branch</button>
         </div>
       </div>
     </div>
@@ -2635,7 +2791,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" onclick="exportDailySummary()">
             <i class="bi bi-download me-1"></i> Export Summary
           </button>
@@ -2676,11 +2832,20 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-primary" onclick="fetchDataFromAPIWithSettings()">Fetch Data</button>
         </div>
       </div>
     </div>
+  </div>
+  
+  <!-- ===== NOTIFICATION CONTAINER ===== -->
+  <div id="notificationContainer" class="notification-container"></div>
+  
+  <!-- ===== LOADING OVERLAY ===== -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading...</div>
   </div>
   
   <!-- ===== EXCEL UPLOAD INPUT (HIDDEN) ===== -->
@@ -2742,12 +2907,6 @@
       
       // Add command
       addCommand('Dashboard initialized', 'System');
-      
-      // Initialize form
-      initializeForm();
-      
-      // Update notification badge
-      updateNotificationBadge();
     });
     
     // ===== DATA MANAGEMENT =====
@@ -2792,13 +2951,6 @@
       if (settingsData) {
         settings = JSON.parse(settingsData);
         applySettings();
-      }
-      
-      // Load notifications
-      const notificationsData = localStorage.getItem('managerNotifications');
-      if (notificationsData) {
-        // Just update the badge
-        updateNotificationBadge();
       }
       
       // Update storage indicator
@@ -2919,16 +3071,6 @@
       
       document.getElementById('confirmActions').addEventListener('change', function() {
         settings.confirmActions = this.checked;
-      });
-      
-      // Close notifications panel when clicking outside
-      document.addEventListener('click', function(event) {
-        const panel = document.getElementById('notificationsPanel');
-        const bellIcon = document.querySelector('.nav-link[href="#"]');
-        
-        if (!panel.contains(event.target) && !bellIcon.contains(event.target)) {
-          panel.classList.remove('show');
-        }
       });
     }
     
@@ -3857,7 +3999,7 @@
         
         // Date
         const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        dateCell.textContent = new Date(ticket.createdAt || Date.now()).toLocaleDateString();
         row.appendChild(dateCell);
         
         tbody.appendChild(row);
@@ -3895,7 +4037,7 @@
       
       const headers = [
         'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
-        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Date', 'Actions'
+        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
       ];
       
       headers.forEach(header => {
@@ -4031,11 +4173,6 @@
         refundedCell.textContent = ticket.refundedAmount || '0';
         row.appendChild(refundedCell);
         
-        // Date
-        const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA');
-        row.appendChild(dateCell);
-        
         // Actions
         const actionsCell = document.createElement('td');
         actionsCell.className = 'ticket-actions';
@@ -4044,7 +4181,7 @@
         const editBtn = document.createElement('button');
         editBtn.className = 'btn btn-sm btn-primary';
         editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
-        editBtn.title = 'تعديل';
+        editBtn.title = 'Edit';
         editBtn.onclick = function() {
           openEditModal(ticket.id);
         };
@@ -4054,7 +4191,7 @@
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn btn-sm btn-danger';
         deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteBtn.title = 'حذف';
+        deleteBtn.title = 'Delete';
         deleteBtn.onclick = function() {
           deleteTicket(ticket.id);
         };
@@ -4065,20 +4202,11 @@
           const whatsappBtn = document.createElement('button');
           whatsappBtn.className = 'btn btn-sm btn-whatsapp';
           whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-          whatsappBtn.title = 'تواصل مع العميل';
+          whatsappBtn.title = 'Contact via WhatsApp';
           whatsappBtn.onclick = function() {
-            contactCustomer(ticket);
+            window.open(`https://wa.me/${ticket.customerPhone.replace(/\D/g, '')}`, '_blank');
           };
           actionsCell.appendChild(whatsappBtn);
-          
-          const notifyBtn = document.createElement('button');
-          notifyBtn.className = 'btn btn-sm btn-info';
-          notifyBtn.innerHTML = '<i class="bi bi-bell"></i>';
-          notifyBtn.title = 'إعلام مدير الفرع';
-          notifyBtn.onclick = function() {
-            notifyBranchManager(ticket);
-          };
-          actionsCell.appendChild(notifyBtn);
         }
         
         row.appendChild(actionsCell);
@@ -4099,13 +4227,6 @@
       // Hide duplicate warning
       document.getElementById('duplicateWarning').classList.remove('show');
       
-      // Set default date
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('caseDate').value = today;
-      
-      // Populate branches
-      populateBranchSelect();
-      
       // Show modal
       const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
       modal.show();
@@ -4120,7 +4241,6 @@
       // Populate form
       document.getElementById('ticketId').value = ticket.id;
       document.getElementById('orderId').value = ticket.orderId;
-      document.getElementById('caseDate').value = ticket.caseDate || new Date().toISOString().split('T')[0];
       document.getElementById('branch').value = ticket.branch;
       document.getElementById('platform').value = ticket.platform;
       document.getElementById('status').value = ticket.status;
@@ -4130,7 +4250,6 @@
       document.getElementById('refundedAmount').value = ticket.refundedAmount || '';
       document.getElementById('issue').value = ticket.issue;
       document.getElementById('notes').value = ticket.notes || '';
-      document.getElementById('customerPhone').value = ticket.customerPhone || '';
       
       // Set evidence
       if (ticket.evidenceImage) {
@@ -4138,7 +4257,6 @@
         preview.src = ticket.evidenceImage;
         preview.style.display = 'block';
         document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
-        document.getElementById('removeImageBtn').style.display = 'block';
       } else if (ticket.evidenceLink) {
         document.getElementById('evidenceLink').value = ticket.evidenceLink;
       }
@@ -4160,7 +4278,6 @@
       // Get form values
       const ticketId = document.getElementById('ticketId').value;
       const orderId = document.getElementById('orderId').value.trim();
-      const caseDate = document.getElementById('caseDate').value;
       const branch = document.getElementById('branch').value;
       const platform = document.getElementById('platform').value;
       const status = document.getElementById('status').value;
@@ -4170,7 +4287,6 @@
       const refundedAmount = parseFloat(document.getElementById('refundedAmount').value) || 0;
       const issue = document.getElementById('issue').value.trim();
       const notes = document.getElementById('notes').value.trim();
-      const customerPhone = document.getElementById('customerPhone').value.trim();
       
       // Validate required fields
       if (!orderId || !branch || !platform || !status || isNaN(originalAmount) || isNaN(compensationAmount) || !issue) {
@@ -4203,7 +4319,6 @@
       const ticket = {
         id: ticketId ? parseInt(ticketId) : Date.now(),
         orderId,
-        caseDate,
         branch,
         platform,
         status,
@@ -4213,7 +4328,6 @@
         refundedAmount,
         issue,
         notes,
-        customerPhone,
         evidenceImage,
         evidenceLink,
         createdAt: ticketId ? 
@@ -4236,11 +4350,6 @@
         tickets.push(ticket);
         showNotification('Case added successfully', 'success');
         addCommand(`Added new case: ${orderId}`, 'User');
-      }
-      
-      // Send notification if enabled
-      if (settings.notifications) {
-        sendManagerNotification(ticket);
       }
       
       // Save data and update UI
@@ -4308,239 +4417,35 @@
       }
     }
     
-    function initializeForm() {
-      // Set default date
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('caseDate').value = today;
-      
-      // Populate branches
-      populateBranchSelect();
-    }
-    
-    function populateBranchSelect() {
-      const branchSelect = document.getElementById('branch');
-      
-      // Clear existing options except "All Branches"
-      while (branchSelect.options.length > 1) {
-        branchSelect.remove(1);
-      }
-      
-      // Add branches as options
-      branches.forEach(branch => {
-        const option = document.createElement('option');
-        option.value = branch.name;
-        option.textContent = branch.name;
-        branchSelect.appendChild(option);
-      });
-    }
-    
-    // ===== IMAGE UPLOAD FUNCTIONS =====
-    function handleImageUpload(input) {
+    function previewImage(input) {
       if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const maxSize = 5 * 1024 * 1024; // 5MB
-        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        
-        // التحقق من نوع الملف
-        if (!validTypes.includes(file.type)) {
-          showNotification('يرجى اختيار ملف صورة (JPEG, PNG, GIF, WebP)', 'error');
-          return;
-        }
-        
-        // التحقق من حجم الملف
-        if (file.size > maxSize) {
-          showNotification('حجم الملف يجب أن يكون أقل من 5MB', 'error');
-          return;
-        }
-        
-        // إظهار شريط التقدم
-        const progressContainer = document.getElementById('uploadProgress');
-        const progressBar = progressContainer.querySelector('.progress-bar');
-        progressContainer.style.display = 'block';
-        
-        // محاكاة رفع الملف
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress += 10;
-          progressBar.style.width = `${progress}%`;
-          
-          if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-              progressContainer.style.display = 'none';
-              showNotification('تم رفع الصورة بنجاح', 'success');
-            }, 500);
-          }
-        }, 100);
-        
-        // عرض الصورة
         const reader = new FileReader();
+        
         reader.onload = function(e) {
           const preview = document.getElementById('imagePreview');
           preview.src = e.target.result;
           preview.style.display = 'block';
-          document.querySelector('#imagePreviewContainer p').style.display = 'none';
-          
-          // إظهار زر الإزالة
-          document.getElementById('removeImageBtn').style.display = 'block';
+          document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
         };
-        reader.readAsDataURL(file);
-      }
-    }
-    
-    function removeImage() {
-      document.getElementById('imagePreview').style.display = 'none';
-      document.getElementById('evidence').value = '';
-      document.getElementById('evidenceImage').value = '';
-      document.getElementById('evidenceLink').value = '';
-      document.querySelector('#imagePreviewContainer p').style.display = 'block';
-      document.getElementById('removeImageBtn').style.display = 'none';
-      showNotification('تم إزالة الصورة', 'success');
-    }
-    
-    // ===== WHATSAPP FUNCTIONS =====
-    function contactCustomer(ticket) {
-      const phoneNumber = prompt('أدخل رقم هاتف العميل:');
-      if (phoneNumber) {
-        const message = `مرحباً، بخصوص طلبك رقم ${ticket.orderId}. هل يمكننا مساعدتك في حل مشكلتك؟`;
-        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-        showNotification('تم فتح واتساب للتواصل مع العميل', 'success');
-        addCommand(`تواصل مع العميل لحالة ${ticket.orderId}`, 'User');
-      }
-    }
-    
-    function notifyBranchManager(ticket) {
-      const manager = getBranchManager(ticket.branch);
-      if (manager) {
-        const message = `تنبيه: لدي حالة جديدة في فرع ${ticket.branch}\n\n` +
-                        `رقم الطلب: ${ticket.orderId}\n` +
-                        `المشكلة: ${ticket.issue}\n` +
-                        `المبلغ: ${ticket.compensationAmount} AED\n` +
-                        `الحالة: ${ticket.status}`;
         
-        const whatsappUrl = `https://wa.me/${manager.contact.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-        showNotification('تم إعلام مدير الفرع', 'success');
-        addCommand(`أُخبر مدير الفرع ${manager.name} بالحالة ${ticket.orderId}`, 'User');
-      } else {
-        showNotification('لم يتم العثور على مدير للفرع', 'error');
+        reader.readAsDataURL(input.files[0]);
       }
     }
     
-    function getBranchManager(branchName) {
-      const branch = branches.find(b => b.name === branchName);
-      return branch ? branch : null;
-    }
-    
-    // ===== NOTIFICATION FUNCTIONS =====
-    function showNotifications() {
-      const panel = document.getElementById('notificationsPanel');
-      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
-      
-      // عرض الإشعارات
-      const list = document.getElementById('notificationsList');
-      list.innerHTML = '';
-      
-      if (notifications.length === 0) {
-        list.innerHTML = '<p class="text-center text-muted">لا توجد إشعارات</p>';
-      } else {
-        notifications.forEach(notification => {
-          const item = document.createElement('div');
-          item.className = `notification-item ${notification.read ? 'read' : 'unread'}`;
-          item.innerHTML = `
-            <div class="notification-content">
-              <h6>${notification.title}</h6>
-              <p>${notification.message}</p>
-              <small>${new Date(notification.timestamp).toLocaleString('ar-SA')}</small>
-            </div>
-            <div class="notification-actions">
-              ${!notification.read ? '<button class="btn btn-sm btn-outline-light" onclick="markAsRead(' + notification.id + ')">تحديد كمقروء</button>' : ''}
-              <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(' + notification.id + ')">حذف</button>
-            </div>
-          `;
-          list.appendChild(item);
-        });
+    function shortenLink() {
+      const link = document.getElementById('evidenceLink').value.trim();
+      if (!link) {
+        showNotification('Please enter a link to shorten', 'error');
+        return;
       }
       
-      panel.classList.add('show');
-    }
-    
-    function markAsRead(id) {
-      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
-      const notification = notifications.find(n => n.id === id);
-      if (notification) {
-        notification.read = true;
-        localStorage.setItem('managerNotifications', JSON.stringify(notifications));
-        updateNotificationBadge();
-        showNotifications();
-      }
-    }
-    
-    function deleteNotification(id) {
-      let notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
-      notifications = notifications.filter(n => n.id !== id);
-      localStorage.setItem('managerNotifications', JSON.stringify(notifications));
-      updateNotificationBadge();
-      showNotifications();
-    }
-    
-    function markAllAsRead() {
-      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
-      notifications.forEach(n => n.read = true);
-      localStorage.setItem('managerNotifications', JSON.stringify(notifications));
-      updateNotificationBadge();
-      showNotifications();
-      showNotification('تم تحديد جميع الإشعارات كمقروءة', 'success');
-    }
-    
-    function updateNotificationBadge() {
-      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
-      const unreadCount = notifications.filter(n => !n.read).length;
+      // Simulate link shortening (in a real app, you would use an API)
+      const shortLink = `https://short.link/${Math.random().toString(36).substr(2, 8)}`;
+      document.getElementById('evidenceLink').value = shortLink;
       
-      const badge = document.getElementById('notificationBadge');
-      if (badge) {
-        if (unreadCount > 0) {
-          badge.textContent = unreadCount;
-          badge.style.display = 'block';
-        } else {
-          badge.style.display = 'none';
-        }
-      }
+      showNotification('Link shortened successfully', 'success');
     }
     
-    function sendManagerNotification(ticket) {
-      const manager = getBranchManager(ticket.branch);
-      if (!manager) return;
-      
-      const notification = {
-        id: Date.now(),
-        type: 'case_saved',
-        title: 'حالة جديدة تم حفظها',
-        message: `تم حفظ حالة جديدة في فرع ${ticket.branch}\n\n` +
-                 `رقم الطلب: ${ticket.orderId}\n` +
-                 `المشكلة: ${ticket.issue}\n` +
-                 `المبلغ: ${ticket.compensationAmount} AED\n` +
-                 `الحالة: ${ticket.status}\n` +
-                 `التاريخ: ${new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA')}`,
-        timestamp: new Date().toISOString(),
-        read: false
-      };
-      
-      // حفظ الإشعار في localStorage
-      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
-      notifications.unshift(notification);
-      localStorage.setItem('managerNotifications', JSON.stringify(notifications));
-      
-      // عرض إشارة على أيقونة الإشعارات
-      updateNotificationBadge();
-      
-      // إظهار الإشعار للمستخدم
-      showNotification(notification.message, 'info');
-      addCommand(`أُرسل إشعار لمدير الفرع ${manager.name}`, 'System');
-    }
-    
-    // ===== OTHER FUNCTIONS =====
     function filterTickets() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       const branchFilter = document.getElementById('filterBranch').value;
@@ -4587,7 +4492,7 @@
       
       const headers = [
         'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
-        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Date', 'Actions'
+        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Actions'
       ];
       
       headers.forEach(header => {
@@ -4723,11 +4628,6 @@
         refundedCell.textContent = ticket.refundedAmount || '0';
         row.appendChild(refundedCell);
         
-        // Date
-        const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA');
-        row.appendChild(dateCell);
-        
         // Actions
         const actionsCell = document.createElement('td');
         actionsCell.className = 'ticket-actions';
@@ -4736,7 +4636,7 @@
         const editBtn = document.createElement('button');
         editBtn.className = 'btn btn-sm btn-primary';
         editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
-        editBtn.title = 'تعديل';
+        editBtn.title = 'Edit';
         editBtn.onclick = function() {
           openEditModal(ticket.id);
         };
@@ -4746,31 +4646,22 @@
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn btn-sm btn-danger';
         deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteBtn.title = 'حذف';
+        deleteBtn.title = 'Delete';
         deleteBtn.onclick = function() {
           deleteTicket(ticket.id);
         };
         actionsCell.appendChild(deleteBtn);
         
-        // WhatsApp buttons (if phone number exists)
+        // WhatsApp button (if phone number exists)
         if (ticket.customerPhone) {
           const whatsappBtn = document.createElement('button');
           whatsappBtn.className = 'btn btn-sm btn-whatsapp';
           whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
-          whatsappBtn.title = 'تواصل مع العميل';
+          whatsappBtn.title = 'Contact via WhatsApp';
           whatsappBtn.onclick = function() {
-            contactCustomer(ticket);
+            window.open(`https://wa.me/${ticket.customerPhone.replace(/\D/g, '')}`, '_blank');
           };
           actionsCell.appendChild(whatsappBtn);
-          
-          const notifyBtn = document.createElement('button');
-          notifyBtn.className = 'btn btn-sm btn-info';
-          notifyBtn.innerHTML = '<i class="bi bi-bell"></i>';
-          notifyBtn.title = 'إعلام مدير الفرع';
-          notifyBtn.onclick = function() {
-            notifyBranchManager(ticket);
-          };
-          actionsCell.appendChild(notifyBtn);
         }
         
         row.appendChild(actionsCell);
@@ -4785,10 +4676,10 @@
     function sortTickets(criteria) {
       switch (criteria) {
         case 'date-desc':
-          tickets.sort((a, b) => new Date(b.caseDate || b.createdAt) - new Date(a.caseDate || a.createdAt));
+          tickets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           break;
         case 'date-asc':
-          tickets.sort((a, b) => new Date(a.caseDate || a.createdAt) - new Date(b.caseDate || b.createdAt));
+          tickets.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
           break;
         case 'amount-desc':
           tickets.sort((a, b) => parseFloat(b.compensationAmount) - parseFloat(a.compensationAmount));
@@ -4893,13 +4784,13 @@
         // Actions
         const actionsCell = document.createElement('td');
         actionsCell.innerHTML = `
-            <button class="btn btn-sm btn-primary me-1" onclick="editBranch(${branch.id})" title="تعديل">
+            <button class="btn btn-sm btn-primary me-1" onclick="editBranch(${branch.id})" title="Edit">
                 <i class="bi bi-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-info me-1" onclick="viewBranchDetails(${branch.id})" title="عرض التفاصيل">
+            <button class="btn btn-sm btn-info me-1" onclick="viewBranchDetails(${branch.id})" title="View Details">
                 <i class="bi bi-eye"></i>
             </button>
-            <button class="btn btn-sm btn-danger" onclick="deleteBranch(${branch.id})" title="حذف">
+            <button class="btn btn-sm btn-danger" onclick="deleteBranch(${branch.id})" title="Delete">
                 <i class="bi bi-trash"></i>
             </button>
         `;
@@ -5223,7 +5114,6 @@
         {
           id: Date.now(),
           orderId: 'ORD-001',
-          caseDate: new Date().toISOString().split('T')[0],
           branch: 'Downtown',
           platform: 'Noon',
           status: 'Open',
@@ -5237,7 +5127,6 @@
         {
           id: Date.now() + 1,
           orderId: 'ORD-002',
-          caseDate: new Date(Date.now() - 86400000).toISOString().split('T')[0],
           branch: 'Mall',
           platform: 'Careem',
           status: 'Closed',
@@ -5253,7 +5142,6 @@
         {
           id: Date.now() + 2,
           orderId: 'ORD-003',
-          caseDate: new Date(Date.now() - 172800000).toISOString().split('T')[0],
           branch: 'Airport',
           platform: 'Noon',
           status: 'Sent',
@@ -5267,7 +5155,6 @@
         {
           id: Date.now() + 3,
           orderId: 'ORD-004',
-          caseDate: new Date(Date.now() - 259200000).toISOString().split('T')[0],
           branch: 'North',
           platform: 'Careem',
           status: 'Rejected',
@@ -5429,7 +5316,6 @@
             const ticket = {
               id: Date.now() + importedCount,
               orderId: row['Order ID'] || row['orderId'] || '',
-              caseDate: row['Case Date'] || row['caseDate'] || new Date().toISOString().split('T')[0],
               branch: row['Branch'] || row['branch'] || '',
               platform: row['Platform'] || row['platform'] || '',
               status: row['Status'] || row['status'] || 'Open',
@@ -5476,7 +5362,6 @@
       // Create worksheet
       const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
         'Order ID': ticket.orderId,
-        'Case Date': ticket.caseDate,
         'Branch': ticket.branch,
         'Platform': ticket.platform,
         'Status': ticket.status,
@@ -5529,7 +5414,6 @@
                   <th>Original Amount</th>
                   <th>Compensation</th>
                   <th>Issue</th>
-                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -5545,7 +5429,6 @@
             <td>${ticket.originalAmount}</td>
             <td>${ticket.compensationAmount}</td>
             <td>${ticket.issue}</td>
-            <td>${new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString()}</td>
           </tr>
         `;
       });
@@ -5571,10 +5454,10 @@
     
     function exportToCSV() {
       // Create CSV content
-      let csv = 'Order ID,Case Date,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
+      let csv = 'Order ID,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
       
       tickets.forEach(ticket => {
-        csv += `"${ticket.orderId}","${ticket.caseDate}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ""}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
+        csv += `"${ticket.orderId}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ''}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
       });
       
       // Create blob and download
@@ -5607,7 +5490,7 @@
       // Filter tickets for the selected date
       const selectedDate = new Date(date);
       const filteredTickets = tickets.filter(ticket => {
-        const ticketDate = new Date(ticket.caseDate || ticket.createdAt);
+        const ticketDate = new Date(ticket.createdAt);
         return ticketDate.toDateString() === selectedDate.toDateString();
       });
       
@@ -5667,7 +5550,7 @@
         }
         branchCounts[ticket.branch].count++;
         branchCounts[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
-        branchCounts[ticket.branch].refunded += parseFloat(t.refundedAmount || 0);
+        branchCounts[ticket.branch].refunded += parseFloat(ticket.refundedAmount || 0);
       });
       
       Object.keys(branchCounts).forEach(branch => {
@@ -5785,7 +5668,7 @@
       `;
       
       disputedTickets.forEach(ticket => {
-        const daysOpen = Math.floor((new Date() - new Date(ticket.caseDate || ticket.createdAt)) / (1000 * 60 * 60 * 24));
+        const daysOpen = Math.floor((new Date() - new Date(ticket.createdAt)) / (1000 * 60 * 60 * 24));
         report += `
           <tr class="${parseFloat(ticket.compensationAmount) > 50 ? 'high-compensation' : ''}">
             <td>${ticket.orderId}</td>
@@ -5890,7 +5773,7 @@
         }
         branchFinancials[ticket.branch].count++;
         branchFinancials[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
-        branchFinancials[ticket.branch].refunded += parseFloat(t.refundedAmount || 0);
+        branchFinancials[ticket.branch].refunded += parseFloat(ticket.refundedAmount || 0);
       });
       
       Object.keys(branchFinancials).forEach(branch => {
@@ -5978,7 +5861,6 @@
         const sampleData = [
           {
             orderId: 'API-001',
-            caseDate: new Date().toISOString().split('T')[0],
             branch: 'Downtown',
             platform: 'Noon',
             status: 'Open',
@@ -5988,7 +5870,6 @@
           },
           {
             orderId: 'API-002',
-            caseDate: new Date(Date.now() - 86400000).toISOString().split('T')[0],
             branch: 'Mall',
             platform: 'Careem',
             status: 'Closed',
@@ -6035,7 +5916,7 @@
       const cutoffDate = new Date();
       cutoffDate.setMonth(cutoffDate.getMonth() - 3); // 3 months ago
       
-      const oldTickets = tickets.filter(t => new Date(t.caseDate || t.createdAt) < cutoffDate);
+      const oldTickets = tickets.filter(t => new Date(t.createdAt) < cutoffDate);
       
       if (oldTickets.length === 0) {
         showNotification('No old cases to archive', 'info');
@@ -6046,7 +5927,7 @@
         // In a real application, you would move these to an archive collection
         // For demo purposes, we'll just remove them
         
-        tickets = tickets.filter(t => new Date(t.caseDate || t.createdAt) >= cutoffDate);
+        tickets = tickets.filter(t => new Date(t.createdAt) >= cutoffDate);
         
         // Save and update
         saveData();
