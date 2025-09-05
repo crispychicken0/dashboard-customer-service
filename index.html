@@ -2290,8 +2290,8 @@
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <label for="orderDate" class="form-label">تاريخ الطلب <span class="text-danger">*</span></label>
-                  <input type="datetime-local" class="form-control" id="orderDate" required>
+                  <label for="caseDate" class="form-label">تاريخ الحالة <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="caseDate" required>
                 </div>
               </div>
               
@@ -2330,6 +2330,11 @@
                   <input type="tel" class="form-control" id="customerPhone" placeholder="+971501234567">
                 </div>
               </div>
+            </fieldset>
+            
+            <!-- قسم المالية -->
+            <fieldset class="mb-4">
+              <legend><i class="bi bi-currency-exchange me-2"></i> المعلومات المالية</legend>
               
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -2344,13 +2349,20 @@
               </div>
               
               <div class="row">
-                <div class="col-md-12 mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="sendNotification">
-                    <label class="form-check-label" for="sendNotification">
-                      إرسال إشعار إلى الواتساب للفرع عند حفظ الحالة
-                    </label>
-                  </div>
+                <div class="col-md-6 mb-3">
+                  <label for="refundMethod" class="form-label">طريقة الاسترداد</label>
+                  <select class="form-select" id="refundMethod">
+                    <option value="">لم يتم الاسترداد</option>
+                    <option value="Careem Pay">Careem Pay</option>
+                    <option value="Card">بطاقة ائتمان</option>
+                    <option value="Cash">نقداً</option>
+                    <option value="Bank Transfer">تحويل بنكي</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <label for="refundedAmount" class="form-label">المبلغ المسترد (AED)</label>
+                  <input type="number" class="form-control" id="refundedAmount" step="0.01">
                 </div>
               </div>
             </fieldset>
@@ -2692,18 +2704,6 @@
       confirmActions: true
     };
     
-    // Branch WhatsApp numbers
-    const branchWhats = {
-      "Crispy Chicken Khalidiya": "971569494764",
-      "Crispy Chicken Muroor": "971505414641",
-      "Crispy Chicken Shabiya 11": "971562690688",
-      "Crispy Chicken Al Barsha": "971569659524",
-      "Crispy Chicken Al Satwa": "971567970685",
-      "Crispy Chicken Electra": "971563866859",
-      "Crispy Chicken Hamdan": "971556886650",
-      "Crispy Chicken-Al Khalidiya": "971569494764"
-    };
-    
     // ===== INITIALIZATION =====
     document.addEventListener('DOMContentLoaded', function() {
       // Load data from localStorage
@@ -2733,15 +2733,6 @@
       
       // Set today's date as default for summary date input
       document.getElementById('summaryDateInput').valueAsDate = today;
-      
-      // Set default date and time for order date input
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('orderDate').value = `${year}-${month}-${day}T${hours}:${minutes}`;
       
       // Setup event listeners
       setupEventListeners();
@@ -2777,14 +2768,13 @@
       } else {
         // Initialize with default branches
         branches = [
-          { id: 1, name: 'Crispy Chicken Khalidiya', manager: 'John Smith', contact: '+971569494764', address: '123 Khalidiya St, Abu Dhabi' },
-          { id: 2, name: 'Crispy Chicken Muroor', manager: 'Sarah Johnson', contact: '+971505414641', address: '456 Muroor Rd, Abu Dhabi' },
-          { id: 3, name: 'Crispy Chicken Shabiya 11', manager: 'Michael Brown', contact: '+971562690688', address: '789 Shabiya St, Abu Dhabi' },
-          { id: 4, name: 'Crispy Chicken Al Barsha', manager: 'Emily Davis', contact: '+971569659524', address: '101 Barsha Ave, Dubai' },
-          { id: 5, name: 'Crispy Chicken Al Satwa', manager: 'David Wilson', contact: '+971567970685', address: '202 Satwa Rd, Dubai' },
-          { id: 6, name: 'Crispy Chicken Electra', manager: 'Jennifer Miller', contact: '+971563866859', address: '303 Electra St, Dubai' },
-          { id: 7, name: 'Crispy Chicken Hamdan', manager: 'Robert Taylor', contact: '+971556886650', address: '404 Hamdan Ave, Abu Dhabi' },
-          { id: 8, name: 'Crispy Chicken-Al Khalidiya', manager: 'Lisa Anderson', contact: '+971569494764', address: '505 Khalidiya Blvd, Abu Dhabi' }
+          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', address: '123 Main St, Downtown' },
+          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', address: '456 Shopping Ave, Mall' },
+          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', address: '789 Airport Rd, Airport' },
+          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', address: '101 North Blvd, North' },
+          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', address: '202 South St, South' },
+          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', address: '303 East Ave, East' },
+          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', address: '404 West Rd, West' }
         ];
         saveBranches();
       }
@@ -3867,7 +3857,7 @@
         
         // Date
         const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        dateCell.textContent = new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA');
         row.appendChild(dateCell);
         
         tbody.appendChild(row);
@@ -4043,7 +4033,7 @@
         
         // Date
         const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        dateCell.textContent = new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA');
         row.appendChild(dateCell);
         
         // Actions
@@ -4109,14 +4099,9 @@
       // Hide duplicate warning
       document.getElementById('duplicateWarning').classList.remove('show');
       
-      // Set default date and time
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('orderDate').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+      // Set default date
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('caseDate').value = today;
       
       // Populate branches
       populateBranchSelect();
@@ -4135,7 +4120,7 @@
       // Populate form
       document.getElementById('ticketId').value = ticket.id;
       document.getElementById('orderId').value = ticket.orderId;
-      document.getElementById('orderDate').value = ticket.orderDate || new Date().toISOString().slice(0, 16);
+      document.getElementById('caseDate').value = ticket.caseDate || new Date().toISOString().split('T')[0];
       document.getElementById('branch').value = ticket.branch;
       document.getElementById('platform').value = ticket.platform;
       document.getElementById('status').value = ticket.status;
@@ -4146,7 +4131,6 @@
       document.getElementById('issue').value = ticket.issue;
       document.getElementById('notes').value = ticket.notes || '';
       document.getElementById('customerPhone').value = ticket.customerPhone || '';
-      document.getElementById('sendNotification').checked = ticket.sendNotification || false;
       
       // Set evidence
       if (ticket.evidenceImage) {
@@ -4176,7 +4160,7 @@
       // Get form values
       const ticketId = document.getElementById('ticketId').value;
       const orderId = document.getElementById('orderId').value.trim();
-      const orderDate = document.getElementById('orderDate').value;
+      const caseDate = document.getElementById('caseDate').value;
       const branch = document.getElementById('branch').value;
       const platform = document.getElementById('platform').value;
       const status = document.getElementById('status').value;
@@ -4187,7 +4171,6 @@
       const issue = document.getElementById('issue').value.trim();
       const notes = document.getElementById('notes').value.trim();
       const customerPhone = document.getElementById('customerPhone').value.trim();
-      const sendNotification = document.getElementById('sendNotification').checked;
       
       // Validate required fields
       if (!orderId || !branch || !platform || !status || isNaN(originalAmount) || isNaN(compensationAmount) || !issue) {
@@ -4220,7 +4203,7 @@
       const ticket = {
         id: ticketId ? parseInt(ticketId) : Date.now(),
         orderId,
-        orderDate,
+        caseDate,
         branch,
         platform,
         status,
@@ -4233,7 +4216,6 @@
         customerPhone,
         evidenceImage,
         evidenceLink,
-        sendNotification,
         createdAt: ticketId ? 
           tickets.find(t => t.id === parseInt(ticketId)).createdAt : 
           new Date().toISOString(),
@@ -4248,22 +4230,12 @@
           tickets[index] = ticket;
           showNotification('Case updated successfully', 'success');
           addCommand(`Updated case: ${orderId}`, 'User');
-          
-          // Send notification if enabled and checked
-          if (sendNotification) {
-            sendBranchNotification(ticket);
-          }
         }
       } else {
         // Add new ticket
         tickets.push(ticket);
         showNotification('Case added successfully', 'success');
         addCommand(`Added new case: ${orderId}`, 'User');
-        
-        // Send notification if enabled and checked
-        if (sendNotification) {
-          sendBranchNotification(ticket);
-        }
       }
       
       // Send notification if enabled
@@ -4337,6 +4309,10 @@
     }
     
     function initializeForm() {
+      // Set default date
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('caseDate').value = today;
+      
       // Populate branches
       populateBranchSelect();
     }
@@ -4452,40 +4428,6 @@
       }
     }
     
-    function sendBranchNotification(ticket) {
-      // Get branch WhatsApp number
-      const branchNumber = branchWhats[ticket.branch];
-      if (!branchNumber) {
-        showNotification('لم يتم العثور على رقم واتساب للفرع', 'error');
-        return;
-      }
-      
-      // Format date
-      const formatDateISO = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('ar-SA');
-      };
-      
-      // Create notification message
-      const message = `⚠️ إشعار حالة تعويض جديدة ⚠️
-معرف الطلب: ${ticket.orderId}
-الفرع: ${ticket.branch}
-المنصة: ${ticket.platform}
-تاريخ الطلب: ${formatDateISO(ticket.orderDate)}
-وصف الحالة: ${ticket.issue}
-المبلغ الأصلي: AED ${ticket.originalAmount}
-مبلغ التعويض: AED ${ticket.compensation}
-يرجى مراجعة الحالة في النظام وتحديد الإجراء المناسب.
-شكراً لكم!`;
-      
-      // Open WhatsApp with pre-filled message
-      window.open(`https://wa.me/${branchNumber}?text=${encodeURIComponent(message)}`, '_blank');
-      
-      showNotification(`تم إرسال إشعار إلى ${ticket.branch}`, 'success');
-      addCommand(`أُرسل إشعار إلى ${ticket.branch} عبر الواتساب`, 'User');
-    }
-    
     function getBranchManager(branchName) {
       const branch = branches.find(b => b.name === branchName);
       return branch ? branch : null;
@@ -4580,7 +4522,7 @@
                  `المشكلة: ${ticket.issue}\n` +
                  `المبلغ: ${ticket.compensationAmount} AED\n` +
                  `الحالة: ${ticket.status}\n` +
-                 `التاريخ: ${new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA')}`,
+                 `التاريخ: ${new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA')}`,
         timestamp: new Date().toISOString(),
         read: false
       };
@@ -4783,7 +4725,7 @@
         
         // Date
         const dateCell = document.createElement('td');
-        dateCell.textContent = new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        dateCell.textContent = new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString('ar-SA');
         row.appendChild(dateCell);
         
         // Actions
@@ -4843,10 +4785,10 @@
     function sortTickets(criteria) {
       switch (criteria) {
         case 'date-desc':
-          tickets.sort((a, b) => new Date(b.orderDate || b.createdAt) - new Date(a.orderDate || a.createdAt));
+          tickets.sort((a, b) => new Date(b.caseDate || b.createdAt) - new Date(a.caseDate || a.createdAt));
           break;
         case 'date-asc':
-          tickets.sort((a, b) => new Date(a.orderDate || a.createdAt) - new Date(b.orderDate || b.createdAt));
+          tickets.sort((a, b) => new Date(a.caseDate || a.createdAt) - new Date(b.caseDate || b.createdAt));
           break;
         case 'amount-desc':
           tickets.sort((a, b) => parseFloat(b.compensationAmount) - parseFloat(a.compensationAmount));
@@ -5280,9 +5222,9 @@
       const sampleTickets = [
         {
           id: Date.now(),
-          orderId: 'CR12345',
-          orderDate: new Date().toISOString().slice(0, 16),
-          branch: 'Crispy Chicken Khalidiya',
+          orderId: 'ORD-001',
+          caseDate: new Date().toISOString().split('T')[0],
+          branch: 'Downtown',
           platform: 'Noon',
           status: 'Open',
           originalAmount: 45.00,
@@ -5294,9 +5236,9 @@
         },
         {
           id: Date.now() + 1,
-          orderId: 'CR12346',
-          orderDate: new Date(Date.now() - 86400000).toISOString().slice(0, 16),
-          branch: 'Crispy Chicken Muroor',
+          orderId: 'ORD-002',
+          caseDate: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+          branch: 'Mall',
           platform: 'Careem',
           status: 'Closed',
           originalAmount: 65.00,
@@ -5310,9 +5252,9 @@
         },
         {
           id: Date.now() + 2,
-          orderId: 'CR12347',
-          orderDate: new Date(Date.now() - 172800000).toISOString().slice(0, 16),
-          branch: 'Crispy Chicken Al Barsha',
+          orderId: 'ORD-003',
+          caseDate: new Date(Date.now() - 172800000).toISOString().split('T')[0],
+          branch: 'Airport',
           platform: 'Noon',
           status: 'Sent',
           originalAmount: 85.00,
@@ -5324,9 +5266,9 @@
         },
         {
           id: Date.now() + 3,
-          orderId: 'CR12348',
-          orderDate: new Date(Date.now() - 259200000).toISOString().slice(0, 16),
-          branch: 'Crispy Chicken Al Satwa',
+          orderId: 'ORD-004',
+          caseDate: new Date(Date.now() - 259200000).toISOString().split('T')[0],
+          branch: 'North',
           platform: 'Careem',
           status: 'Rejected',
           originalAmount: 55.00,
@@ -5362,14 +5304,13 @@
         // Clear all data
         tickets = [];
         branches = [
-          { id: 1, name: 'Crispy Chicken Khalidiya', manager: 'John Smith', contact: '+971569494764', address: '123 Khalidiya St, Abu Dhabi' },
-          { id: 2, name: 'Crispy Chicken Muroor', manager: 'Sarah Johnson', contact: '+971505414641', address: '456 Muroor Rd, Abu Dhabi' },
-          { id: 3, name: 'Crispy Chicken Shabiya 11', manager: 'Michael Brown', contact: '+971562690688', address: '789 Shabiya St, Abu Dhabi' },
-          { id: 4, name: 'Crispy Chicken Al Barsha', manager: 'Emily Davis', contact: '+971569659524', address: '101 Barsha Ave, Dubai' },
-          { id: 5, name: 'Crispy Chicken Al Satwa', manager: 'David Wilson', contact: '+971567970685', address: '202 Satwa Rd, Dubai' },
-          { id: 6, name: 'Crispy Chicken Electra', manager: 'Jennifer Miller', contact: '+971563866859', address: '303 Electra St, Dubai' },
-          { id: 7, name: 'Crispy Chicken Hamdan', manager: 'Robert Taylor', contact: '+971556886650', address: '404 Hamdan Ave, Abu Dhabi' },
-          { id: 8, name: 'Crispy Chicken-Al Khalidiya', manager: 'Lisa Anderson', contact: '+971569494764', address: '505 Khalidiya Blvd, Abu Dhabi' }
+          { id: 1, name: 'Downtown', manager: 'John Smith', contact: '+971501234567', address: '123 Main St, Downtown' },
+          { id: 2, name: 'Mall', manager: 'Sarah Johnson', contact: '+971502345678', address: '456 Shopping Ave, Mall' },
+          { id: 3, name: 'Airport', manager: 'Michael Brown', contact: '+971503456789', address: '789 Airport Rd, Airport' },
+          { id: 4, name: 'North', manager: 'Emily Davis', contact: '+971504567890', address: '101 North Blvd, North' },
+          { id: 5, name: 'South', manager: 'David Wilson', contact: '+971505678901', address: '202 South St, South' },
+          { id: 6, name: 'East', manager: 'Jennifer Miller', contact: '+971506789012', address: '303 East Ave, East' },
+          { id: 7, name: 'West', manager: 'Robert Taylor', contact: '+971507890123', address: '404 West Rd, West' }
         ];
         commands = [];
         
@@ -5488,7 +5429,7 @@
             const ticket = {
               id: Date.now() + importedCount,
               orderId: row['Order ID'] || row['orderId'] || '',
-              orderDate: row['Order Date'] || row['orderDate'] || new Date().toISOString().slice(0, 16),
+              caseDate: row['Case Date'] || row['caseDate'] || new Date().toISOString().split('T')[0],
               branch: row['Branch'] || row['branch'] || '',
               platform: row['Platform'] || row['platform'] || '',
               status: row['Status'] || row['status'] || 'Open',
@@ -5535,7 +5476,7 @@
       // Create worksheet
       const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
         'Order ID': ticket.orderId,
-        'Order Date': ticket.orderDate,
+        'Case Date': ticket.caseDate,
         'Branch': ticket.branch,
         'Platform': ticket.platform,
         'Status': ticket.status,
@@ -5570,8 +5511,6 @@
             <style>
               body { font-family: Arial, sans-serif; margin: 20px; }
               h1 { color: #d32f2f; }
-              .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
-              .metric-value { font-size: 24px; font-weight: bold; color: #d32f2f; }
               table { width: 100%; border-collapse: collapse; margin-top: 20px; }
               th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
               th { background-color: #f2f2f2; }
@@ -5580,62 +5519,33 @@
           <body>
             <h1>Compensation Tickets Report</h1>
             <p>Generated on: ${new Date().toLocaleDateString()}</p>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0).toFixed(2)}</div>
-              <div>Total Original Amount</div>
-            </div>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
-              <div>Total Compensation</div>
-            </div>
-            
-            <div class="metric">
-              <div class="metric-value">AED ${tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0).toFixed(2)}</div>
-              <div>Total Refunded</div>
-            </div>
-            
-            <h3>Compensation by Branch</h3>
             <table>
               <thead>
                 <tr>
+                  <th>Order ID</th>
                   <th>Branch</th>
-                  <th>Cases</th>
-                  <th>Total Compensation</th>
-                  <th>Total Refunded</th>
-                  <th>Net Loss</th>
+                  <th>Platform</th>
+                  <th>Status</th>
+                  <th>Original Amount</th>
+                  <th>Compensation</th>
+                  <th>Issue</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
       `;
       
-      // Group by branch
-      const branchFinancials = {};
       tickets.forEach(ticket => {
-        if (!branchFinancials[ticket.branch]) {
-          branchFinancials[ticket.branch] = {
-            count: 0,
-            compensation: 0,
-            refunded: 0
-          };
-        }
-        branchFinancials[ticket.branch].count++;
-        branchFinancials[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
-        branchFinancials[ticket.branch].refunded += parseFloat(t.refundedAmount || 0);
-      });
-      
-      Object.keys(branchFinancials).forEach(branch => {
-        const data = branchFinancials[branch];
-        const netLoss = data.compensation - data.refunded;
-        
         html += `
           <tr>
-            <td>${branch}</td>
-            <td>${data.count}</td>
-            <td>AED ${data.compensation.toFixed(2)}</td>
-            <td>AED ${data.refunded.toFixed(2)}</td>
-            <td>AED ${netLoss.toFixed(2)}</td>
+            <td>${ticket.orderId}</td>
+            <td>${ticket.branch}</td>
+            <td>${ticket.platform}</td>
+            <td>${ticket.status}</td>
+            <td>${ticket.originalAmount}</td>
+            <td>${ticket.compensationAmount}</td>
+            <td>${ticket.issue}</td>
+            <td>${new Date(ticket.caseDate || ticket.createdAt).toLocaleDateString()}</td>
           </tr>
         `;
       });
@@ -5652,7 +5562,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `financial_report_${new Date().toISOString().split('T')[0]}.html`;
+      a.download = `compensation_tickets_${new Date().toISOString().split('T')[0]}.html`;
       a.click();
       
       showNotification('Report exported successfully (HTML format)', 'success');
@@ -5661,10 +5571,10 @@
     
     function exportToCSV() {
       // Create CSV content
-      let csv = 'Order ID,Order Date,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
+      let csv = 'Order ID,Case Date,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
       
       tickets.forEach(ticket => {
-        csv += `"${ticket.orderId}","${ticket.orderDate}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ""}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
+        csv += `"${ticket.orderId}","${ticket.caseDate}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ""}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
       });
       
       // Create blob and download
@@ -5697,7 +5607,7 @@
       // Filter tickets for the selected date
       const selectedDate = new Date(date);
       const filteredTickets = tickets.filter(ticket => {
-        const ticketDate = new Date(ticket.orderDate || ticket.createdAt);
+        const ticketDate = new Date(ticket.caseDate || ticket.createdAt);
         return ticketDate.toDateString() === selectedDate.toDateString();
       });
       
@@ -5875,7 +5785,7 @@
       `;
       
       disputedTickets.forEach(ticket => {
-        const daysOpen = Math.floor((new Date() - new Date(ticket.orderDate || ticket.createdAt)) / (1000 * 60 * 60 * 24));
+        const daysOpen = Math.floor((new Date() - new Date(ticket.caseDate || ticket.createdAt)) / (1000 * 60 * 60 * 24));
         report += `
           <tr class="${parseFloat(ticket.compensationAmount) > 50 ? 'high-compensation' : ''}">
             <td>${ticket.orderId}</td>
@@ -6068,8 +5978,8 @@
         const sampleData = [
           {
             orderId: 'API-001',
-            orderDate: new Date().toISOString().slice(0, 16),
-            branch: 'Crispy Chicken Khalidiya',
+            caseDate: new Date().toISOString().split('T')[0],
+            branch: 'Downtown',
             platform: 'Noon',
             status: 'Open',
             originalAmount: 50.00,
@@ -6078,8 +5988,8 @@
           },
           {
             orderId: 'API-002',
-            orderDate: new Date(Date.now() - 86400000).toISOString().slice(0, 16),
-            branch: 'Crispy Chicken Muroor',
+            caseDate: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+            branch: 'Mall',
             platform: 'Careem',
             status: 'Closed',
             originalAmount: 75.00,
@@ -6125,7 +6035,7 @@
       const cutoffDate = new Date();
       cutoffDate.setMonth(cutoffDate.getMonth() - 3); // 3 months ago
       
-      const oldTickets = tickets.filter(t => new Date(t.orderDate || t.createdAt) < cutoffDate);
+      const oldTickets = tickets.filter(t => new Date(t.caseDate || t.createdAt) < cutoffDate);
       
       if (oldTickets.length === 0) {
         showNotification('No old cases to archive', 'info');
@@ -6136,7 +6046,7 @@
         // In a real application, you would move these to an archive collection
         // For demo purposes, we'll just remove them
         
-        tickets = tickets.filter(t => new Date(t.orderDate || t.createdAt) >= cutoffDate);
+        tickets = tickets.filter(t => new Date(t.caseDate || t.createdAt) >= cutoffDate);
         
         // Save and update
         saveData();
