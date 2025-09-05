@@ -2120,11 +2120,11 @@
   <!-- ===== NOTIFICATIONS PANEL ===== -->
   <div id="notificationsPanel" class="notifications-panel">
     <div class="notifications-header">
-      <h5>Notifications</h5>
-      <button class="btn btn-sm btn-outline-light" onclick="markAllAsRead()">Mark all as read</button>
+      <h5>الإشعارات</h5>
+      <button class="btn btn-sm btn-outline-light" onclick="markAllAsRead()">تحديد الكل كمقروء</button>
     </div>
     <div id="notificationsList" class="notifications-list">
-      <!-- Notifications will be populated here -->
+      <!-- سيتم ملء الإشعارات هنا -->
     </div>
   </div>
   
@@ -2276,38 +2276,38 @@
           <form id="ticketForm">
             <input type="hidden" id="ticketId">
             
-            <!-- Section: Basic Information -->
+            <!-- قسم المعلومات الأساسية -->
             <fieldset class="mb-4">
-              <legend><i class="bi bi-info-circle me-2"></i> Basic Information</legend>
+              <legend><i class="bi bi-info-circle me-2"></i> المعلومات الأساسية</legend>
               
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="orderId" class="form-label">Order ID <span class="text-danger">*</span></label>
+                  <label for="orderId" class="form-label">رقم الطلب <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="orderId" required>
                   <div class="duplicate-warning text-danger mt-1" id="duplicateWarning">
-                    <i class="bi bi-exclamation-triangle"></i> Duplicate Order ID detected
+                    <i class="bi bi-exclamation-triangle"></i> تم العثور على رقم طلب مكرر
                   </div>
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <label for="orderDate" class="form-label">Order Date & Time <span class="text-danger">*</span></label>
+                  <label for="orderDate" class="form-label">تاريخ الطلب <span class="text-danger">*</span></label>
                   <input type="datetime-local" class="form-control" id="orderDate" required>
                 </div>
               </div>
               
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="branch" class="form-label">Branch <span class="text-danger">*</span></label>
+                  <label for="branch" class="form-label">الفرع <span class="text-danger">*</span></label>
                   <select class="form-select" id="branch" required>
-                    <option value="">Select Branch</option>
-                    <!-- Options will be populated from JavaScript -->
+                    <option value="">اختر الفرع</option>
+                    <!-- سيتم ملء الخيارات من خلال JavaScript -->
                   </select>
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <label for="platform" class="form-label">Platform <span class="text-danger">*</span></label>
+                  <label for="platform" class="form-label">المنصة <span class="text-danger">*</span></label>
                   <select class="form-select" id="platform" required>
-                    <option value="">Select Platform</option>
+                    <option value="">اختر المنصة</option>
                     <option value="Noon">Noon</option>
                     <option value="Careem">Careem</option>
                   </select>
@@ -2316,84 +2316,68 @@
               
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                  <label for="status" class="form-label">الحالة <span class="text-danger">*</span></label>
                   <select class="form-select" id="status" required>
-                    <option value="Open">Open</option>
-                    <option value="Sent">Sent</option>
-                    <option value="Closed">Closed</option>
-                    <option value="Rejected">Rejected</option>
+                    <option value="Open">مفتوح</option>
+                    <option value="Sent">تم الإرسال</option>
+                    <option value="Closed">مغلق</option>
+                    <option value="Rejected">مرفوض</option>
                   </select>
                 </div>
                 
                 <div class="col-md-6 mb-3">
+                  <label for="customerPhone" class="form-label">رقم هاتف العميل</label>
+                  <input type="tel" class="form-control" id="customerPhone" placeholder="+971501234567">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="originalAmount" class="form-label">المبلغ الأصلي (AED) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" id="originalAmount" step="0.01" required>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <label for="compensationAmount" class="form-label">مبلغ التعويض (AED) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-12 mb-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="sendNotification">
                     <label class="form-check-label" for="sendNotification">
-                      Send WhatsApp notification to branch
+                      إرسال إشعار إلى الواتساب للفرع عند حفظ الحالة
                     </label>
                   </div>
                 </div>
               </div>
             </fieldset>
             
-            <!-- Section: Financial Information -->
+            <!-- قسم تفاصيل الحالة -->
             <fieldset class="mb-4">
-              <legend><i class="bi bi-currency-exchange me-2"></i> Financial Information</legend>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="originalAmount" class="form-label">Original Amount (AED) <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" id="originalAmount" step="0.01" required>
-                </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="compensationAmount" class="form-label">Compensation Amount (AED) <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" id="compensationAmount" step="0.01" required>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="refundMethod" class="form-label">Refund Method</label>
-                  <select class="form-select" id="refundMethod">
-                    <option value="">Not Refunded</option>
-                    <option value="Careem Pay">Careem Pay</option>
-                    <option value="Card">Card</option>
-                    <option value="Cash">Cash</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                  </select>
-                </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="refundedAmount" class="form-label">Refunded Amount (AED)</label>
-                  <input type="number" class="form-control" id="refundedAmount" step="0.01">
-                </div>
-              </div>
-            </fieldset>
-            
-            <!-- Section: Case Details -->
-            <fieldset class="mb-4">
-              <legend><i class="bi bi-chat-dots me-2"></i> Case Details</legend>
+              <legend><i class="bi bi-chat-dots me-2"></i> تفاصيل الحالة</legend>
               
               <div class="mb-3">
-                <label for="issue" class="form-label">Case Description <span class="text-danger">*</span></label>
+                <label for="issue" class="form-label">وصف المشكلة <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="issue" rows="3" required></textarea>
               </div>
               
               <div class="mb-3">
-                <label for="notes" class="form-label">Additional Notes</label>
+                <label for="notes" class="form-label">ملاحظات إضافية</label>
                 <textarea class="form-control" id="notes" rows="2"></textarea>
               </div>
             </fieldset>
             
-            <!-- Section: Evidence -->
+            <!-- قسم الأدلة -->
             <fieldset class="mb-4">
-              <legend><i class="bi bi-image me-2"></i> Evidence</legend>
+              <legend><i class="bi bi-image me-2"></i> الأدلة</legend>
               
               <div class="image-upload-container">
                 <input type="file" id="evidence" accept="image/*" onchange="handleImageUpload(this)">
                 <div id="imagePreviewContainer">
-                  <p>Click or drag image here to upload</p>
+                  <p>انقر أو اسحب الصورة هنا للرفع</p>
                   <img id="imagePreview" class="image-preview" style="display: none;">
                   <div class="progress mt-2" id="uploadProgress" style="display: none;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" 
@@ -2401,18 +2385,18 @@
                   </div>
                   <button type="button" class="btn btn-sm btn-danger mt-2" 
                           id="removeImageBtn" onclick="removeImage()" style="display: none;">
-                    <i class="bi bi-trash"></i> Remove Image
+                    <i class="bi bi-trash"></i> إزالة الصورة
                   </button>
                 </div>
               </div>
               
               <div class="short-link-container mt-3">
-                <label for="evidenceLink" class="form-label">Or provide evidence link</label>
+                <label for="evidenceLink" class="form-label">أو أدخل رابط الأدلة</label>
                 <div class="input-group">
                   <input type="url" class="form-control short-link-input" id="evidenceLink" 
                          placeholder="https://example.com/evidence.jpg">
                   <button class="btn btn-outline-secondary" type="button" onclick="shortenLink()">
-                    <i class="bi bi-link-45deg"></i> Shorten
+                    <i class="bi bi-link-45deg"></i> اختصار الرابط
                   </button>
                 </div>
               </div>
@@ -2420,8 +2404,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="saveTicket()">Save Case</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="saveTicket()">حفظ الحالة</button>
         </div>
       </div>
     </div>
@@ -2493,8 +2477,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="saveSettings()">حفظ الإعدادات</button>
         </div>
       </div>
     </div>
@@ -2562,7 +2546,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
         </div>
       </div>
     </div>
@@ -2605,8 +2589,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="saveNewBranch()">Save Branch</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="saveNewBranch()">حفظ الفرع</button>
         </div>
       </div>
     </div>
@@ -2639,7 +2623,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
           <button type="button" class="btn btn-primary" onclick="exportDailySummary()">
             <i class="bi bi-download me-1"></i> Export Summary
           </button>
@@ -2680,7 +2664,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
           <button type="button" class="btn btn-primary" onclick="fetchDataFromAPIWithSettings()">Fetch Data</button>
         </div>
       </div>
@@ -2750,6 +2734,15 @@
       // Set today's date as default for summary date input
       document.getElementById('summaryDateInput').valueAsDate = today;
       
+      // Set default date and time for order date input
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('orderDate').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+      
       // Setup event listeners
       setupEventListeners();
       
@@ -2787,10 +2780,10 @@
           { id: 1, name: 'Crispy Chicken Khalidiya', manager: 'John Smith', contact: '+971569494764', address: '123 Khalidiya St, Abu Dhabi' },
           { id: 2, name: 'Crispy Chicken Muroor', manager: 'Sarah Johnson', contact: '+971505414641', address: '456 Muroor Rd, Abu Dhabi' },
           { id: 3, name: 'Crispy Chicken Shabiya 11', manager: 'Michael Brown', contact: '+971562690688', address: '789 Shabiya St, Abu Dhabi' },
-          { id: 4, name: 'Crispy Chicken Al Barsha', manager: 'Emily Davis', contact: '+971569659524', address: '101 Al Barsha Ave, Dubai' },
+          { id: 4, name: 'Crispy Chicken Al Barsha', manager: 'Emily Davis', contact: '+971569659524', address: '101 Barsha Ave, Dubai' },
           { id: 5, name: 'Crispy Chicken Al Satwa', manager: 'David Wilson', contact: '+971567970685', address: '202 Satwa Rd, Dubai' },
           { id: 6, name: 'Crispy Chicken Electra', manager: 'Jennifer Miller', contact: '+971563866859', address: '303 Electra St, Dubai' },
-          { id: 7, name: 'Crispy Chicken Hamdan', manager: 'Robert Taylor', contact: '+971556886650', address: '404 Hamdan St, Abu Dhabi' },
+          { id: 7, name: 'Crispy Chicken Hamdan', manager: 'Robert Taylor', contact: '+971556886650', address: '404 Hamdan Ave, Abu Dhabi' },
           { id: 8, name: 'Crispy Chicken-Al Khalidiya', manager: 'Lisa Anderson', contact: '+971569494764', address: '505 Khalidiya Blvd, Abu Dhabi' }
         ];
         saveBranches();
@@ -3141,4 +3134,3137 @@
             ],
             backgroundColor: [
               'rgba(255, 112, 67, 0.5)',
-              'rgba(126, 87, 194,
+              'rgba(126, 87, 194, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 112, 67, 1)',
+              'rgba(126, 87, 194, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Platform Compensation Chart
+      const platformCompensationCtx = document.getElementById('platformCompensationChart').getContext('2d');
+      new Chart(platformCompensationCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Noon', 'Careem'],
+          datasets: [{
+            label: 'Refunded',
+            data: [
+              tickets.filter(t => t.platform === 'Noon' && t.refundedAmount > 0).length,
+              tickets.filter(t => t.platform === 'Careem' && t.refundedAmount > 0).length
+            ],
+            backgroundColor: [
+              'rgba(255, 112, 67, 0.5)',
+              'rgba(126, 87, 194, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 112, 67, 1)',
+              'rgba(126, 87, 194, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Branch Cases Chart
+      const branchCasesCtx = document.getElementById('branchCasesChart').getContext('2d');
+      const branchCounts = {};
+      tickets.forEach(t => {
+        branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+      });
+      
+      const topBranches = Object.keys(branchCounts)
+        .sort((a, b) => branchCounts[b] - branchCounts[a])
+        .slice(0, 5);
+      
+      new Chart(branchCasesCtx, {
+        type: 'bar',
+        data: {
+          labels: topBranches,
+          datasets: [{
+            label: 'Cases',
+            data: topBranches.map(branch => branchCounts[branch]),
+            backgroundColor: 'rgba(211, 47, 47, 0.5)',
+            borderColor: 'rgba(211, 47, 47, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Case Types Chart
+      const caseTypesCtx = document.getElementById('caseTypesChart').getContext('2d');
+      const caseTypes = {};
+      tickets.forEach(t => {
+        // Extract case type from issue description (simplified)
+        const caseType = t.issue.split(' ')[0] || 'Other';
+        caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
+      });
+      
+      const topCaseTypes = Object.keys(caseTypes)
+        .sort((a, b) => caseTypes[b] - caseTypes[a])
+        .slice(0, 5);
+      
+      new Chart(caseTypesCtx, {
+        type: 'pie',
+        data: {
+          labels: topCaseTypes,
+          datasets: [{
+            data: topCaseTypes.map(caseType => caseTypes[caseType]),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
+        }
+      });
+    }
+    
+    function updatePlatformCards() {
+      const noonCount = tickets.filter(t => t.platform === 'Noon').length;
+      const careemCount = tickets.filter(t => t.platform === 'Careem').length;
+      const total = tickets.length;
+      
+      const noonPercentage = total > 0 ? ((noonCount / total) * 100).toFixed(1) : 0;
+      const careemPercentage = total > 0 ? ((careemCount / total) * 100).toFixed(1) : 0;
+      
+      document.getElementById('noonCount').textContent = noonCount;
+      document.getElementById('careemCount').textContent = careemCount;
+      document.getElementById('noonPercentage').textContent = `${noonPercentage}%`;
+      document.getElementById('careemPercentage').textContent = `${careemPercentage}%`;
+    }
+    
+    function updateCharts() {
+      // Branch Chart
+      const branchCtx = document.getElementById('branchChart').getContext('2d');
+      const branchCounts = {};
+      tickets.forEach(t => {
+        branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+      });
+      
+      const topBranches = Object.keys(branchCounts)
+        .sort((a, b) => branchCounts[b] - branchCounts[a])
+        .slice(0, 5);
+      
+      new Chart(branchCtx, {
+        type: 'bar',
+        data: {
+          labels: topBranches,
+          datasets: [{
+            label: 'Cases',
+            data: topBranches.map(branch => branchCounts[branch]),
+            backgroundColor: 'rgba(211, 47, 47, 0.5)',
+            borderColor: 'rgba(211, 47, 47, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Case Chart
+      const caseCtx = document.getElementById('caseChart').getContext('2d');
+      const caseTypes = {};
+      tickets.forEach(t => {
+        // Extract case type from issue description (simplified)
+        const caseType = t.issue.split(' ')[0] || 'Other';
+        caseTypes[caseType] = (caseTypes[caseType] || 0) + 1;
+      });
+      
+      const topCaseTypes = Object.keys(caseTypes)
+        .sort((a, b) => caseTypes[b] - caseTypes[a])
+        .slice(0, 5);
+      
+      new Chart(caseCtx, {
+        type: 'doughnut',
+        data: {
+          labels: topCaseTypes,
+          datasets: [{
+            data: topCaseTypes.map(caseType => caseTypes[caseType]),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
+        }
+      });
+      
+      // Update labels
+      document.getElementById('topBranchLabel').textContent = 
+        topBranches.length > 0 ? `Top: ${topBranches[0]} (${branchCounts[topBranches[0]]} cases)` : 'No data';
+      
+      document.getElementById('topCaseLabel').textContent = 
+        topCaseTypes.length > 0 ? `Top: ${topCaseTypes[0]} (${caseTypes[topCaseTypes[0]]} cases)` : 'No data';
+    }
+    
+    function updateBranchAnalysis() {
+      const container = document.getElementById('branchAnalysisContainer');
+      container.innerHTML = '';
+      
+      // Group tickets by branch
+      const branchTickets = {};
+      tickets.forEach(ticket => {
+        if (!branchTickets[ticket.branch]) {
+          branchTickets[ticket.branch] = [];
+        }
+        branchTickets[ticket.branch].push(ticket);
+      });
+      
+      // Create branch analysis grid
+      const grid = document.createElement('div');
+      grid.className = 'branch-analysis-grid';
+      
+      // Create a card for each branch
+      Object.keys(branchTickets).forEach(branch => {
+        const branchCard = document.createElement('div');
+        branchCard.className = 'branch-card';
+        
+        const branchHeader = document.createElement('h6');
+        branchHeader.textContent = branch;
+        branchCard.appendChild(branchHeader);
+        
+        // Create branch stats
+        const stats = document.createElement('div');
+        stats.className = 'branch-stats';
+        
+        const openCount = branchTickets[branch].filter(t => t.status === 'Open').length;
+        const sentCount = branchTickets[branch].filter(t => t.status === 'Sent').length;
+        const closedCount = branchTickets[branch].filter(t => t.status === 'Closed').length;
+        const rejectedCount = branchTickets[branch].filter(t => t.status === 'Rejected').length;
+        
+        // Open stat
+        const openStat = document.createElement('div');
+        openStat.className = 'branch-stat-item';
+        const openValue = document.createElement('div');
+        openValue.className = 'branch-stat-value';
+        openValue.textContent = openCount;
+        openValue.style.color = '#0d6efd';
+        const openLabel = document.createElement('div');
+        openLabel.className = 'branch-stat-label';
+        openLabel.textContent = 'Open';
+        openStat.appendChild(openValue);
+        openStat.appendChild(openLabel);
+        stats.appendChild(openStat);
+        
+        // Sent stat
+        const sentStat = document.createElement('div');
+        sentStat.className = 'branch-stat-item';
+        const sentValue = document.createElement('div');
+        sentValue.className = 'branch-stat-value';
+        sentValue.textContent = sentCount;
+        sentValue.style.color = '#ffc107';
+        const sentLabel = document.createElement('div');
+        sentLabel.className = 'branch-stat-label';
+        sentLabel.textContent = 'Sent';
+        sentStat.appendChild(sentValue);
+        sentStat.appendChild(sentLabel);
+        stats.appendChild(sentStat);
+        
+        // Closed stat
+        const closedStat = document.createElement('div');
+        closedStat.className = 'branch-stat-item';
+        const closedValue = document.createElement('div');
+        closedValue.className = 'branch-stat-value';
+        closedValue.textContent = closedCount;
+        closedValue.style.color = '#198754';
+        const closedLabel = document.createElement('div');
+        closedLabel.className = 'branch-stat-label';
+        closedLabel.textContent = 'Closed';
+        closedStat.appendChild(closedValue);
+        closedStat.appendChild(closedLabel);
+        stats.appendChild(closedStat);
+        
+        // Rejected stat
+        const rejectedStat = document.createElement('div');
+        rejectedStat.className = 'branch-stat-item';
+        const rejectedValue = document.createElement('div');
+        rejectedValue.className = 'branch-stat-value';
+        rejectedValue.textContent = rejectedCount;
+        rejectedValue.style.color = '#dc3545';
+        const rejectedLabel = document.createElement('div');
+        rejectedLabel.className = 'branch-stat-label';
+        rejectedLabel.textContent = 'Rejected';
+        rejectedStat.appendChild(rejectedValue);
+        rejectedStat.appendChild(rejectedLabel);
+        stats.appendChild(rejectedStat);
+        
+        branchCard.appendChild(stats);
+        
+        // Create case reasons
+        const reasons = document.createElement('div');
+        reasons.className = 'case-reasons';
+        
+        const reasonsTitle = document.createElement('h6');
+        reasonsTitle.textContent = 'Top Case Reasons';
+        reasons.appendChild(reasonsTitle);
+        
+        // Count case reasons
+        const reasonCounts = {};
+        branchTickets[branch].forEach(ticket => {
+          // Extract case type from issue description (simplified)
+          const reason = ticket.issue.split(' ')[0] || 'Other';
+          reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
+        });
+        
+        // Sort reasons by count
+        const sortedReasons = Object.keys(reasonCounts)
+          .sort((a, b) => reasonCounts[b] - reasonCounts[a])
+          .slice(0, 3);
+        
+        // Create reason items
+        sortedReasons.forEach(reason => {
+          const reasonItem = document.createElement('div');
+          reasonItem.className = 'case-reason-item';
+          
+          const reasonInfo = document.createElement('div');
+          reasonInfo.className = 'case-reason-info';
+          
+          const reasonName = document.createElement('div');
+          reasonName.className = 'case-reason-name';
+          reasonName.textContent = reason;
+          
+          const reasonCount = document.createElement('div');
+          reasonCount.className = 'case-reason-count';
+          reasonCount.textContent = `${reasonCounts[reason]} cases`;
+          
+          reasonInfo.appendChild(reasonName);
+          reasonInfo.appendChild(reasonCount);
+          
+          const reasonBar = document.createElement('div');
+          reasonBar.className = 'case-reason-bar';
+          
+          const reasonProgress = document.createElement('div');
+          reasonProgress.className = 'case-reason-progress';
+          const percentage = (reasonCounts[reason] / branchTickets[branch].length) * 100;
+          reasonProgress.style.width = `${percentage}%`;
+          
+          reasonBar.appendChild(reasonProgress);
+          
+          reasonItem.appendChild(reasonInfo);
+          reasonItem.appendChild(reasonBar);
+          
+          reasons.appendChild(reasonItem);
+        });
+        
+        branchCard.appendChild(reasons);
+        grid.appendChild(branchCard);
+      });
+      
+      container.appendChild(grid);
+      
+      // Update case analysis badge
+      const openTickets = tickets.filter(t => t.status === 'Open').length;
+      const totalTickets = tickets.length;
+      const percentage = totalTickets > 0 ? (openTickets / totalTickets) * 100 : 0;
+      
+      const badge = document.getElementById('caseAnalysisBadge');
+      badge.textContent = `${percentage.toFixed(1)}% Open Cases`;
+      
+      if (percentage > 30) {
+        badge.className = 'case-badge badge-high';
+      } else if (percentage > 15) {
+        badge.className = 'case-badge badge-medium';
+      } else {
+        badge.className = 'case-badge badge-low';
+      }
+    }
+    
+    function updateCompensationAnalysis() {
+      const container = document.getElementById('compensationAnalysisContainer');
+      container.innerHTML = '';
+      
+      // Group tickets by compensation type (simplified - using issue description)
+      const compensationTypes = {};
+      tickets.forEach(ticket => {
+        if (ticket.compensationAmount > 0) {
+          // Extract compensation type from issue description (simplified)
+          const compType = ticket.issue.split(' ')[0] || 'Other';
+          if (!compensationTypes[compType]) {
+            compensationTypes[compType] = {
+              count: 0,
+              totalAmount: 0,
+              refundedAmount: 0
+            };
+          }
+          compensationTypes[compType].count++;
+          compensationTypes[compType].totalAmount += parseFloat(ticket.compensationAmount);
+          compensationTypes[compType].refundedAmount += parseFloat(ticket.refundedAmount || 0);
+        }
+      });
+      
+      // Create grid
+      const grid = document.createElement('div');
+      grid.className = 'compensation-analysis-grid';
+      
+      // Create a card for each compensation type
+      Object.keys(compensationTypes).forEach(type => {
+        const card = document.createElement('div');
+        card.className = 'compensation-card';
+        
+        const header = document.createElement('h6');
+        header.textContent = type;
+        card.appendChild(header);
+        
+        // Create stats
+        const stats = document.createElement('div');
+        stats.className = 'compensation-stats';
+        
+        // Count stat
+        const countStat = document.createElement('div');
+        countStat.className = 'stat-item';
+        const countValue = document.createElement('div');
+        countValue.className = 'stat-value';
+        countValue.textContent = compensationTypes[type].count;
+        const countLabel = document.createElement('div');
+        countLabel.className = 'stat-label';
+        countLabel.textContent = 'Cases';
+        countStat.appendChild(countValue);
+        countStat.appendChild(countLabel);
+        stats.appendChild(countStat);
+        
+        // Total amount stat
+        const amountStat = document.createElement('div');
+        amountStat.className = 'stat-item';
+        const amountValue = document.createElement('div');
+        amountValue.className = 'stat-value';
+        amountValue.textContent = compensationTypes[type].totalAmount.toFixed(2);
+        const amountLabel = document.createElement('div');
+        amountLabel.className = 'stat-label';
+        amountLabel.textContent = 'Total Amount';
+        amountStat.appendChild(amountValue);
+        amountStat.appendChild(amountLabel);
+        stats.appendChild(amountStat);
+        
+        // Refunded amount stat
+        const refundedStat = document.createElement('div');
+        refundedStat.className = 'stat-item';
+        const refundedValue = document.createElement('div');
+        refundedValue.className = 'stat-value';
+        refundedValue.textContent = compensationTypes[type].refundedAmount.toFixed(2);
+        const refundedLabel = document.createElement('div');
+        refundedLabel.className = 'stat-label';
+        refundedLabel.textContent = 'Refunded';
+        refundedStat.appendChild(refundedValue);
+        refundedStat.appendChild(refundedLabel);
+        stats.appendChild(refundedStat);
+        
+        // Refund rate stat
+        const rateStat = document.createElement('div');
+        rateStat.className = 'stat-item';
+        const rateValue = document.createElement('div');
+        rateValue.className = 'stat-value';
+        const rate = compensationTypes[type].totalAmount > 0 ? 
+          ((compensationTypes[type].refundedAmount / compensationTypes[type].totalAmount) * 100).toFixed(1) : 0;
+        rateValue.textContent = `${rate}%`;
+        const rateLabel = document.createElement('div');
+        rateLabel.className = 'stat-label';
+        rateLabel.textContent = 'Refund Rate';
+        rateStat.appendChild(rateValue);
+        rateStat.appendChild(rateLabel);
+        stats.appendChild(rateStat);
+        
+        card.appendChild(stats);
+        grid.appendChild(card);
+      });
+      
+      container.appendChild(grid);
+    }
+    
+    function updateRejectionAnalysis() {
+      const container = document.getElementById('rejectionAnalysisContainer');
+      container.innerHTML = '';
+      
+      // Get rejected tickets
+      const rejectedTickets = tickets.filter(t => t.status === 'Rejected');
+      
+      if (rejectedTickets.length === 0) {
+        container.innerHTML = '<p class="text-center text-muted">No rejected cases found</p>';
+        return;
+      }
+      
+      // Group rejected tickets by branch
+      const branchRejections = {};
+      rejectedTickets.forEach(ticket => {
+        if (!branchRejections[ticket.branch]) {
+          branchRejections[ticket.branch] = {
+            count: 0,
+            totalAmount: 0
+          };
+        }
+        branchRejections[ticket.branch].count++;
+        branchRejections[ticket.branch].totalAmount += parseFloat(ticket.compensationAmount);
+      });
+      
+      // Group rejected tickets by platform
+      const platformRejections = {};
+      rejectedTickets.forEach(ticket => {
+        if (!platformRejections[ticket.platform]) {
+          platformRejections[ticket.platform] = {
+            count: 0,
+            totalAmount: 0
+          };
+        }
+        platformRejections[ticket.platform].count++;
+        platformRejections[ticket.platform].totalAmount += parseFloat(ticket.compensationAmount);
+      });
+      
+      // Create grid
+      const grid = document.createElement('div');
+      grid.className = 'rejection-analysis-grid';
+      
+      // Create branch rejection card
+      const branchCard = document.createElement('div');
+      branchCard.className = 'rejection-card';
+      
+      const branchHeader = document.createElement('h6');
+      branchHeader.textContent = 'Rejections by Branch';
+      branchCard.appendChild(branchHeader);
+      
+      const branchStats = document.createElement('div');
+      branchStats.className = 'rejection-stats';
+      
+      Object.keys(branchRejections).forEach(branch => {
+        const statItem = document.createElement('div');
+        statItem.className = 'rejection-metric-item';
+        
+        const statValue = document.createElement('div');
+        statValue.className = 'rejection-metric-value';
+        statValue.textContent = branchRejections[branch].count;
+        
+        const statLabel = document.createElement('div');
+        statLabel.className = 'rejection-metric-label';
+        statLabel.textContent = branch;
+        
+        statItem.appendChild(statValue);
+        statItem.appendChild(statLabel);
+        branchStats.appendChild(statItem);
+      });
+      
+      branchCard.appendChild(branchStats);
+      grid.appendChild(branchCard);
+      
+      // Create platform rejection card
+      const platformCard = document.createElement('div');
+      platformCard.className = 'rejection-card';
+      
+      const platformHeader = document.createElement('h6');
+      platformHeader.textContent = 'Rejections by Platform';
+      platformCard.appendChild(platformHeader);
+      
+      const platformStats = document.createElement('div');
+      platformStats.className = 'rejection-stats';
+      
+      Object.keys(platformRejections).forEach(platform => {
+        const statItem = document.createElement('div');
+        statItem.className = 'rejection-metric-item';
+        
+        const statValue = document.createElement('div');
+        statValue.className = 'rejection-metric-value';
+        statValue.textContent = platformRejections[platform].count;
+        
+        const statLabel = document.createElement('div');
+        statLabel.className = 'rejection-metric-label';
+        statLabel.textContent = platform;
+        
+        statItem.appendChild(statValue);
+        statItem.appendChild(statLabel);
+        platformStats.appendChild(statItem);
+      });
+      
+      platformCard.appendChild(platformStats);
+      grid.appendChild(platformCard);
+      
+      container.appendChild(grid);
+    }
+    
+    function updateRefundAnalysis() {
+      // Update refund metrics
+      const refundedTickets = tickets.filter(t => t.refundedAmount > 0);
+      const totalRefundedAmount = refundedTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount), 0);
+      const refundRate = tickets.length > 0 ? ((refundedTickets.length / tickets.length) * 100).toFixed(1) : 0;
+      const avgRefundedAmount = refundedTickets.length > 0 ? (totalRefundedAmount / refundedTickets.length).toFixed(2) : 0;
+      
+      document.getElementById('totalRefundedAmount').textContent = totalRefundedAmount.toFixed(2);
+      document.getElementById('refundedCasesCount').textContent = refundedTickets.length;
+      document.getElementById('refundRate').textContent = `${refundRate}%`;
+      document.getElementById('avgRefundedAmount').textContent = avgRefundedAmount;
+      
+      // Update refund branch chart
+      const refundBranchCtx = document.getElementById('refundBranchChart').getContext('2d');
+      const branchRefunds = {};
+      refundedTickets.forEach(ticket => {
+        if (!branchRefunds[ticket.branch]) {
+          branchRefunds[ticket.branch] = 0;
+        }
+        branchRefunds[ticket.branch] += parseFloat(ticket.refundedAmount);
+      });
+      
+      new Chart(refundBranchCtx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(branchRefunds),
+          datasets: [{
+            label: 'Refunded Amount',
+            data: Object.values(branchRefunds),
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Update refund table
+      const tbody = document.getElementById('refundTableBody');
+      tbody.innerHTML = '';
+      
+      refundedTickets.slice(0, 10).forEach(ticket => {
+        const row = document.createElement('tr');
+        
+        // Order ID
+        const orderIdCell = document.createElement('td');
+        orderIdCell.textContent = ticket.orderId;
+        row.appendChild(orderIdCell);
+        
+        // Branch
+        const branchCell = document.createElement('td');
+        branchCell.textContent = ticket.branch;
+        row.appendChild(branchCell);
+        
+        // Original Amount
+        const originalAmountCell = document.createElement('td');
+        originalAmountCell.textContent = ticket.originalAmount;
+        row.appendChild(originalAmountCell);
+        
+        // Compensation
+        const compensationCell = document.createElement('td');
+        compensationCell.textContent = ticket.compensationAmount;
+        row.appendChild(compensationCell);
+        
+        // Refunded Amount
+        const refundedAmountCell = document.createElement('td');
+        refundedAmountCell.textContent = ticket.refundedAmount;
+        row.appendChild(refundedAmountCell);
+        
+        // Status
+        const statusCell = document.createElement('td');
+        const statusBadge = document.createElement('span');
+        statusBadge.className = 'refund-status-badge status-refunded';
+        statusBadge.textContent = 'Refunded';
+        statusCell.appendChild(statusBadge);
+        row.appendChild(statusCell);
+        
+        // Date
+        const dateCell = document.createElement('td');
+        dateCell.textContent = new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        row.appendChild(dateCell);
+        
+        tbody.appendChild(row);
+      });
+    }
+    
+    // ===== TICKET MANAGEMENT =====
+    function renderTicketsTable() {
+      const container = document.getElementById('ticketsContainer');
+      container.innerHTML = '';
+      
+      if (tickets.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h5>No compensation cases found</h5>
+            <p>Add your first case using the "Add" button above</p>
+            <button class="btn btn-primary" onclick="openAddModal()">
+              <i class="bi bi-plus-circle me-1"></i> Add Case
+            </button>
+          </div>
+        `;
+        return;
+      }
+      
+      const tableContainer = document.createElement('div');
+      tableContainer.className = 'tickets-table-container';
+      
+      const table = document.createElement('table');
+      table.className = 'tickets-table';
+      
+      // Create table header
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      
+      const headers = [
+        'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
+        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Date', 'Actions'
+      ];
+      
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+      });
+      
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+      
+      // Create table body
+      const tbody = document.createElement('tbody');
+      
+      tickets.forEach(ticket => {
+        const row = document.createElement('tr');
+        
+        // Add row classes based on ticket properties
+        if (parseFloat(ticket.compensationAmount) > 50) {
+          row.classList.add('high-compensation');
+        }
+        
+        if (ticket.refundedAmount > 0) {
+          row.classList.add('refunded-case');
+        }
+        
+        if (ticket.status === 'Rejected') {
+          row.classList.add('rejected-case');
+        }
+        
+        if (ticket.issue.toLowerCase().includes('restaurant') || 
+            ticket.issue.toLowerCase().includes('wrong') || 
+            ticket.issue.toLowerCase().includes('missing')) {
+          row.classList.add('restaurant-fault');
+        }
+        
+        // Order ID
+        const orderIdCell = document.createElement('td');
+        orderIdCell.className = 'ticket-order-id';
+        orderIdCell.textContent = ticket.orderId;
+        row.appendChild(orderIdCell);
+        
+        // Branch
+        const branchCell = document.createElement('td');
+        branchCell.className = 'ticket-branch';
+        branchCell.textContent = ticket.branch;
+        row.appendChild(branchCell);
+        
+        // Platform
+        const platformCell = document.createElement('td');
+        const platformBadge = document.createElement('span');
+        platformBadge.className = `ticket-platform ${ticket.platform.toLowerCase()}`;
+        platformBadge.textContent = ticket.platform;
+        platformCell.appendChild(platformBadge);
+        row.appendChild(platformCell);
+        
+        // Issue
+        const issueCell = document.createElement('td');
+        issueCell.className = 'ticket-issue';
+        issueCell.textContent = ticket.issue;
+        
+        // Add expand button if issue is long
+        if (ticket.issue.length > 30) {
+          const expandBtn = document.createElement('button');
+          expandBtn.className = 'issue-expand';
+          expandBtn.textContent = '...';
+          expandBtn.onclick = function() {
+            alert(ticket.issue);
+          };
+          issueCell.appendChild(expandBtn);
+        }
+        
+        row.appendChild(issueCell);
+        
+        // Evidence
+        const evidenceCell = document.createElement('td');
+        evidenceCell.className = 'ticket-evidence';
+        
+        if (ticket.evidenceImage) {
+          const thumbnail = document.createElement('div');
+          thumbnail.className = 'evidence-thumbnail';
+          thumbnail.onclick = function() {
+            window.open(ticket.evidenceImage, '_blank');
+          };
+          
+          const img = document.createElement('img');
+          img.src = ticket.evidenceImage;
+          img.style.width = '30px';
+          img.style.height = '30px';
+          img.style.objectFit = 'cover';
+          
+          thumbnail.appendChild(img);
+          evidenceCell.appendChild(thumbnail);
+        } else if (ticket.evidenceLink) {
+          const link = document.createElement('a');
+          link.href = ticket.evidenceLink;
+          link.target = '_blank';
+          link.className = 'ticket-evidence-link';
+          link.innerHTML = '<i class="bi bi-link-45deg"></i> Link';
+          evidenceCell.appendChild(link);
+        } else {
+          const none = document.createElement('span');
+          none.className = 'ticket-evidence-none';
+          none.textContent = 'None';
+          evidenceCell.appendChild(none);
+        }
+        
+        row.appendChild(evidenceCell);
+        
+        // Status
+        const statusCell = document.createElement('td');
+        const statusBadge = document.createElement('span');
+        statusBadge.className = `ticket-status status-${ticket.status.toLowerCase()}`;
+        statusBadge.textContent = ticket.status;
+        statusCell.appendChild(statusBadge);
+        row.appendChild(statusCell);
+        
+        // Original Amount
+        const originalAmountCell = document.createElement('td');
+        originalAmountCell.className = 'ticket-amount';
+        originalAmountCell.textContent = ticket.originalAmount;
+        row.appendChild(originalAmountCell);
+        
+        // Compensation
+        const compensationCell = document.createElement('td');
+        compensationCell.className = 'ticket-amount compensation';
+        compensationCell.textContent = ticket.compensationAmount;
+        row.appendChild(compensationCell);
+        
+        // Refunded
+        const refundedCell = document.createElement('td');
+        refundedCell.className = 'ticket-amount refunded';
+        refundedCell.textContent = ticket.refundedAmount || '0';
+        row.appendChild(refundedCell);
+        
+        // Date
+        const dateCell = document.createElement('td');
+        dateCell.textContent = new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        row.appendChild(dateCell);
+        
+        // Actions
+        const actionsCell = document.createElement('td');
+        actionsCell.className = 'ticket-actions';
+        
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn btn-sm btn-primary';
+        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
+        editBtn.title = 'تعديل';
+        editBtn.onclick = function() {
+          openEditModal(ticket.id);
+        };
+        actionsCell.appendChild(editBtn);
+        
+        // Delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-sm btn-danger';
+        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
+        deleteBtn.title = 'حذف';
+        deleteBtn.onclick = function() {
+          deleteTicket(ticket.id);
+        };
+        actionsCell.appendChild(deleteBtn);
+        
+        // WhatsApp button (if phone number exists)
+        if (ticket.customerPhone) {
+          const whatsappBtn = document.createElement('button');
+          whatsappBtn.className = 'btn btn-sm btn-whatsapp';
+          whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
+          whatsappBtn.title = 'تواصل مع العميل';
+          whatsappBtn.onclick = function() {
+            contactCustomer(ticket);
+          };
+          actionsCell.appendChild(whatsappBtn);
+          
+          const notifyBtn = document.createElement('button');
+          notifyBtn.className = 'btn btn-sm btn-info';
+          notifyBtn.innerHTML = '<i class="bi bi-bell"></i>';
+          notifyBtn.title = 'إعلام مدير الفرع';
+          notifyBtn.onclick = function() {
+            notifyBranchManager(ticket);
+          };
+          actionsCell.appendChild(notifyBtn);
+        }
+        
+        row.appendChild(actionsCell);
+        tbody.appendChild(row);
+      });
+      
+      table.appendChild(tbody);
+      tableContainer.appendChild(table);
+      container.appendChild(tableContainer);
+    }
+    
+    function openAddModal() {
+      // Reset form
+      document.getElementById('ticketForm').reset();
+      document.getElementById('ticketId').value = '';
+      document.getElementById('ticketModalTitle').textContent = 'Add New Compensation Case';
+      
+      // Hide duplicate warning
+      document.getElementById('duplicateWarning').classList.remove('show');
+      
+      // Set default date and time
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('orderDate').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+      
+      // Populate branches
+      populateBranchSelect();
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+      modal.show();
+      
+      addCommand('Opened add case form', 'User');
+    }
+    
+    function openEditModal(id) {
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+      
+      // Populate form
+      document.getElementById('ticketId').value = ticket.id;
+      document.getElementById('orderId').value = ticket.orderId;
+      document.getElementById('orderDate').value = ticket.orderDate || new Date().toISOString().slice(0, 16);
+      document.getElementById('branch').value = ticket.branch;
+      document.getElementById('platform').value = ticket.platform;
+      document.getElementById('status').value = ticket.status;
+      document.getElementById('originalAmount').value = ticket.originalAmount;
+      document.getElementById('compensationAmount').value = ticket.compensationAmount;
+      document.getElementById('refundMethod').value = ticket.refundMethod || '';
+      document.getElementById('refundedAmount').value = ticket.refundedAmount || '';
+      document.getElementById('issue').value = ticket.issue;
+      document.getElementById('notes').value = ticket.notes || '';
+      document.getElementById('customerPhone').value = ticket.customerPhone || '';
+      document.getElementById('sendNotification').checked = ticket.sendNotification || false;
+      
+      // Set evidence
+      if (ticket.evidenceImage) {
+        const preview = document.getElementById('imagePreview');
+        preview.src = ticket.evidenceImage;
+        preview.style.display = 'block';
+        document.getElementById('imagePreviewContainer').querySelector('p').style.display = 'none';
+        document.getElementById('removeImageBtn').style.display = 'block';
+      } else if (ticket.evidenceLink) {
+        document.getElementById('evidenceLink').value = ticket.evidenceLink;
+      }
+      
+      // Update modal title
+      document.getElementById('ticketModalTitle').textContent = 'Edit Compensation Case';
+      
+      // Hide duplicate warning
+      document.getElementById('duplicateWarning').classList.remove('show');
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+      modal.show();
+      
+      addCommand(`Opened edit case form for ${ticket.orderId}`, 'User');
+    }
+    
+    function saveTicket() {
+      // Get form values
+      const ticketId = document.getElementById('ticketId').value;
+      const orderId = document.getElementById('orderId').value.trim();
+      const orderDate = document.getElementById('orderDate').value;
+      const branch = document.getElementById('branch').value;
+      const platform = document.getElementById('platform').value;
+      const status = document.getElementById('status').value;
+      const originalAmount = parseFloat(document.getElementById('originalAmount').value);
+      const compensationAmount = parseFloat(document.getElementById('compensationAmount').value);
+      const refundMethod = document.getElementById('refundMethod').value;
+      const refundedAmount = parseFloat(document.getElementById('refundedAmount').value) || 0;
+      const issue = document.getElementById('issue').value.trim();
+      const notes = document.getElementById('notes').value.trim();
+      const customerPhone = document.getElementById('customerPhone').value.trim();
+      const sendNotification = document.getElementById('sendNotification').checked;
+      
+      // Validate required fields
+      if (!orderId || !branch || !platform || !status || isNaN(originalAmount) || isNaN(compensationAmount) || !issue) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+      }
+      
+      // Check for duplicate order ID (excluding current ticket if editing)
+      const isDuplicate = tickets.some(t => 
+        t.orderId === orderId && t.id !== ticketId
+      );
+      
+      if (isDuplicate) {
+        showNotification('Order ID already exists', 'error');
+        return;
+      }
+      
+      // Get evidence
+      let evidenceImage = '';
+      let evidenceLink = '';
+      
+      const preview = document.getElementById('imagePreview');
+      if (preview.style.display !== 'none') {
+        evidenceImage = preview.src;
+      } else {
+        evidenceLink = document.getElementById('evidenceLink').value.trim();
+      }
+      
+      // Create ticket object
+      const ticket = {
+        id: ticketId ? parseInt(ticketId) : Date.now(),
+        orderId,
+        orderDate,
+        branch,
+        platform,
+        status,
+        originalAmount,
+        compensationAmount,
+        refundMethod,
+        refundedAmount,
+        issue,
+        notes,
+        customerPhone,
+        evidenceImage,
+        evidenceLink,
+        sendNotification,
+        createdAt: ticketId ? 
+          tickets.find(t => t.id === parseInt(ticketId)).createdAt : 
+          new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      
+      // Save ticket
+      if (ticketId) {
+        // Update existing ticket
+        const index = tickets.findIndex(t => t.id === parseInt(ticketId));
+        if (index !== -1) {
+          tickets[index] = ticket;
+          showNotification('Case updated successfully', 'success');
+          addCommand(`Updated case: ${orderId}`, 'User');
+          
+          // Send notification if enabled and checked
+          if (sendNotification) {
+            sendBranchNotification(ticket);
+          }
+        }
+      } else {
+        // Add new ticket
+        tickets.push(ticket);
+        showNotification('Case added successfully', 'success');
+        addCommand(`Added new case: ${orderId}`, 'User');
+        
+        // Send notification if enabled and checked
+        if (sendNotification) {
+          sendBranchNotification(ticket);
+        }
+      }
+      
+      // Send notification if enabled
+      if (settings.notifications) {
+        sendManagerNotification(ticket);
+      }
+      
+      // Save data and update UI
+      saveData();
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
+      renderTicketsTable();
+      
+      // Close modal
+      bootstrap.Modal.getInstance(document.getElementById('ticketModal')).hide();
+    }
+    
+    function deleteTicket(id) {
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+      
+      // Confirm deletion
+      if (settings.confirmActions && !confirm(`Are you sure you want to delete case "${ticket.orderId}"?`)) {
+        return;
+      }
+      
+      // Remove ticket
+      tickets = tickets.filter(t => t.id !== id);
+      
+      // Save data and update UI
+      saveData();
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
+      renderTicketsTable();
+      
+      showNotification('Case deleted successfully', 'success');
+      addCommand(`Deleted case: ${ticket.orderId}`, 'User');
+    }
+    
+    function checkForDuplicateOrder() {
+      const orderId = document.getElementById('orderId').value.trim();
+      const ticketId = document.getElementById('ticketId').value;
+      const warning = document.getElementById('duplicateWarning');
+      
+      if (!orderId) {
+        warning.classList.remove('show');
+        return;
+      }
+      
+      const isDuplicate = tickets.some(t => 
+        t.orderId === orderId && t.id !== parseInt(ticketId)
+      );
+      
+      if (isDuplicate) {
+        warning.classList.add('show');
+      } else {
+        warning.classList.remove('show');
+      }
+    }
+    
+    function initializeForm() {
+      // Populate branches
+      populateBranchSelect();
+    }
+    
+    function populateBranchSelect() {
+      const branchSelect = document.getElementById('branch');
+      
+      // Clear existing options except "All Branches"
+      while (branchSelect.options.length > 1) {
+        branchSelect.remove(1);
+      }
+      
+      // Add branches as options
+      branches.forEach(branch => {
+        const option = document.createElement('option');
+        option.value = branch.name;
+        option.textContent = branch.name;
+        branchSelect.appendChild(option);
+      });
+    }
+    
+    // ===== IMAGE UPLOAD FUNCTIONS =====
+    function handleImageUpload(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        
+        // التحقق من نوع الملف
+        if (!validTypes.includes(file.type)) {
+          showNotification('يرجى اختيار ملف صورة (JPEG, PNG, GIF, WebP)', 'error');
+          return;
+        }
+        
+        // التحقق من حجم الملف
+        if (file.size > maxSize) {
+          showNotification('حجم الملف يجب أن يكون أقل من 5MB', 'error');
+          return;
+        }
+        
+        // إظهار شريط التقدم
+        const progressContainer = document.getElementById('uploadProgress');
+        const progressBar = progressContainer.querySelector('.progress-bar');
+        progressContainer.style.display = 'block';
+        
+        // محاكاة رفع الملف
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 10;
+          progressBar.style.width = `${progress}%`;
+          
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              progressContainer.style.display = 'none';
+              showNotification('تم رفع الصورة بنجاح', 'success');
+            }, 500);
+          }
+        }, 100);
+        
+        // عرض الصورة
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('imagePreview');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+          document.querySelector('#imagePreviewContainer p').style.display = 'none';
+          
+          // إظهار زر الإزالة
+          document.getElementById('removeImageBtn').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+    
+    function removeImage() {
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('evidence').value = '';
+      document.getElementById('evidenceImage').value = '';
+      document.getElementById('evidenceLink').value = '';
+      document.querySelector('#imagePreviewContainer p').style.display = 'block';
+      document.getElementById('removeImageBtn').style.display = 'none';
+      showNotification('تم إزالة الصورة', 'success');
+    }
+    
+    // ===== WHATSAPP FUNCTIONS =====
+    function contactCustomer(ticket) {
+      const phoneNumber = prompt('أدخل رقم هاتف العميل:');
+      if (phoneNumber) {
+        const message = `مرحباً، بخصوص طلبك رقم ${ticket.orderId}. هل يمكننا مساعدتك في حل مشكلتك؟`;
+        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        showNotification('تم فتح واتساب للتواصل مع العميل', 'success');
+        addCommand(`تواصل مع العميل لحالة ${ticket.orderId}`, 'User');
+      }
+    }
+    
+    function notifyBranchManager(ticket) {
+      const manager = getBranchManager(ticket.branch);
+      if (manager) {
+        const message = `تنبيه: لدي حالة جديدة في فرع ${ticket.branch}\n\n` +
+                        `رقم الطلب: ${ticket.orderId}\n` +
+                        `المشكلة: ${ticket.issue}\n` +
+                        `المبلغ: ${ticket.compensationAmount} AED\n` +
+                        `الحالة: ${ticket.status}`;
+        
+        const whatsappUrl = `https://wa.me/${manager.contact.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        showNotification('تم إعلام مدير الفرع', 'success');
+        addCommand(`أُخبر مدير الفرع ${manager.name} بالحالة ${ticket.orderId}`, 'User');
+      } else {
+        showNotification('لم يتم العثور على مدير للفرع', 'error');
+      }
+    }
+    
+    function sendBranchNotification(ticket) {
+      // Get branch WhatsApp number
+      const branchNumber = branchWhats[ticket.branch];
+      if (!branchNumber) {
+        showNotification('لم يتم العثور على رقم واتساب للفرع', 'error');
+        return;
+      }
+      
+      // Format date
+      const formatDateISO = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ar-SA');
+      };
+      
+      // Create notification message
+      const message = `⚠️ إشعار حالة تعويض جديدة ⚠️
+معرف الطلب: ${ticket.orderId}
+الفرع: ${ticket.branch}
+المنصة: ${ticket.platform}
+تاريخ الطلب: ${formatDateISO(ticket.orderDate)}
+وصف الحالة: ${ticket.issue}
+المبلغ الأصلي: AED ${ticket.originalAmount}
+مبلغ التعويض: AED ${ticket.compensation}
+يرجى مراجعة الحالة في النظام وتحديد الإجراء المناسب.
+شكراً لكم!`;
+      
+      // Open WhatsApp with pre-filled message
+      window.open(`https://wa.me/${branchNumber}?text=${encodeURIComponent(message)}`, '_blank');
+      
+      showNotification(`تم إرسال إشعار إلى ${ticket.branch}`, 'success');
+      addCommand(`أُرسل إشعار إلى ${ticket.branch} عبر الواتساب`, 'User');
+    }
+    
+    function getBranchManager(branchName) {
+      const branch = branches.find(b => b.name === branchName);
+      return branch ? branch : null;
+    }
+    
+    // ===== NOTIFICATION FUNCTIONS =====
+    function showNotifications() {
+      const panel = document.getElementById('notificationsPanel');
+      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
+      
+      // عرض الإشعارات
+      const list = document.getElementById('notificationsList');
+      list.innerHTML = '';
+      
+      if (notifications.length === 0) {
+        list.innerHTML = '<p class="text-center text-muted">لا توجد إشعارات</p>';
+      } else {
+        notifications.forEach(notification => {
+          const item = document.createElement('div');
+          item.className = `notification-item ${notification.read ? 'read' : 'unread'}`;
+          item.innerHTML = `
+            <div class="notification-content">
+              <h6>${notification.title}</h6>
+              <p>${notification.message}</p>
+              <small>${new Date(notification.timestamp).toLocaleString('ar-SA')}</small>
+            </div>
+            <div class="notification-actions">
+              ${!notification.read ? '<button class="btn btn-sm btn-outline-light" onclick="markAsRead(' + notification.id + ')">تحديد كمقروء</button>' : ''}
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(' + notification.id + ')">حذف</button>
+            </div>
+          `;
+          list.appendChild(item);
+        });
+      }
+      
+      panel.classList.add('show');
+    }
+    
+    function markAsRead(id) {
+      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
+      const notification = notifications.find(n => n.id === id);
+      if (notification) {
+        notification.read = true;
+        localStorage.setItem('managerNotifications', JSON.stringify(notifications));
+        updateNotificationBadge();
+        showNotifications();
+      }
+    }
+    
+    function deleteNotification(id) {
+      let notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
+      notifications = notifications.filter(n => n.id !== id);
+      localStorage.setItem('managerNotifications', JSON.stringify(notifications));
+      updateNotificationBadge();
+      showNotifications();
+    }
+    
+    function markAllAsRead() {
+      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
+      notifications.forEach(n => n.read = true);
+      localStorage.setItem('managerNotifications', JSON.stringify(notifications));
+      updateNotificationBadge();
+      showNotifications();
+      showNotification('تم تحديد جميع الإشعارات كمقروءة', 'success');
+    }
+    
+    function updateNotificationBadge() {
+      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
+      const unreadCount = notifications.filter(n => !n.read).length;
+      
+      const badge = document.getElementById('notificationBadge');
+      if (badge) {
+        if (unreadCount > 0) {
+          badge.textContent = unreadCount;
+          badge.style.display = 'block';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+    }
+    
+    function sendManagerNotification(ticket) {
+      const manager = getBranchManager(ticket.branch);
+      if (!manager) return;
+      
+      const notification = {
+        id: Date.now(),
+        type: 'case_saved',
+        title: 'حالة جديدة تم حفظها',
+        message: `تم حفظ حالة جديدة في فرع ${ticket.branch}\n\n` +
+                 `رقم الطلب: ${ticket.orderId}\n` +
+                 `المشكلة: ${ticket.issue}\n` +
+                 `المبلغ: ${ticket.compensationAmount} AED\n` +
+                 `الحالة: ${ticket.status}\n` +
+                 `التاريخ: ${new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA')}`,
+        timestamp: new Date().toISOString(),
+        read: false
+      };
+      
+      // حفظ الإشعار في localStorage
+      const notifications = JSON.parse(localStorage.getItem('managerNotifications') || '[]');
+      notifications.unshift(notification);
+      localStorage.setItem('managerNotifications', JSON.stringify(notifications));
+      
+      // عرض إشارة على أيقونة الإشعارات
+      updateNotificationBadge();
+      
+      // إظهار الإشعار للمستخدم
+      showNotification(notification.message, 'info');
+      addCommand(`أُرسل إشعار لمدير الفرع ${manager.name}`, 'System');
+    }
+    
+    // ===== OTHER FUNCTIONS =====
+    function filterTickets() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const branchFilter = document.getElementById('filterBranch').value;
+      const platformFilter = document.getElementById('filterPlatform').value;
+      const statusFilter = document.getElementById('filterStatus').value;
+      
+      const filteredTickets = tickets.filter(ticket => {
+        const matchesSearch = !searchTerm || 
+          ticket.orderId.toLowerCase().includes(searchTerm) ||
+          ticket.branch.toLowerCase().includes(searchTerm) ||
+          ticket.issue.toLowerCase().includes(searchTerm);
+        
+        const matchesBranch = !branchFilter || ticket.branch === branchFilter;
+        const matchesPlatform = !platformFilter || ticket.platform === platformFilter;
+        const matchesStatus = !statusFilter || ticket.status === statusFilter;
+        
+        return matchesSearch && matchesBranch && matchesPlatform && matchesStatus;
+      });
+      
+      // Update table with filtered tickets
+      const container = document.getElementById('ticketsContainer');
+      container.innerHTML = '';
+      
+      if (filteredTickets.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-search"></i>
+            <h5>No matching cases found</h5>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        `;
+        return;
+      }
+      
+      const tableContainer = document.createElement('div');
+      tableContainer.className = 'tickets-table-container';
+      
+      const table = document.createElement('table');
+      table.className = 'tickets-table';
+      
+      // Create table header
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      
+      const headers = [
+        'Order ID', 'Branch', 'Platform', 'Issue', 'Evidence', 
+        'Status', 'Original Amount', 'Compensation', 'Refunded', 'Date', 'Actions'
+      ];
+      
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+      });
+      
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+      
+      // Create table body
+      const tbody = document.createElement('tbody');
+      
+      filteredTickets.forEach(ticket => {
+        const row = document.createElement('tr');
+        
+        // Add row classes based on ticket properties
+        if (parseFloat(ticket.compensationAmount) > 50) {
+          row.classList.add('high-compensation');
+        }
+        
+        if (ticket.refundedAmount > 0) {
+          row.classList.add('refunded-case');
+        }
+        
+        if (ticket.status === 'Rejected') {
+          row.classList.add('rejected-case');
+        }
+        
+        if (ticket.issue.toLowerCase().includes('restaurant') || 
+            ticket.issue.toLowerCase().includes('wrong') || 
+            ticket.issue.toLowerCase().includes('missing')) {
+          row.classList.add('restaurant-fault');
+        }
+        
+        // Order ID
+        const orderIdCell = document.createElement('td');
+        orderIdCell.className = 'ticket-order-id';
+        orderIdCell.textContent = ticket.orderId;
+        row.appendChild(orderIdCell);
+        
+        // Branch
+        const branchCell = document.createElement('td');
+        branchCell.className = 'ticket-branch';
+        branchCell.textContent = ticket.branch;
+        row.appendChild(branchCell);
+        
+        // Platform
+        const platformCell = document.createElement('td');
+        const platformBadge = document.createElement('span');
+        platformBadge.className = `ticket-platform ${ticket.platform.toLowerCase()}`;
+        platformBadge.textContent = ticket.platform;
+        platformCell.appendChild(platformBadge);
+        row.appendChild(platformCell);
+        
+        // Issue
+        const issueCell = document.createElement('td');
+        issueCell.className = 'ticket-issue';
+        issueCell.textContent = ticket.issue;
+        
+        // Add expand button if issue is long
+        if (ticket.issue.length > 30) {
+          const expandBtn = document.createElement('button');
+          expandBtn.className = 'issue-expand';
+          expandBtn.textContent = '...';
+          expandBtn.onclick = function() {
+            alert(ticket.issue);
+          };
+          issueCell.appendChild(expandBtn);
+        }
+        
+        row.appendChild(issueCell);
+        
+        // Evidence
+        const evidenceCell = document.createElement('td');
+        evidenceCell.className = 'ticket-evidence';
+        
+        if (ticket.evidenceImage) {
+          const thumbnail = document.createElement('div');
+          thumbnail.className = 'evidence-thumbnail';
+          thumbnail.onclick = function() {
+            window.open(ticket.evidenceImage, '_blank');
+          };
+          
+          const img = document.createElement('img');
+          img.src = ticket.evidenceImage;
+          img.style.width = '30px';
+          img.style.height = '30px';
+          img.style.objectFit = 'cover';
+          
+          thumbnail.appendChild(img);
+          evidenceCell.appendChild(thumbnail);
+        } else if (ticket.evidenceLink) {
+          const link = document.createElement('a');
+          link.href = ticket.evidenceLink;
+          link.target = '_blank';
+          link.className = 'ticket-evidence-link';
+          link.innerHTML = '<i class="bi bi-link-45deg"></i> Link';
+          evidenceCell.appendChild(link);
+        } else {
+          const none = document.createElement('span');
+          none.className = 'ticket-evidence-none';
+          none.textContent = 'None';
+          evidenceCell.appendChild(none);
+        }
+        
+        row.appendChild(evidenceCell);
+        
+        // Status
+        const statusCell = document.createElement('td');
+        const statusBadge = document.createElement('span');
+        statusBadge.className = `ticket-status status-${ticket.status.toLowerCase()}`;
+        statusBadge.textContent = ticket.status;
+        statusCell.appendChild(statusBadge);
+        row.appendChild(statusCell);
+        
+        // Original Amount
+        const originalAmountCell = document.createElement('td');
+        originalAmountCell.className = 'ticket-amount';
+        originalAmountCell.textContent = ticket.originalAmount;
+        row.appendChild(originalAmountCell);
+        
+        // Compensation
+        const compensationCell = document.createElement('td');
+        compensationCell.className = 'ticket-amount compensation';
+        compensationCell.textContent = ticket.compensationAmount;
+        row.appendChild(compensationCell);
+        
+        // Refunded
+        const refundedCell = document.createElement('td');
+        refundedCell.className = 'ticket-amount refunded';
+        refundedCell.textContent = ticket.refundedAmount || '0';
+        row.appendChild(refundedCell);
+        
+        // Date
+        const dateCell = document.createElement('td');
+        dateCell.textContent = new Date(ticket.orderDate || ticket.createdAt).toLocaleDateString('ar-SA');
+        row.appendChild(dateCell);
+        
+        // Actions
+        const actionsCell = document.createElement('td');
+        actionsCell.className = 'ticket-actions';
+        
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn btn-sm btn-primary';
+        editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
+        editBtn.title = 'تعديل';
+        editBtn.onclick = function() {
+          openEditModal(ticket.id);
+        };
+        actionsCell.appendChild(editBtn);
+        
+        // Delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-sm btn-danger';
+        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
+        deleteBtn.title = 'حذف';
+        deleteBtn.onclick = function() {
+          deleteTicket(ticket.id);
+        };
+        actionsCell.appendChild(deleteBtn);
+        
+        // WhatsApp buttons (if phone number exists)
+        if (ticket.customerPhone) {
+          const whatsappBtn = document.createElement('button');
+          whatsappBtn.className = 'btn btn-sm btn-whatsapp';
+          whatsappBtn.innerHTML = '<i class="bi bi-whatsapp"></i>';
+          whatsappBtn.title = 'تواصل مع العميل';
+          whatsappBtn.onclick = function() {
+            contactCustomer(ticket);
+          };
+          actionsCell.appendChild(whatsappBtn);
+          
+          const notifyBtn = document.createElement('button');
+          notifyBtn.className = 'btn btn-sm btn-info';
+          notifyBtn.innerHTML = '<i class="bi bi-bell"></i>';
+          notifyBtn.title = 'إعلام مدير الفرع';
+          notifyBtn.onclick = function() {
+            notifyBranchManager(ticket);
+          };
+          actionsCell.appendChild(notifyBtn);
+        }
+        
+        row.appendChild(actionsCell);
+        tbody.appendChild(row);
+      });
+      
+      table.appendChild(tbody);
+      tableContainer.appendChild(table);
+      container.appendChild(tableContainer);
+    }
+    
+    function sortTickets(criteria) {
+      switch (criteria) {
+        case 'date-desc':
+          tickets.sort((a, b) => new Date(b.orderDate || b.createdAt) - new Date(a.orderDate || a.createdAt));
+          break;
+        case 'date-asc':
+          tickets.sort((a, b) => new Date(a.orderDate || a.createdAt) - new Date(b.orderDate || b.createdAt));
+          break;
+        case 'amount-desc':
+          tickets.sort((a, b) => parseFloat(b.compensationAmount) - parseFloat(a.compensationAmount));
+          break;
+        case 'amount-asc':
+          tickets.sort((a, b) => parseFloat(a.compensationAmount) - parseFloat(b.compensationAmount));
+          break;
+        case 'status':
+          tickets.sort((a, b) => a.status.localeCompare(b.status));
+          break;
+        case 'platform':
+          tickets.sort((a, b) => a.platform.localeCompare(b.platform));
+          break;
+      }
+      
+      renderTicketsTable();
+      addCommand(`Sorted tickets by ${criteria}`, 'User');
+    }
+    
+    function updateBranchFilter() {
+      const select = document.getElementById('filterBranch');
+      
+      // Clear existing options except "All Branches"
+      while (select.options.length > 1) {
+        select.remove(1);
+      }
+      
+      // Add branches as options
+      branches.forEach(branch => {
+        const option = document.createElement('option');
+        option.value = branch.name;
+        option.textContent = branch.name;
+        select.appendChild(option);
+      });
+      
+      // Also update branch select in ticket form
+      const branchSelect = document.getElementById('branch');
+      
+      // Clear existing options except default
+      while (branchSelect.options.length > 1) {
+        branchSelect.remove(1);
+      }
+      
+      // Add branches as options
+      branches.forEach(branch => {
+        const option = document.createElement('option');
+        option.value = branch.name;
+        option.textContent = branch.name;
+        branchSelect.appendChild(option);
+      });
+      
+      // Update branch counts in modal
+      document.getElementById('totalBranchesCount').textContent = branches.length;
+      document.getElementById('totalCasesCount').textContent = tickets.length;
+    }
+    
+    // ===== BRANCH MANAGEMENT =====
+    function openBranchManagement() {
+      // Populate branch table
+      populateBranchTable();
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('branchModal'));
+      modal.show();
+      
+      addCommand('Opened branch management', 'User');
+    }
+    
+    function populateBranchTable() {
+      const tbody = document.getElementById('branchTableBody');
+      tbody.innerHTML = '';
+      
+      branches.forEach(branch => {
+        const row = document.createElement('tr');
+        
+        // Branch name
+        const nameCell = document.createElement('td');
+        nameCell.textContent = branch.name;
+        row.appendChild(nameCell);
+        
+        // Manager
+        const managerCell = document.createElement('td');
+        managerCell.textContent = branch.manager;
+        row.appendChild(managerCell);
+        
+        // Contact
+        const contactCell = document.createElement('td');
+        contactCell.textContent = branch.contact;
+        row.appendChild(contactCell);
+        
+        // Address
+        const addressCell = document.createElement('td');
+        addressCell.textContent = branch.address;
+        row.appendChild(addressCell);
+        
+        // Cases count
+        const casesCount = tickets.filter(t => t.branch === branch.name).length;
+        const casesCell = document.createElement('td');
+        casesCell.innerHTML = `<span class="badge bg-primary">${casesCount}</span>`;
+        row.appendChild(casesCell);
+        
+        // Actions
+        const actionsCell = document.createElement('td');
+        actionsCell.innerHTML = `
+            <button class="btn btn-sm btn-primary me-1" onclick="editBranch(${branch.id})" title="تعديل">
+                <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-info me-1" onclick="viewBranchDetails(${branch.id})" title="عرض التفاصيل">
+                <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="deleteBranch(${branch.id})" title="حذف">
+                <i class="bi bi-trash"></i>
+            </button>
+        `;
+        row.appendChild(actionsCell);
+        
+        tbody.appendChild(row);
+      });
+    }
+    
+    function showAddBranchForm() {
+      // Close branch management modal
+      bootstrap.Modal.getInstance(document.getElementById('branchModal')).hide();
+      
+      // Show add branch form modal
+      const modal = new bootstrap.Modal(document.getElementById('addBranchModal'));
+      modal.show();
+    }
+    
+    function saveNewBranch() {
+      // Get form values
+      const name = document.getElementById('newBranchName').value.trim();
+      const manager = document.getElementById('newBranchManager').value.trim();
+      const contact = document.getElementById('newBranchContact').value.trim();
+      const email = document.getElementById('newBranchEmail').value.trim();
+      const address = document.getElementById('newBranchAddress').value.trim();
+      const notes = document.getElementById('newBranchNotes').value.trim();
+      
+      // Validate required fields
+      if (!name || !manager || !contact || !address) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+      }
+      
+      // Check for duplicate branch name
+      if (branches.some(b => b.name.toLowerCase() === name.toLowerCase())) {
+        showNotification('Branch with this name already exists', 'error');
+        return;
+      }
+      
+      // Create new branch object
+      const newBranch = {
+        id: Date.now(),
+        name: name,
+        manager: manager,
+        contact: contact,
+        email: email,
+        address: address,
+        notes: notes,
+        createdAt: new Date().toISOString()
+      };
+      
+      // Add to branches array
+      branches.push(newBranch);
+      
+      // Save to localStorage
+      saveBranches();
+      
+      // Close modal
+      bootstrap.Modal.getInstance(document.getElementById('addBranchModal')).hide();
+      
+      // Show notification
+      showNotification('Branch added successfully', 'success');
+      
+      // Reopen branch management modal
+      openBranchManagement();
+      
+      addCommand(`Added new branch: ${name}`, 'User');
+    }
+    
+    function editBranch(id) {
+      const branch = branches.find(b => b.id === id);
+      if (!branch) return;
+      
+      // Get new values
+      const name = prompt('Enter branch name:', branch.name);
+      if (name === null) return;
+      
+      const manager = prompt('Enter manager name:', branch.manager);
+      if (manager === null) return;
+      
+      const contact = prompt('Enter contact number:', branch.contact);
+      if (contact === null) return;
+      
+      const address = prompt('Enter address:', branch.address);
+      if (address === null) return;
+      
+      // Update branch
+      branch.name = name;
+      branch.manager = manager;
+      branch.contact = contact;
+      branch.address = address;
+      
+      // Save to localStorage
+      saveBranches();
+      
+      // Update UI
+      populateBranchTable();
+      updateBranchFilter();
+      
+      // Show notification
+      showNotification('Branch updated successfully', 'success');
+      
+      addCommand(`Updated branch: ${name}`, 'User');
+    }
+    
+    function deleteBranch(id) {
+      const branch = branches.find(b => b.id === id);
+      if (!branch) return;
+      
+      // Confirm deletion
+      if (confirm(`Are you sure you want to delete "${branch.name}" branch?`)) {
+        // Check if branch has associated tickets
+        const hasTickets = tickets.some(t => t.branch === branch.name);
+        
+        if (hasTickets && !confirm(`Warning: This branch has associated tickets. Deleting it may affect existing data. Continue?`)) {
+          return;
+        }
+        
+        // Remove branch
+        branches = branches.filter(b => b.id !== id);
+        
+        // Save to localStorage
+        saveBranches();
+        
+        // Update UI
+        populateBranchTable();
+        updateBranchFilter();
+        
+        // Show notification
+        showNotification('Branch deleted successfully', 'success');
+        
+        addCommand(`Deleted branch: ${branch.name}`, 'User');
+      }
+    }
+    
+    function viewBranchDetails(id) {
+      const branch = branches.find(b => b.id === id);
+      if (!branch) return;
+      
+      const branchTickets = tickets.filter(t => t.branch === branch.name);
+      
+      let details = `Branch: ${branch.name}\n`;
+      details += `Manager: ${branch.manager}\n`;
+      details += `Contact: ${branch.contact}\n`;
+      details += `Email: ${branch.email || 'N/A'}\n`;
+      details += `Address: ${branch.address}\n`;
+      details += `Notes: ${branch.notes || 'N/A'}\n`;
+      details += `Total Cases: ${branchTickets.length}\n`;
+      details += `Created: ${new Date(branch.createdAt).toLocaleDateString()}\n\n`;
+      
+      if (branchTickets.length > 0) {
+        details += 'Recent Cases:\n';
+        branchTickets.slice(0, 5).forEach(ticket => {
+          details += `- ${ticket.orderId}: ${ticket.issue} (${ticket.status})\n`;
+        });
+      }
+      
+      alert(details);
+    }
+    
+    function exportBranches() {
+      // Create CSV content
+      let csv = 'Branch Name,Manager,Contact,Email,Address,Notes,Created At\n';
+      
+      branches.forEach(branch => {
+        csv += `"${branch.name}","${branch.manager}","${branch.contact}","${branch.email || ''}","${branch.address}","${branch.notes || ''}","${branch.createdAt || ''}"\n`;
+      });
+      
+      // Create download link
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `branches_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      
+      showNotification('Branches exported successfully', 'success');
+      addCommand('Exported branches data', 'User');
+    }
+    
+    function importBranches() {
+      // Create file input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.csv';
+      
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            const csv = event.target.result;
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',');
+            
+            // Skip header and process data
+            for (let i = 1; i < lines.length; i++) {
+              if (!lines[i].trim()) continue;
+              
+              const values = lines[i].split(',').map(v => v.replace(/"/g, ''));
+              
+              if (values.length >= 4) {
+                const newBranch = {
+                  id: Date.now() + i,
+                  name: values[0] || '',
+                  manager: values[1] || '',
+                  contact: values[2] || '',
+                  email: values[3] || '',
+                  address: values[4] || '',
+                  notes: values[5] || '',
+                  createdAt: new Date().toISOString()
+                };
+                
+                // Check for duplicates
+                if (!branches.some(b => b.name.toLowerCase() === newBranch.name.toLowerCase())) {
+                  branches.push(newBranch);
+                }
+              }
+            }
+            
+            // Save and update
+            saveBranches();
+            populateBranchTable();
+            updateBranchFilter();
+            
+            showNotification('Branches imported successfully', 'success');
+            addCommand('Imported branches data', 'User');
+            
+          } catch (error) {
+            showNotification('Error importing branches: ' + error.message, 'error');
+          }
+        };
+        
+        reader.readAsText(file);
+      };
+      
+      input.click();
+    }
+    
+    // ===== DOCK FUNCTIONS =====
+    function toggleDock() {
+      const panel = document.getElementById('dockPanel');
+      const toggle = document.getElementById('dockToggle');
+      
+      if (panel.classList.contains('show')) {
+        panel.classList.remove('show');
+        toggle.innerHTML = '<i class="bi bi-command"></i>';
+      } else {
+        panel.classList.add('show');
+        toggle.innerHTML = '<i class="bi bi-x"></i>';
+      }
+    }
+    
+    function toggleDockDropdown(button) {
+      const dropdown = button.nextElementSibling;
+      
+      if (dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+        button.querySelector('.bi-chevron-up').className = 'bi bi-chevron-up';
+      } else {
+        // Close other dropdowns
+        document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
+          menu.classList.remove('show');
+        });
+        
+        dropdown.classList.add('show');
+        button.querySelector('.bi-chevron-up').className = 'bi bi-chevron-down';
+      }
+    }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.dock-dropdown')) {
+        document.querySelectorAll('.dock-dropdown-menu').forEach(menu => {
+          menu.classList.remove('show');
+        });
+        document.querySelectorAll('.dock-dropdown button .bi-chevron-down').forEach(icon => {
+          icon.className = 'bi bi-chevron-up';
+        });
+      }
+    });
+    
+    // ===== UTILITY FUNCTIONS =====
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    function refreshData() {
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      
+      // Simulate data refresh
+      setTimeout(() => {
+        // Update UI
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        // Hide loading overlay
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        showNotification('Data refreshed successfully', 'success');
+        addCommand('Refreshed dashboard data', 'User');
+      }, 1000);
+    }
+    
+    function addSample() {
+      // Sample data
+      const sampleTickets = [
+        {
+          id: Date.now(),
+          orderId: 'CR12345',
+          orderDate: new Date().toISOString().slice(0, 16),
+          branch: 'Crispy Chicken Khalidiya',
+          platform: 'Noon',
+          status: 'Open',
+          originalAmount: 45.00,
+          compensationAmount: 20.00,
+          issue: 'Wrong item delivered',
+          notes: 'Customer received chicken burger instead of beef burger',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        },
+        {
+          id: Date.now() + 1,
+          orderId: 'CR12346',
+          orderDate: new Date(Date.now() - 86400000).toISOString().slice(0, 16),
+          branch: 'Crispy Chicken Muroor',
+          platform: 'Careem',
+          status: 'Closed',
+          originalAmount: 65.00,
+          compensationAmount: 30.00,
+          refundedAmount: 30.00,
+          refundMethod: 'Careem Pay',
+          issue: 'Missing items',
+          notes: 'Fries and drink missing from order',
+          createdAt: new Date(Date.now() - 86400000).toISOString(),
+          updatedAt: new Date(Date.now() - 43200000).toISOString()
+        },
+        {
+          id: Date.now() + 2,
+          orderId: 'CR12347',
+          orderDate: new Date(Date.now() - 172800000).toISOString().slice(0, 16),
+          branch: 'Crispy Chicken Al Barsha',
+          platform: 'Noon',
+          status: 'Sent',
+          originalAmount: 85.00,
+          compensationAmount: 40.00,
+          issue: 'Cold food',
+          notes: 'Food was delivered cold and not fresh',
+          createdAt: new Date(Date.now() - 172800000).toISOString(),
+          updatedAt: new Date(Date.now() - 86400000).toISOString()
+        },
+        {
+          id: Date.now() + 3,
+          orderId: 'CR12348',
+          orderDate: new Date(Date.now() - 259200000).toISOString().slice(0, 16),
+          branch: 'Crispy Chicken Al Satwa',
+          platform: 'Careem',
+          status: 'Rejected',
+          originalAmount: 55.00,
+          compensationAmount: 25.00,
+          issue: 'Late delivery',
+          notes: 'Order delivered 45 minutes late',
+          createdAt: new Date(Date.now() - 259200000).toISOString(),
+          updatedAt: new Date(Date.now() - 172800000).toISOString()
+        }
+      ];
+      
+      // Add sample tickets
+      tickets.push(...sampleTickets);
+      
+      // Save data and update UI
+      saveData();
+      updateStats();
+      updateSummarySection();
+      updatePlatformCards();
+      updateCharts();
+      updateBranchAnalysis();
+      updateCompensationAnalysis();
+      updateRejectionAnalysis();
+      updateRefundAnalysis();
+      renderTicketsTable();
+      
+      showNotification('Sample data added successfully', 'success');
+      addCommand('Added sample data', 'User');
+    }
+    
+    function clearAllData() {
+      if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+        // Clear all data
+        tickets = [];
+        branches = [
+          { id: 1, name: 'Crispy Chicken Khalidiya', manager: 'John Smith', contact: '+971569494764', address: '123 Khalidiya St, Abu Dhabi' },
+          { id: 2, name: 'Crispy Chicken Muroor', manager: 'Sarah Johnson', contact: '+971505414641', address: '456 Muroor Rd, Abu Dhabi' },
+          { id: 3, name: 'Crispy Chicken Shabiya 11', manager: 'Michael Brown', contact: '+971562690688', address: '789 Shabiya St, Abu Dhabi' },
+          { id: 4, name: 'Crispy Chicken Al Barsha', manager: 'Emily Davis', contact: '+971569659524', address: '101 Barsha Ave, Dubai' },
+          { id: 5, name: 'Crispy Chicken Al Satwa', manager: 'David Wilson', contact: '+971567970685', address: '202 Satwa Rd, Dubai' },
+          { id: 6, name: 'Crispy Chicken Electra', manager: 'Jennifer Miller', contact: '+971563866859', address: '303 Electra St, Dubai' },
+          { id: 7, name: 'Crispy Chicken Hamdan', manager: 'Robert Taylor', contact: '+971556886650', address: '404 Hamdan Ave, Abu Dhabi' },
+          { id: 8, name: 'Crispy Chicken-Al Khalidiya', manager: 'Lisa Anderson', contact: '+971569494764', address: '505 Khalidiya Blvd, Abu Dhabi' }
+        ];
+        commands = [];
+        
+        // Save data
+        saveData();
+        
+        // Update UI
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        showNotification('All data cleared successfully', 'success');
+        addCommand('Cleared all data', 'User');
+      }
+    }
+    
+    function backupData() {
+      // Create backup object
+      const backup = {
+        tickets: tickets,
+        branches: branches,
+        commands: commands,
+        settings: settings,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Convert to JSON
+      const dataStr = JSON.stringify(backup, null, 2);
+      
+      // Create download link
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `crispy_chicken_backup_${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showNotification('Data backup created successfully', 'success');
+      addCommand('Created data backup', 'User');
+    }
+    
+    function restoreData() {
+      // Create file input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            const backup = JSON.parse(event.target.result);
+            
+            // Restore data
+            if (backup.tickets) tickets = backup.tickets;
+            if (backup.branches) branches = backup.branches;
+            if (backup.commands) commands = backup.commands;
+            if (backup.settings) settings = backup.settings;
+            
+            // Save data
+            saveData();
+            
+            // Update UI
+            updateStats();
+            updateSummarySection();
+            updatePlatformCards();
+            updateCharts();
+            updateBranchAnalysis();
+            updateCompensationAnalysis();
+            updateRejectionAnalysis();
+            updateRefundAnalysis();
+            renderTicketsTable();
+            
+            showNotification('Data restored successfully', 'success');
+            addCommand('Restored data from backup', 'User');
+            
+          } catch (error) {
+            showNotification('Error restoring data: ' + error.message, 'error');
+          }
+        };
+        
+        reader.readAsText(file);
+      };
+      
+      input.click();
+    }
+    
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+          const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+          
+          // Process imported data
+          let importedCount = 0;
+          
+          jsonData.forEach(row => {
+            // Map columns to ticket fields
+            const ticket = {
+              id: Date.now() + importedCount,
+              orderId: row['Order ID'] || row['orderId'] || '',
+              orderDate: row['Order Date'] || row['orderDate'] || new Date().toISOString().slice(0, 16),
+              branch: row['Branch'] || row['branch'] || '',
+              platform: row['Platform'] || row['platform'] || '',
+              status: row['Status'] || row['status'] || 'Open',
+              originalAmount: parseFloat(row['Original Amount'] || row['originalAmount'] || 0),
+              compensationAmount: parseFloat(row['Compensation Amount'] || row['compensationAmount'] || 0),
+              refundedAmount: parseFloat(row['Refunded Amount'] || row['refundedAmount'] || 0),
+              issue: row['Issue'] || row['issue'] || '',
+              notes: row['Notes'] || row['notes'] || '',
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            };
+            
+            // Validate required fields
+            if (ticket.orderId && ticket.branch && ticket.platform && ticket.issue) {
+              tickets.push(ticket);
+              importedCount++;
+            }
+          });
+          
+          // Save data and update UI
+          saveData();
+          updateStats();
+          updateSummarySection();
+          updatePlatformCards();
+          updateCharts();
+          updateBranchAnalysis();
+          updateCompensationAnalysis();
+          updateRejectionAnalysis();
+          updateRefundAnalysis();
+          renderTicketsTable();
+          
+          showNotification(`${importedCount} tickets imported successfully`, 'success');
+          addCommand(`Imported ${importedCount} tickets from Excel/CSV`, 'User');
+          
+        } catch (error) {
+          showNotification('Error importing file: ' + error.message, 'error');
+        }
+      };
+      
+      reader.readAsArrayBuffer(file);
+    }
+    
+    function exportToExcel() {
+      // Create worksheet
+      const ws = XLSX.utils.json_to_sheet(tickets.map(ticket => ({
+        'Order ID': ticket.orderId,
+        'Order Date': ticket.orderDate,
+        'Branch': ticket.branch,
+        'Platform': ticket.platform,
+        'Status': ticket.status,
+        'Original Amount': ticket.originalAmount,
+        'Compensation Amount': ticket.compensationAmount,
+        'Refunded Amount': ticket.refundedAmount || 0,
+        'Issue': ticket.issue,
+        'Notes': ticket.notes || '',
+        'Created Date': new Date(ticket.createdAt).toLocaleDateString()
+      })));
+      
+      // Create workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Compensation Tickets');
+      
+      // Save file
+      XLSX.writeFile(wb, `compensation_tickets_${new Date().toISOString().split('T')[0]}.xlsx`);
+      
+      showNotification('Data exported to Excel successfully', 'success');
+      addCommand('Exported data to Excel', 'User');
+    }
+    
+    function exportToPDF() {
+      // This is a simplified PDF export
+      // In a real application, you would use a library like jsPDF or pdfmake
+      
+      // Create HTML content
+      let html = `
+        <html>
+          <head>
+            <title>Compensation Tickets Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #d32f2f; }
+              .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
+              .metric-value { font-size: 24px; font-weight: bold; color: #d32f2f; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+            </style>
+          </head>
+          <body>
+            <h1>Compensation Tickets Report</h1>
+            <p>Generated on: ${new Date().toLocaleDateString()}</p>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0).toFixed(2)}</div>
+              <div>Total Original Amount</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
+              <div>Total Compensation</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0).toFixed(2)}</div>
+              <div>Total Refunded</div>
+            </div>
+            
+            <h3>Compensation by Branch</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Branch</th>
+                  <th>Cases</th>
+                  <th>Total Compensation</th>
+                  <th>Total Refunded</th>
+                  <th>Net Loss</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      // Group by branch
+      const branchFinancials = {};
+      tickets.forEach(ticket => {
+        if (!branchFinancials[ticket.branch]) {
+          branchFinancials[ticket.branch] = {
+            count: 0,
+            compensation: 0,
+            refunded: 0
+          };
+        }
+        branchFinancials[ticket.branch].count++;
+        branchFinancials[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
+        branchFinancials[ticket.branch].refunded += parseFloat(t.refundedAmount || 0);
+      });
+      
+      Object.keys(branchFinancials).forEach(branch => {
+        const data = branchFinancials[branch];
+        const netLoss = data.compensation - data.refunded;
+        
+        html += `
+          <tr>
+            <td>${branch}</td>
+            <td>${data.count}</td>
+            <td>AED ${data.compensation.toFixed(2)}</td>
+            <td>AED ${data.refunded.toFixed(2)}</td>
+            <td>AED ${netLoss.toFixed(2)}</td>
+          </tr>
+        `;
+      });
+      
+      html += `
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `financial_report_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      
+      showNotification('Report exported successfully (HTML format)', 'success');
+      addCommand('Exported report to PDF (HTML)', 'User');
+    }
+    
+    function exportToCSV() {
+      // Create CSV content
+      let csv = 'Order ID,Order Date,Branch,Platform,Status,Original Amount,Compensation Amount,Refunded Amount,Issue,Notes,Created Date\n';
+      
+      tickets.forEach(ticket => {
+        csv += `"${ticket.orderId}","${ticket.orderDate}","${ticket.branch}","${ticket.platform}","${ticket.status}",${ticket.originalAmount},${ticket.compensationAmount},${ticket.refundedAmount || 0},"${ticket.issue}","${ticket.notes || ""}","${new Date(ticket.createdAt).toLocaleDateString()}"\n`;
+      });
+      
+      // Create blob and download
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `compensation_tickets_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      
+      showNotification('Data exported to CSV successfully', 'success');
+      addCommand('Exported data to CSV', 'User');
+    }
+    
+    function generateDailyReport() {
+      // Open daily summary modal
+      const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
+      modal.show();
+      
+      addCommand('Opened daily report generator', 'User');
+    }
+    
+    function generateDailySummary() {
+      const date = document.getElementById('summaryDateInput').value;
+      if (!date) {
+        showNotification('Please select a date', 'error');
+        return;
+      }
+      
+      // Filter tickets for the selected date
+      const selectedDate = new Date(date);
+      const filteredTickets = tickets.filter(ticket => {
+        const ticketDate = new Date(ticket.orderDate || ticket.createdAt);
+        return ticketDate.toDateString() === selectedDate.toDateString();
+      });
+      
+      // Generate summary content
+      const content = document.getElementById('dailySummaryContent');
+      content.innerHTML = '';
+      
+      // Summary stats
+      const summaryDiv = document.createElement('div');
+      summaryDiv.className = 'periodic-summary';
+      summaryDiv.innerHTML = `
+        <div class="report-header">
+          <h5>Daily Summary for ${selectedDate.toLocaleDateString()}</h5>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">${filteredTickets.length}</div>
+              <small class="text-muted">Total Cases</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">${filteredTickets.filter(t => t.status === 'Open').length}</div>
+              <small class="text-muted">Open Cases</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">AED ${filteredTickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0).toFixed(2)}</div>
+              <small class="text-muted">Total Compensation</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center p-3 bg-light rounded">
+              <div class="h4 mb-0">AED ${filteredTickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0).toFixed(2)}</div>
+              <small class="text-muted">Total Refunded</small>
+            </div>
+          </div>
+        </div>
+      `;
+      content.appendChild(summaryDiv);
+      
+      // Branch summary
+      const branchSummary = document.createElement('div');
+      branchSummary.className = 'periodic-summary';
+      branchSummary.innerHTML = '<h5>Branch Summary</h5>';
+      
+      const branchCounts = {};
+      filteredTickets.forEach(ticket => {
+        if (!branchCounts[ticket.branch]) {
+          branchCounts[ticket.branch] = {
+            count: 0,
+            compensation: 0,
+            refunded: 0
+          };
+        }
+        branchCounts[ticket.branch].count++;
+        branchCounts[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
+        branchCounts[ticket.branch].refunded += parseFloat(t.refundedAmount || 0);
+      });
+      
+      Object.keys(branchCounts).forEach(branch => {
+        const branchCard = document.createElement('div');
+        branchCard.className = 'branch-summary-card';
+        branchCard.innerHTML = `
+          <h6>${branch}</h6>
+          <div class="row">
+            <div class="col-4">
+              <div class="text-center">
+                <div class="h5">${branchCounts[branch].count}</div>
+                <small class="text-muted">Cases</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center">
+                <div class="h5">AED ${branchCounts[branch].compensation.toFixed(2)}</div>
+                <small class="text-muted">Compensation</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center">
+                <div class="h5">AED ${branchCounts[branch].refunded.toFixed(2)}</div>
+                <small class="text-muted">Refunded</small>
+              </div>
+            </div>
+          </div>
+        `;
+        branchSummary.appendChild(branchCard);
+      });
+      
+      content.appendChild(branchSummary);
+      
+      // Recent cases
+      const recentCases = document.createElement('div');
+      recentCases.className = 'periodic-summary';
+      recentCases.innerHTML = '<h5>Recent Cases</h5>';
+      
+      filteredTickets.slice(0, 10).forEach(ticket => {
+        const caseItem = document.createElement('div');
+        caseItem.className = 'case-item';
+        caseItem.innerHTML = `
+          <div class="case-info">
+            <span class="case-order">${ticket.orderId}</span>
+            <span class="case-platform">${ticket.platform}</span>
+          </div>
+          <div>
+            <span class="case-amount">AED ${ticket.compensationAmount}</span>
+            <span class="badge bg-${ticket.status === 'Open' ? 'warning' : ticket.status === 'Closed' ? 'success' : 'danger'} ms-2">${ticket.status}</span>
+          </div>
+        `;
+        recentCases.appendChild(caseItem);
+      });
+      
+      content.appendChild(recentCases);
+      
+      showNotification('Daily summary generated successfully', 'success');
+      addCommand(`Generated daily summary for ${date}`, 'User');
+    }
+    
+    function exportDailySummary() {
+      // Get summary content
+      const content = document.getElementById('dailySummaryContent').innerHTML;
+      
+      // Create blob and download
+      const blob = new Blob([content], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `daily_summary_${document.getElementById('summaryDateInput').value}.html`;
+      a.click();
+      
+      showNotification('Daily summary exported successfully', 'success');
+      addCommand('Exported daily summary', 'User');
+    }
+    
+    function generateDisputeReport() {
+      // Get disputed tickets (open or rejected with high compensation)
+      const disputedTickets = tickets.filter(t => 
+        (t.status === 'Open' || t.status === 'Rejected') && 
+        parseFloat(t.compensationAmount) > 30
+      );
+      
+      // Create report content
+      let report = `
+        <html>
+          <head>
+            <title>Dispute Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #d32f2f; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+              .high-compensation { background-color: #fff3f3; }
+            </style>
+          </head>
+          <body>
+            <h1>Dispute Report</h1>
+            <p>Generated on: ${new Date().toLocaleDateString()}</p>
+            <p>Total Disputed Cases: ${disputedTickets.length}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Branch</th>
+                  <th>Platform</th>
+                  <th>Status</th>
+                  <th>Compensation</th>
+                  <th>Issue</th>
+                  <th>Days Open</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      disputedTickets.forEach(ticket => {
+        const daysOpen = Math.floor((new Date() - new Date(ticket.orderDate || ticket.createdAt)) / (1000 * 60 * 60 * 24));
+        report += `
+          <tr class="${parseFloat(ticket.compensationAmount) > 50 ? 'high-compensation' : ''}">
+            <td>${ticket.orderId}</td>
+            <td>${ticket.branch}</td>
+            <td>${ticket.platform}</td>
+            <td>${ticket.status}</td>
+            <td>AED ${ticket.compensationAmount}</td>
+            <td>${ticket.issue}</td>
+            <td>${daysOpen}</td>
+          </tr>
+        `;
+      });
+      
+      report += `
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob([report], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `dispute_report_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      
+      showNotification('Dispute report generated successfully', 'success');
+      addCommand('Generated dispute report', 'User');
+    }
+    
+    function generateFinancialReport() {
+      // Calculate financial metrics
+      const totalOriginal = tickets.reduce((sum, t) => sum + parseFloat(t.originalAmount), 0);
+      const totalCompensation = tickets.reduce((sum, t) => sum + parseFloat(t.compensationAmount), 0);
+      const totalRefunded = tickets.reduce((sum, t) => sum + parseFloat(t.refundedAmount || 0), 0);
+      const netLoss = totalCompensation - totalRefunded;
+      
+      // Create report content
+      let report = `
+        <html>
+          <head>
+            <title>Financial Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #d32f2f; }
+              .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
+              .metric-value { font-size: 24px; font-weight: bold; color: #d32f2f; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+            </style>
+          </head>
+          <body>
+            <h1>Financial Report</h1>
+            <p>Generated on: ${new Date().toLocaleDateString()}</p>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${totalOriginal.toFixed(2)}</div>
+              <div>Total Original Amount</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${totalCompensation.toFixed(2)}</div>
+              <div>Total Compensation</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${totalRefunded.toFixed(2)}</div>
+              <div>Total Refunded</div>
+            </div>
+            
+            <div class="metric">
+              <div class="metric-value">AED ${netLoss.toFixed(2)}</div>
+              <div>Net Loss</div>
+            </div>
+            
+            <h3>Compensation by Branch</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Branch</th>
+                  <th>Cases</th>
+                  <th>Total Compensation</th>
+                  <th>Total Refunded</th>
+                  <th>Net Loss</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      // Group by branch
+      const branchFinancials = {};
+      tickets.forEach(ticket => {
+        if (!branchFinancials[ticket.branch]) {
+          branchFinancials[ticket.branch] = {
+            count: 0,
+            compensation: 0,
+            refunded: 0
+          };
+        }
+        branchFinancials[ticket.branch].count++;
+        branchFinancials[ticket.branch].compensation += parseFloat(ticket.compensationAmount);
+        branchFinancials[ticket.branch].refunded += parseFloat(t.refundedAmount || 0);
+      });
+      
+      Object.keys(branchFinancials).forEach(branch => {
+        const data = branchFinancials[branch];
+        const netLoss = data.compensation - data.refunded;
+        
+        report += `
+          <tr>
+            <td>${branch}</td>
+            <td>${data.count}</td>
+            <td>AED ${data.compensation.toFixed(2)}</td>
+            <td>AED ${data.refunded.toFixed(2)}</td>
+            <td>AED ${netLoss.toFixed(2)}</td>
+          </tr>
+        `;
+      });
+      
+      report += `
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob([report], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `financial_report_${new Date().toISOString().split('T')[0]}.html`;
+      a.click();
+      
+      showNotification('Financial report generated successfully', 'success');
+      addCommand('Generated financial report', 'User');
+    }
+    
+    function openSettingsModal() {
+      // Populate settings form
+      document.getElementById('theme').value = settings.theme;
+      document.getElementById('itemsPerPage').value = settings.itemsPerPage;
+      document.getElementById('autoRefresh').value = settings.autoRefresh;
+      document.getElementById('backupFrequency').value = settings.backupFrequency;
+      document.getElementById('notifications').checked = settings.notifications;
+      document.getElementById('confirmActions').checked = settings.confirmActions;
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+      modal.show();
+      
+      addCommand('Opened settings', 'User');
+    }
+    
+    function openAPISettingsModal() {
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('apiSettingsModal'));
+      modal.show();
+      
+      addCommand('Opened API settings', 'User');
+    }
+    
+    function fetchDataFromAPIWithSettings() {
+      const url = document.getElementById('apiUrl').value;
+      const apiKey = document.getElementById('apiKey').value;
+      const replaceData = document.getElementById('replaceData').checked;
+      const format = document.getElementById('apiFormat').value;
+      
+      if (!url) {
+        showNotification('Please enter API URL', 'error');
+        return;
+      }
+      
+      // Show loading
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      
+      // Simulate API call
+      setTimeout(() => {
+        // In a real application, you would make an actual API call here
+        // For demo purposes, we'll simulate it
+        
+        if (replaceData) {
+          tickets = [];
+        }
+        
+        // Add sample data from "API"
+        const sampleData = [
+          {
+            orderId: 'API-001',
+            orderDate: new Date().toISOString().slice(0, 16),
+            branch: 'Crispy Chicken Khalidiya',
+            platform: 'Noon',
+            status: 'Open',
+            originalAmount: 50.00,
+            compensationAmount: 25.00,
+            issue: 'API test case'
+          },
+          {
+            orderId: 'API-002',
+            orderDate: new Date(Date.now() - 86400000).toISOString().slice(0, 16),
+            branch: 'Crispy Chicken Muroor',
+            platform: 'Careem',
+            status: 'Closed',
+            originalAmount: 75.00,
+            compensationAmount: 35.00,
+            refundedAmount: 35.00,
+            issue: 'API test case 2'
+          }
+        ];
+        
+        sampleData.forEach(data => {
+          tickets.push({
+            id: Date.now() + Math.random(),
+            ...data,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          });
+        });
+        
+        // Save and update
+        saveData();
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        // Hide loading
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        // Close modal
+        bootstrap.Modal.getInstance(document.getElementById('apiSettingsModal')).hide();
+        
+        showNotification('Data fetched from API successfully', 'success');
+        addCommand('Fetched data from API', 'User');
+      }, 2000);
+    }
+    
+    function archiveOldCases() {
+      const cutoffDate = new Date();
+      cutoffDate.setMonth(cutoffDate.getMonth() - 3); // 3 months ago
+      
+      const oldTickets = tickets.filter(t => new Date(t.orderDate || t.createdAt) < cutoffDate);
+      
+      if (oldTickets.length === 0) {
+        showNotification('No old cases to archive', 'info');
+        return;
+      }
+      
+      if (confirm(`Archive ${oldTickets.length} cases older than 3 months?`)) {
+        // In a real application, you would move these to an archive collection
+        // For demo purposes, we'll just remove them
+        
+        tickets = tickets.filter(t => new Date(t.orderDate || t.createdAt) >= cutoffDate);
+        
+        // Save and update
+        saveData();
+        updateStats();
+        updateSummarySection();
+        updatePlatformCards();
+        updateCharts();
+        updateBranchAnalysis();
+        updateCompensationAnalysis();
+        updateRejectionAnalysis();
+        updateRefundAnalysis();
+        renderTicketsTable();
+        
+        showNotification(`${oldTickets.length} cases archived successfully`, 'success');
+        addCommand(`Archived ${oldTickets.length} old cases`, 'User');
+      }
+    }
+    
+    function checkForDuplicates() {
+      const duplicates = [];
+      const orderIds = {};
+      
+      tickets.forEach(ticket => {
+        if (orderIds[ticket.orderId]) {
+          duplicates.push({
+            orderId: ticket.orderId,
+            tickets: [orderIds[ticket.orderId], ticket]
+          });
+        } else {
+          orderIds[ticket.orderId] = ticket;
+        }
+      });
+      
+      if (duplicates.length === 0) {
+        showNotification('No duplicate cases found', 'success');
+        return;
+      }
+      
+      let message = `Found ${duplicates.length} duplicate cases:\n\n`;
+      duplicates.forEach(dup => {
+        message += `Order ID: ${dup.orderId}\n`;
+        dup.tickets.forEach((ticket, index) => {
+          message += `  Case ${index + 1}: ${ticket.branch} - ${ticket.status}\n`;
+        });
+        message += '\n';
+      });
+      
+      alert(message);
+      showNotification(`Found ${duplicates.length} duplicate cases`, 'warning');
+      addCommand(`Checked for duplicates - found ${duplicates.length}`, 'User');
+    }
+    
+    function setupSampleAPI() {
+      // This would set up a mock API for testing
+      alert('Sample API setup would be implemented here. In a real application, this would configure API endpoints and authentication.');
+      showNotification('Sample API setup initiated', 'info');
+      addCommand('Setup sample API', 'User');
+    }
+    
+    function openUserManagement() {
+      // Placeholder for user management
+      alert('User management feature would be implemented here. This would include user roles, permissions, and access control.');
+      showNotification('User management feature coming soon', 'info');
+      addCommand('Opened user management (placeholder)', 'User');
+    }
+    
+    // ===== NOTIFICATION SYSTEM =====
+    function showNotification(message, type = 'info', duration = 3000) {
+      if (!settings.notifications) return;
+      
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      
+      // Add progress bar for auto-dismiss
+      if (duration > 0) {
+        notification.classList.add('progress');
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        notification.appendChild(progressBar);
+      }
+      
+      // Add to container
+      const container = document.getElementById('notificationContainer');
+      container.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Auto-dismiss
+      if (duration > 0) {
+        setTimeout(() => {
+          notification.classList.remove('show');
+          setTimeout(() => {
+            notification.remove();
+          }, 400);
+        }, duration);
+      }
+      
+      return notification;
+    }
+    
+    // ===== COMMAND LOGGER =====
+    function addCommand(command, user = 'System') {
+      const newCommand = {
+        id: Date.now(),
+        command,
+        user,
+        timestamp: new Date().toISOString()
+      };
+      
+      commands.unshift(newCommand);
+      
+      // Keep only last 100 commands
+      if (commands.length > 100) {
+        commands = commands.slice(0, 100);
+      }
+      
+      // Save commands
+      localStorage.setItem('commands', JSON.stringify(commands));
+    }
+    
+    function updateCommands() {
+      // This would update a command history UI if implemented
+      // For now, we just save commands to localStorage
+    }
+  </script>
+</body>
+</html>
